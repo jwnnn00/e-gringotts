@@ -11,8 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import static com.example.Database.getConnection;
 
@@ -31,7 +33,7 @@ public class DBUtils {
             try{
                 FXMLLoader loader= new FXMLLoader(DBUtils.class.getResource(fxmlFile));
                 root = loader.load();
-                LoggedInController loggedInControler =loader.getController();
+                HomeController loggedInControler =loader.getController();
 
             }catch(IOException e){
                 e.printStackTrace();
@@ -45,8 +47,22 @@ public class DBUtils {
         }
         Stage stage= (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setTitle(title);
-        stage.setScene(new Scene(root,694,400));
+        stage.setScene(new Scene(root,1200,625));
         stage.show();
+    }
+
+
+
+    public static void clearSession(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("/pages/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, 1200, 625));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void createAccount(ActionEvent event ,String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, Currency currency) {
@@ -76,7 +92,7 @@ public class DBUtils {
 
         userAvatar.setUserId(userId);
 
-        changeScene(event, "/pages/logged-in.fxml", "Welcome", username);
+        changeScene(event, "/pages/home.fxml", "Welcome", username);
 
 
     }
@@ -100,6 +116,7 @@ public class DBUtils {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
 
 
 

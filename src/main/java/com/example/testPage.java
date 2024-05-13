@@ -12,7 +12,7 @@ public class testPage extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/pages/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),694,400);
+        Scene scene = new Scene(fxmlLoader.load(),1200,625);
         stage.setTitle("Login");
 
         stage.setScene(scene);

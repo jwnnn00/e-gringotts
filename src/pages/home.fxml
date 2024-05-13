@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.HomeController">
+   <top>
+      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.90;">
+               <image>
+                  <Image url="@../img/owl_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="102.0" layoutX="36.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/bar_name_dark.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="146.0" layoutY="17.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_transferT" layoutX="399.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <MenuButton fx:id="button_userProfile" layoutX="1101.0" layoutY="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
+               <items>
+                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+               </items>
+               <font>
+                  <Font name="Algerian" size="12.0" />
+               </font>
+            </MenuButton>
+            <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="211.0" prefWidth="694.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="405.0" fitWidth="884.0" layoutX="-36.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.90;">
+               <image>
+                  <Image url="@../img/home_bg1.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="404.0" fitWidth="482.0" layoutX="720.0" layoutY="3.0">
+               <image>
+                  <Image url="@../img/home_bg2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="137.0" fitWidth="424.0" layoutX="189.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/login_bank.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="label_slogan" layoutX="199.0" layoutY="250.0" text="Where Wizarding Wealth Transfers Swiftly and Securely!" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="11.0" />
+               </font>
+            </Label>
+            <Label fx:id="label_slogan1" layoutX="339.0" layoutY="94.0" text="Welcome To" textFill="WHITE">
+               <font>
+                  <Font name="Magneto Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="196.0" prefWidth="1200.0" style="-fx-background-color: #6E5433;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="button_balance" layoutX="161.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+               <font>
+                  <Font name="Segoe Fluent Icons" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="95.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/balance_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text fill="WHITE" layoutX="156.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check balance">
+               <font>
+                  <Font name="Book Antiqua Bold" size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="button_history" layoutX="388.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+               <font>
+                  <Font name="Segoe Fluent Icons" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/history_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text fill="WHITE" layoutX="371.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction History">
+               <font>
+                  <Font name="Book Antiqua Bold" size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="button_summary" layoutX="641.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+               <font>
+                  <Font name="Segoe Fluent Icons" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/summary_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text fill="WHITE" layoutX="606.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenditure Summary">
+               <font>
+                  <Font name="Book Antiqua Bold" size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="button_transfer" layoutX="881.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+               <font>
+                  <Font name="Segoe Fluent Icons" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/transfer_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Text fill="WHITE" layoutX="901.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transfer">
+               <font>
+                  <Font name="Book Antiqua Bold" size="16.0" />
+               </font>
+            </Text>
+            <Button fx:id="button_next" layoutX="1110.0" layoutY="145.0" mnemonicParsing="false" onAction="#nextPage" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/next_logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

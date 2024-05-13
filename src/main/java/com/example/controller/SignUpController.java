@@ -58,6 +58,10 @@ public class SignUpController implements Initializable {
         String username = tf_username.getText();
         String fullName = tf_fullName.getText();
         String email = tf_email.getText();
+        if (!isValidEmail(email)) {
+            showAlert("Invalid Email", "Please enter a valid email address.");
+            return;
+        }
         String password = pf_password.getText();
         String confirmPassword = pf_confirmPassword.getText();
         if (!password.equals(confirmPassword)) {
@@ -118,6 +122,12 @@ public class SignUpController implements Initializable {
             // Assuming imagePath is a TextField to display the selected file path
             imagePath=selectedFile.getAbsolutePath();
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        // Regular expression for validating email addresses
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
     }
 
 }
