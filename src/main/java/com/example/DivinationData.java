@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class DivinationData {
     //private final List<Transaction> transactions;
-    private static final String URL = "jdbc:mysql://localhost:3306/e-gringotts";
+    private static final String URL = "jdbc:mysql://localhost:3306/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
@@ -19,7 +19,7 @@ public class DivinationData {
     }
 
     private static void recordTransaction(Connection conn, Long userID, double amount, LocalDate date, String category, String paymentMethod) throws SQLException {
-        String sql = "INSERT INTO allTransactions (userID, amount, transaction_date, category, payment_method) " +
+        String sql = "INSERT INTO Transaction (userID, amount, transaction_date, category, payment_method) " +
                 "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, userID);
@@ -34,7 +34,7 @@ public class DivinationData {
     }
 
     private static void calculateAndDisplayExpenditures(Connection conn, Long userID) throws SQLException {
-        String sql = "SELECT category, SUM(amount) AS total_amount FROM allTransactions WHERE userID = ? GROUP BY category";
+        String sql = "SELECT category, SUM(amount) AS total_amount FROM transactions WHERE userID = ? GROUP BY category";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, userID);
             ResultSet rs = stmt.executeQuery();
@@ -51,7 +51,7 @@ public class DivinationData {
     //Use MySQL to track by using userId
     public List<Transaction> getTransactionsByUserId(Long userId) {
         List<Transaction> transactions = new ArrayList<>();
-        String sql = "SELECT FROM allTransactions  WHERE userId = ?";
+        String sql = "SELECT FROM transaction  WHERE userId = ?";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -116,7 +116,7 @@ public class DivinationData {
     // Filter transactions by category from MySQL
     public static void filterTransactionsByCategory(Long userId, String category) {
 
-        String sql = "SELECT * FROM allTransactions WHERE userId = ? AND category LIKE ?";
+        String sql = "SELECT * FROM Transaction WHERE userId = ? AND category LIKE ?";
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -147,7 +147,7 @@ public class DivinationData {
     // Filter transactions by date range from MySQL
     public static void filterTransactionsByDateRange(Long userId, LocalDate startDate, LocalDate endDate) {
 
-        String sql = "SELECT * FROM allTransactions WHERE userId = ? AND transaction_date BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Transaction WHERE userId = ? AND transaction_date BETWEEN ? AND ?";
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -178,7 +178,7 @@ public class DivinationData {
     // Filter transactions by payment method from MySQL
     public static void filterTransactionsByPaymentMethod(Long userId, String paymentMethod) {
 
-        String sql = "SELECT * FROM allTransactions WHERE userId = ? AND payment_method = ?";
+        String sql = "SELECT * FROM Transaction WHERE userId = ? AND payment_method = ?";
 
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {

@@ -66,6 +66,8 @@ public class Database {
                     System.err.println("Failed to create card: No rows affected.");
                 } else {
                     System.out.println("Account and Card created successfully!");
+
+                    updateUserAvatar(account.getAvatar());
                 }
             } else {
                 System.err.println("Failed to generate card.");
@@ -74,9 +76,11 @@ public class Database {
         } catch (SQLException e) {
             System.err.println("Failed to create account: " + e.getMessage());
         }
+
+
     }
 
-    private boolean checkUsernameExists(String username) {
+    public boolean checkUsernameExists(String username) {
         String query = "SELECT COUNT(*) FROM user WHERE username = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -93,7 +97,27 @@ public class Database {
         return false;
     }
 
-    private Card generateCard(long userId) {
+    public static void updateUserAvatar(UserAvatar userAvatar) {
+        String updateQuery = "UPDATE useravatar SET imagePath = ? WHERE userId = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setString(1, userAvatar.getImagePath());
+            preparedStatement.setLong(2, userAvatar.getUserId());
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("User avatar updated successfully!");
+            } else {
+                System.out.println("Failed to update user avatar.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error updating user avatar: " + e.getMessage());
+        }
+    }
+
+    public Card generateCard(long userId) {
         String cardNumber = generateRandomCardNumber();
         int cvv = generateRandomCVV();
         Date expiryDate = generateRandomExpiryDate();
@@ -156,4 +180,52 @@ public class Database {
             return null;
         }
     }
+
+    public static boolean login(String username, String password) {
+        System.out.println("Login");
+
+        // Check if the username exists in the database
+        Database db = new Database();
+        Account<?> userAccount = db.getUserByUsername(username);
+
+        if (userAccount != null) {
+            // Username exists
+            if (userAccount.authenticate(password)) {
+                System.out.println("Login successful!");
+                return true;
+            } else {
+                System.out.println("Invalid password.");
+            }
+        } else {
+            // Username not found in the database
+            System.out.println("User not found.");
+        }
+        return false;
+    }
+
+
+
+    public static Connection getConnection() throws SQLException {
+
+
+
+        String jdbcUrl = "jdbc:mysql://localhost:3306/gringottsbank";
+
+
+
+        String username = "root";
+        String password = "";
+
+        return DriverManager.getConnection(jdbcUrl, username, password);
+    }
+    public static Connection getConnection(String jdbcUrl) throws SQLException {
+
+
+        String username = "root";
+        String password = "";
+
+        return DriverManager.getConnection(jdbcUrl, username, password);
+    }
+
+
 }

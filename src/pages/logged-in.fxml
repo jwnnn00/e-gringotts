@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="694.0" style="-fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.LoggedInController">
+   <top>
+      <AnchorPane prefHeight="34.0" prefWidth="600.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/owl_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="211.0" prefWidth="694.0" style="-fx-background-color: grey;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="96.0" fitWidth="311.0" layoutX="192.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/login_bank.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="button_logout" layoutX="284.0" layoutY="251.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-radius: 5; -fx-background-color: #DBC596;" text="Logout">
+               <font>
+                  <Font name="Segoe Fluent Icons" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="label_slogan" layoutX="159.0" layoutY="138.0" text="Where Wizarding Wealth Transfers Swiftly and Securely!" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

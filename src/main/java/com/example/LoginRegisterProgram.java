@@ -46,7 +46,7 @@ public class LoginRegisterProgram {
 
 
 
-    private static void login(Scanner scanner) {
+    public static void login(Scanner scanner) {
         System.out.println("Login");
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
@@ -224,4 +224,6 @@ public class LoginRegisterProgram {
         // Simple email validation using regex
         return email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
     }
+
+
 }
