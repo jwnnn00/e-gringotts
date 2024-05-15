@@ -57,7 +57,30 @@ public class DBUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
+    public static void changeSceneWithData(Node node, String fxmlPath, String title, Account<?> userAccount) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Access controller of the loaded FXML
+            HomeController controller = loader.getController();
+
+            // Pass data to the controller
+            controller.setUserAccount(userAccount);
+
+            // Get the stage from the provided node
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

@@ -245,9 +245,9 @@ public class Database {
                 double toGalleon = resultSet.getDouble("to_galleon");
 
                 Map<String, Double> conversionMap = new HashMap<>();
-                conversionMap.put("Knut", toKnut);
-                conversionMap.put("Sickle", toSickle);
-                conversionMap.put("Galleon", toGalleon);
+                conversionMap.put("to_knut", toKnut);
+                conversionMap.put("to_sickle", toSickle);
+                conversionMap.put("to_galleon", toGalleon);
 
                 conversionRates.put(currencyFrom, conversionMap);
             }
@@ -258,10 +258,11 @@ public class Database {
         return conversionRates;
     }
 
-        // Other methods...
+
+    // Other methods...
 
     public static void updateConversionRates(String currency, double toKnut, double toSickle, double toGalleon) {
-        String updateQuery = "UPDATE conversion_table SET to_knut = ?, to_sickle = ?, to_galleon = ? WHERE currency = ?";
+        String updateQuery = "UPDATE conversion SET to_knut = ?, to_sickle = ?, to_galleon = ? WHERE currency = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
@@ -281,4 +282,21 @@ public class Database {
             System.err.println("Error updating conversion rates: " + e.getMessage());
         }
     }
-    }
+
+
+        public static int getNumberOfUsers() {
+            int numberOfUsers = 0;
+            try (Connection connection = getConnection();
+                 Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) AS total FROM user WHERE usertype != 'GOBLIN'")) { // Assuming 'GOBLIN' is one of the enum values
+                if (resultSet.next()) {
+                    numberOfUsers = resultSet.getInt("total");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return numberOfUsers;
+        }
+
+
+}

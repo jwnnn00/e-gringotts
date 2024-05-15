@@ -49,7 +49,7 @@ public class Controller {
         // Fetch user details from the database
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
 
-        if (userAccount != null) {
+        if (userAccount != null && userAccount.getPassword().equals(pf_password.getText())) {
             AccountHolder.getInstance().setUser(userAccount);
             // Pass the userAccount to the next scene
             DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);

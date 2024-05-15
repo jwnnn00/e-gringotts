@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.Database;
 import com.example.model.Account;
 import com.example.model.AccountHolder;
 import com.example.model.Currency;
@@ -13,14 +14,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,19 +41,19 @@ public class HomeController implements Initializable {
     private Button button_transfer;
 
     @FXML
-    private Button button_balanceT;
+    public Button button_balanceT;
 
     @FXML
-    private Button button_historyT;
+    public Button button_historyT;
 
     @FXML
-    private Button button_summaryT;
+    public Button button_summaryT;
 
     @FXML
     private Button button_transferT;
 
     @FXML
-    private MenuButton button_userProfile;
+    public MenuButton button_userProfile;
 
     @FXML
     private Button button_next;
@@ -63,13 +62,14 @@ public class HomeController implements Initializable {
     private Button button_back;
 
     @FXML
-    private ImageView user_avatar;
+    public ImageView user_avatar;
     @FXML
     private Button button_changeCurrency;
 
     @FXML
-    private Button button_home;
-
+    public Button button_home;
+    @FXML
+    private Button button_numOfTransaction;
 
 
 
@@ -112,10 +112,10 @@ public class HomeController implements Initializable {
     @FXML
     private void changeCurrency(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
-        DBUtils.changeScene(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount.getUsername());
+        DBUtils.changeSceneWithData(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount);
     }
 
-    private Account<?> userAccount;
+    public Account<?> userAccount;
 
     public void setUserAccount(Account<?> userAccount) {
         this.userAccount = userAccount;
@@ -148,14 +148,33 @@ public class HomeController implements Initializable {
 
     }
 
+
+    @FXML
+    void getNumberOfUsers(ActionEvent event) {
+        int numberOfUsers = Database.getNumberOfUsers();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Number of Users");
+        alert.setHeaderText(null);
+        alert.setContentText("Number of users: " + numberOfUsers);
+        alert.showAndWait();
+    }
+
     @FXML
     public void openUserProfile(ActionEvent event) {
         // Implement the functionality to open the user profile page
         System.out.println("User profile button clicked!");
+
+        // Get the parent node of the MenuItem (MenuButton)
+        MenuItem menuItem = (MenuItem) event.getSource();
+        Node menuButton = menuItem.getParentPopup().getOwnerNode();
+
+        // Pass the MenuButton as the source node
+        DBUtils.changeSceneWithData(menuButton, "/pages/userProfile.fxml", "User Profile", userAccount);
     }
 
+
     @FXML
-    public void logout(ActionEvent event) {
+    private void logout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText("Are you sure you want to log out?");
@@ -164,9 +183,16 @@ public class HomeController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // User clicked OK, clear session and redirect to login page
-            System.out.println("Logged out");
+            AccountHolder.getInstance().setUser(null); // Clear the logged-in user
+            // Redirect to the login page
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/pages/login.fxml"));
+                Scene scene = button_userProfile.getScene();
+                scene.setRoot(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
 

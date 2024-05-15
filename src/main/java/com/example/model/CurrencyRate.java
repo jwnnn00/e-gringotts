@@ -28,4 +28,20 @@ public class CurrencyRate {
     public double getToGalleon() {
         return toGalleon;
     }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setToGalleon(double toGalleon) {
+        this.toGalleon = toGalleon;
+    }
+
+    public void setToKnut(double toKnut) {
+        this.toKnut = toKnut;
+    }
+
+    public void setToSickle(double toSickle) {
+        this.toSickle = toSickle;
+    }
 }
