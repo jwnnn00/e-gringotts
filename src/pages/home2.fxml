@@ -25,7 +25,7 @@
                   <Image url="@../img/bar_name_dark.png" />
                </image>
             </ImageView>
-            <Button layoutX="146.0" layoutY="17.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
+            <Button fx:id="button_home" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -54,7 +54,7 @@
                   <Font name="Algerian" size="12.0" />
                </font>
             </MenuButton>
-            <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </top>
@@ -92,7 +92,7 @@
    <bottom>
       <AnchorPane prefHeight="196.0" prefWidth="1200.0" style="-fx-background-color: #6E5433;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="button_changeCurrency" layoutX="161.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+            <Button fx:id="button_changeCurrency" layoutX="161.0" layoutY="60.0" mnemonicParsing="false" onAction="#changeCurrency" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
                <font>
                   <Font name="Segoe Fluent Icons" size="12.0" />
                </font>

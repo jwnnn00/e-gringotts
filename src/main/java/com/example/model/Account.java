@@ -19,9 +19,11 @@ public class Account <E>{
     private String email;
     private String address;
     private String phoneNumber;
+    private static final Account<?> instance = new Account<>();
 
     private Card card;
   private UserType userType;
+    private boolean check;
 
 
     private UserAvatar avatar;
@@ -61,7 +63,9 @@ public class Account <E>{
         this.currency=currency;
 
     }
-
+    public static Account<?> getInstance(){
+        return instance;
+    }
 
     public boolean authenticate(String enteredPassword) {
         return this.password.equals(enteredPassword);
@@ -161,5 +165,19 @@ public class Account <E>{
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+
+    public void setLogin(boolean check){
+        this.check = check;
+    }
+    public boolean getLogin(){
+        return check;
+    }
+    public void clearAllValues() {
+        username = null;
+        email = null;
+        password = null;
+        check = false;
     }
 }

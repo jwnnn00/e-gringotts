@@ -2,6 +2,8 @@ package com.example;
 
 import java.sql.*;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.example.model.*;
@@ -147,7 +149,7 @@ public class Database {
         return new java.sql.Date(expiryTimeMillis);
     }
 
-    public Account<?> getUserByUsername(String username) {
+    public static Account<?> getUserByUsername(String username) {
         String query = "SELECT * FROM user WHERE username = ?";
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -228,5 +230,55 @@ public class Database {
         return DriverManager.getConnection(jdbcUrl, username, password);
     }
 
+    public static Map<String, Map<String, Double>> fetchConversionRates() {
+        Map<String, Map<String, Double>> conversionRates = new HashMap<>();
 
-}
+        String query = "SELECT * FROM conversion";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String currencyFrom = resultSet.getString("currency");
+                double toKnut = resultSet.getDouble("to_knut");
+                double toSickle = resultSet.getDouble("to_sickle");
+                double toGalleon = resultSet.getDouble("to_galleon");
+
+                Map<String, Double> conversionMap = new HashMap<>();
+                conversionMap.put("Knut", toKnut);
+                conversionMap.put("Sickle", toSickle);
+                conversionMap.put("Galleon", toGalleon);
+
+                conversionRates.put(currencyFrom, conversionMap);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching conversion rates: " + e.getMessage());
+        }
+
+        return conversionRates;
+    }
+
+        // Other methods...
+
+    public static void updateConversionRates(String currency, double toKnut, double toSickle, double toGalleon) {
+        String updateQuery = "UPDATE conversion_table SET to_knut = ?, to_sickle = ?, to_galleon = ? WHERE currency = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+
+            preparedStatement.setDouble(1, toKnut);
+            preparedStatement.setDouble(2, toSickle);
+            preparedStatement.setDouble(3, toGalleon);
+            preparedStatement.setString(4, currency);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Conversion rates updated successfully!");
+            } else {
+                System.out.println("Failed to update conversion rates.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error updating conversion rates: " + e.getMessage());
+        }
+    }
+    }

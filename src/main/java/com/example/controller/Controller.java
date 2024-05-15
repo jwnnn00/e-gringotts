@@ -2,15 +2,23 @@ package com.example.controller;
 
 import com.example.Database;
 import com.example.LoginRegisterProgram;
+import com.example.model.Account;
+import com.example.model.AccountHolder;
+import com.example.model.UserType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class Controller {
 
@@ -33,21 +41,30 @@ public class Controller {
     private Stage stage;
     private Scene scene;
     private final Database db = new Database();
-    private HomeController homeController;
+
 
 
     @FXML
     void login(javafx.event.ActionEvent event) {
-        DBUtils.loginUser(event, tf_username.getText(), pf_password.getText());
-        DBUtils.changeScene(event,"/pages/home.fxml","Welcome ", tf_username.getText());
+        // Fetch user details from the database
+        Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
 
-        if (homeController != null) {
-            homeController.initializeLoggedInPage(db.getUserByUsername(tf_username.getText()));
+        if (userAccount != null) {
+            AccountHolder.getInstance().setUser(userAccount);
+            // Pass the userAccount to the next scene
+            DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+        } else {
+            // Display error message for invalid credentials
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Failed");
+            alert.setHeaderText("Invalid username or password");
+            alert.setContentText("Please enter valid credentials.");
+            alert.showAndWait();
         }
     }
-    public void setHomeController(HomeController homeController) {
-        this.homeController = homeController;
-    }
+
+
+
     @FXML
     void signUp(javafx.event.ActionEvent event){
         DBUtils.changeScene(event,"/pages/register.fxml",null,null);

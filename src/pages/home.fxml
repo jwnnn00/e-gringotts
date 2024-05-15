@@ -25,7 +25,7 @@
                   <Image url="@../img/bar_name_dark.png" />
                </image>
             </ImageView>
-            <Button layoutX="146.0" layoutY="17.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
+            <Button fx:id="button_home" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -55,6 +55,7 @@
                </font>
             </MenuButton>
             <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1048.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </top>

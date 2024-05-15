@@ -11,10 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import static com.example.Database.getConnection;
 
@@ -27,28 +23,40 @@ public class DBUtils {
     private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
 
-    public static void changeScene(ActionEvent event, String fxmlFile,String title,String username){
-        Parent root = null;
-        if( username!= null){
-            try{
-                FXMLLoader loader= new FXMLLoader(DBUtils.class.getResource(fxmlFile));
-                root = loader.load();
-                HomeController loggedInControler =loader.getController();
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
+            Parent root = loader.load();
 
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-        }else{
-            try{
-                root=FXMLLoader.load(DBUtils.class.getResource(fxmlFile));
-            }catch(IOException e){
-                e.printStackTrace();
-            }
+
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root, 1200, 625));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        Stage stage= (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setTitle(title);
-        stage.setScene(new Scene(root,1200,625));
-        stage.show();
+    }
+
+    public static void changeSceneWithData(ActionEvent event, String fxmlPath, String title, Account<?> userAccount) {
+        try {
+            FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Access controller of the loaded FXML
+            HomeController controller = loader.getController();
+
+            // Pass data to the controller
+            controller.setUserAccount(userAccount);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(title);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
