@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2024 at 11:45 AM
+-- Generation Time: May 15, 2024 at 10:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `card` (
 --
 
 INSERT INTO `card` (`userId`, `cardNum`, `cvv`, `expiryDate`, `cardType`) VALUES
-(3, '6595580716115509', '787', '2028-05-11', 'Debit');
+(10, '8875903051416354', '236', '2028-05-14', 'Debit');
 
 -- --------------------------------------------------------
 
@@ -55,6 +55,15 @@ CREATE TABLE `conversion` (
   `to_galleon` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `conversion`
+--
+
+INSERT INTO `conversion` (`currency`, `to_knut`, `to_sickle`, `to_galleon`) VALUES
+('Knut', 1, 29, 493),
+('Sickle', 0.03448, 1, 17),
+('Galleon', 0.002028, 0.05882, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -64,13 +73,12 @@ CREATE TABLE `conversion` (
 CREATE TABLE `transaction` (
   `transactionId` int(11) NOT NULL,
   `userId` int(11) DEFAULT NULL,
-  `tofrom_userID` varchar(255) NOT NULL,
+  `tofrom_userID` int(255) NOT NULL,
   `transactionType` enum('Debit','Credit') NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `balance` decimal(10,2) NOT NULL,
   `transactionDate` datetime NOT NULL,
-  `category` enum('Food','Grocery','Shopping','Transportation','Entertainment','Utilities','Other') NOT NULL,
-  `paymentMethod` enum('Credit Card','Debit Card','Cash') NOT NULL
+  `category` enum('Food','Grocery','Shopping','Transportation','Entertainment','Utilities','Other') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -98,9 +106,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userId`, `username`, `fullName`, `email`, `password`, `DOB`, `address`, `phoneNumber`, `userType`, `avatarImagePath`, `currency`) VALUES
-(0, 'admin', 'admin', 'jingwen0421@gmail.com', '123456', '2024-05-11', 'harry potter', '3377889', 'Goblin', 'adhuiqwehqw', 'Knut'),
-(1, 'jwn', 'jingwen', '20873kadsbkj', 'weohqwdnwj', '2000-09-08', 'iaojdqhodquwq', 'jwiodjqowiwq', 'Silver_Snitch', 'qjowdwqwohuqh', 'Knut'),
-(3, 'jingwen', 'WJW', 'nhdihw@eihdwi.com', 'Jw123456!', '1999-11-30', 'jaoisjdqw', 'iejweqsda', 'Silver_Snitch', 'jioejdoiqwq', 'Knut');
+(0, 'admin', 'admin', 'jingwen0421@gmail.com', '123456', '2024-05-11', 'harry potter', '3377889', 'Goblin', 'C:\\Users\\jwenn\\Desktop\\CODE\\design\\src\\main\\java\\com\\example\\design\\Images\\USER_ICON.png', 'Knut'),
+(10, 'jwn', 'Wong', 'jingwen0421@gmail.com', 'Jw000000!', '2004-04-21', 'kk8', '01127365038', 'Silver_Snitch', 'C:\\Users\\jwenn\\Desktop\\CODE\\design\\src\\main\\java\\com\\example\\design\\Images\\deleteIcon.png', 'Knut');
 
 -- --------------------------------------------------------
 
@@ -161,7 +168,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `useravatar`
