@@ -1,14 +1,15 @@
 package com.example;
 
+import com.example.Transaction;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class DivinationData {
+
+public class divinationData {
     //private final List<Transaction> transactions;
-    private static final String URL = "jdbc:mysql://localhost:3306/gringottsbank";
+    private static final String URL = "jdbc:mysql://localhost:3307/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
@@ -27,29 +28,44 @@ public class DivinationData {
             stmt.setDate(3, java.sql.Date.valueOf(date));
             stmt.setString(4, category);
             stmt.setString(5, paymentMethod);
-
-            int rowsInserted = stmt.executeUpdate();
-            System.out.println(rowsInserted + " row(s) inserted successfully.");
+            stmt.executeUpdate();
         }
     }
 
-    private static void calculateAndDisplayExpenditures(Connection conn, Long userID) throws SQLException {
-        String sql = "SELECT category, SUM(amount) AS total_amount FROM transactions WHERE userID = ? GROUP BY category";
+//    private static void calculateAndDisplayExpenditures(Connection conn, Long userID) throws SQLException {
+//        String sql = "SELECT category, SUM(amount) AS total_amount FROM transactions WHERE userID = ? GROUP BY category";
+//        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+//            stmt.setLong(1, userID);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            System.out.println("Expenditure Breakdown for User: " + userID);
+//            while (rs.next()) {
+//                String category = rs.getString("category");
+//                double totalAmount = rs.getDouble("total_amount");
+//                System.out.printf("%s: %.2f\n", category, totalAmount);
+//            }
+//        }
+//    }
+
+    public static Map<String, Double> calculateExpenditures(Connection conn, Long userID) throws SQLException {
+        String sql = "SELECT category, SUM(amount) AS total_amount FROM Transaction WHERE userID = ? GROUP BY category";
+        Map<String, Double> expenditures = new HashMap<>();
+
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setLong(1, userID);
             ResultSet rs = stmt.executeQuery();
 
-            System.out.println("Expenditure Breakdown for User: " + userID);
             while (rs.next()) {
                 String category = rs.getString("category");
                 double totalAmount = rs.getDouble("total_amount");
-                System.out.printf("%s: %.2f\n", category, totalAmount);
+                expenditures.put(category, totalAmount);
             }
         }
+        return expenditures;
     }
 
     //Use MySQL to track by using userId
-    public List<Transaction> getTransactionsByUserId(Long userId) {
+    public List<Transaction> getTransactionsByUserId(Long userId) throws SQLException{
         List<Transaction> transactions = new ArrayList<>();
         String sql = "SELECT FROM transaction  WHERE userId = ?";
 
@@ -67,8 +83,6 @@ public class DivinationData {
                 Transaction transaction = new Transaction(userId, amount, transaction_date, category, paymentMethod);
                 transactions.add(transaction);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return transactions;
     }
@@ -127,14 +141,7 @@ public class DivinationData {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                double amount = rs.getDouble("amount");
-                LocalDate transaction_date = rs.getDate("transaction_date").toLocalDate();
-                String fetchedCategory = rs.getString("category");
-                String paymentMethod = rs.getString("payment_method");
-
-                // Display or process the filtered transaction
-                System.out.printf("Amount: %.2f, Date: %s, Category: %s, Payment Method: %s\n",
-                        amount, transaction_date, fetchedCategory, paymentMethod);
+                displayTransaction(rs);
             }
 
         } catch (SQLException e) {
@@ -159,14 +166,7 @@ public class DivinationData {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                double amount = rs.getDouble("amount");
-                LocalDate transaction_date = rs.getDate("transaction_date").toLocalDate();
-                String category = rs.getString("category");
-                String paymentMethod = rs.getString("payment_method");
-
-                // Display or process the filtered transaction
-                System.out.printf("Amount: %.2f, Date: %s, Category: %s, Payment Method: %s\n",
-                        amount, transaction_date, category, paymentMethod);
+                displayTransaction(rs);
             }
 
         } catch (SQLException e) {
@@ -189,14 +189,7 @@ public class DivinationData {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                double amount = rs.getDouble("amount");
-                LocalDate transaction_date = rs.getDate("transaction_date").toLocalDate();
-                String category = rs.getString("category");
-                String fetchedPaymentMethod = rs.getString("payment_method");
-
-                // Display or process the filtered transaction
-                System.out.printf("Amount: %.2f, Date: %s, Category: %s, Payment Method: %s\n",
-                        amount, transaction_date, category, paymentMethod);
+                displayTransaction(rs);
             }
 
         } catch (SQLException e) {
@@ -204,64 +197,69 @@ public class DivinationData {
         }
     }
 
-    public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(System.in);
-             Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-
-            // Input transaction details from user
-            System.out.println("Enter userID:");
-            Long userID = Long.parseLong(scanner.nextLine());
-
-            System.out.println("Enter amount:");
-            double amount = scanner.nextDouble();
-
-            // Generate current date
-            LocalDate currentDate = LocalDate.now();
-
-            System.out.println("Enter category:");
-            String category = scanner.next();
-
-            System.out.println("Enter payment method:");
-            String paymentMethod = scanner.next();
-
-            // Insert transaction into database
-            recordTransaction(conn, userID, amount, currentDate, category, paymentMethod);
-
-            // Calculate expenditures and display breakdown
-            calculateAndDisplayExpenditures(conn, userID);
-
-            // Prompt user to filter transactions
-            System.out.println("Choose an option:");
-            System.out.println("1. Filter transactions by category");
-            System.out.println("2. Filter transactions by date range");
-            System.out.println("3. Filter transactions by payment method");
-
-            int option = scanner.nextInt();
-            String userInput;
-            switch (option) {
-                case 1:
-                    System.out.println("Please enter category: ");
-                    userInput = scanner.nextLine();
-                    filterTransactionsByCategory(userID,userInput);
-                    break;
-                case 2:
-                    System.out.println("Please enter start date (yyyy-MM-dd): ");
-                    LocalDate startDate = LocalDate.parse(scanner.nextLine());
-                    System.out.println("Please enter end date (yyyy-MM-dd): ");
-                    LocalDate endDate = LocalDate.parse(scanner.nextLine());
-                    filterTransactionsByDateRange(userID, startDate, endDate);
-                    break;
-                case 3:
-                    System.out.println("Please enter payment method: ");
-                    userInput = scanner.nextLine();
-                    filterTransactionsByPaymentMethod(userID, userInput);
-                    break;
-                default:
-                    System.out.println("Invalid option. Exiting...");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private static void displayTransaction(ResultSet rs) throws SQLException {
+        System.out.printf("Amount: %.2f, Date: %s, Category: %s, Payment Method: %s\n",
+                rs.getDouble("amount"), rs.getDate("transaction_date").toLocalDate(), rs.getString("category"), rs.getString("payment_method"));
     }
+
+//    public static void main(String[] args) {
+//        try (Scanner scanner = new Scanner(System.in);
+//             Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+//
+//            // Input transaction details from user
+//            System.out.println("Enter userID:");
+//            Long userID = Long.parseLong(scanner.nextLine());
+//
+//            System.out.println("Enter amount:");
+//            double amount = scanner.nextDouble();
+//
+//            // Generate current date
+//            LocalDate currentDate = LocalDate.now();
+//
+//            System.out.println("Enter category:");
+//            String category = scanner.next();
+//
+//            System.out.println("Enter payment method:");
+//            String paymentMethod = scanner.next();
+//
+//            // Insert transaction into database
+//            recordTransaction(conn, userID, amount, currentDate, category, paymentMethod);
+//
+//            // Calculate expenditures and display breakdown
+//            calculateExpenditures(conn, userID);
+//
+//            // Prompt user to filter transactions
+//            System.out.println("Choose an option:");
+//            System.out.println("1. Filter transactions by category");
+//            System.out.println("2. Filter transactions by date range");
+//            System.out.println("3. Filter transactions by payment method");
+//
+//            int option = scanner.nextInt();
+//            String userInput;
+//            switch (option) {
+//                case 1:
+//                    System.out.println("Please enter category: ");
+//                    userInput = scanner.nextLine();
+//                    filterTransactionsByCategory(userID,userInput);
+//                    break;
+//                case 2:
+//                    System.out.println("Please enter start date (yyyy-MM-dd): ");
+//                    LocalDate startDate = LocalDate.parse(scanner.nextLine());
+//                    System.out.println("Please enter end date (yyyy-MM-dd): ");
+//                    LocalDate endDate = LocalDate.parse(scanner.nextLine());
+//                    filterTransactionsByDateRange(userID, startDate, endDate);
+//                    break;
+//                case 3:
+//                    System.out.println("Please enter payment method: ");
+//                    userInput = scanner.nextLine();
+//                    filterTransactionsByPaymentMethod(userID, userInput);
+//                    break;
+//                default:
+//                    System.out.println("Invalid option. Exiting...");
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
