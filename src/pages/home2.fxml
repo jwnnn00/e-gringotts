@@ -143,7 +143,7 @@
                   <Font name="Book Antiqua Bold" size="16.0" />
                </font>
             </Text>
-            <Button fx:id="button_userType" layoutX="881.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+            <Button fx:id="button_userType" layoutX="881.0" layoutY="60.0" mnemonicParsing="false" onAction="#updateUserType" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
                <font>
                   <Font name="Segoe Fluent Icons" size="12.0" />
                </font>

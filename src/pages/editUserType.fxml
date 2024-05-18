@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.UpdateUserTypeController">
+   <top>
+      <AnchorPane prefHeight="58.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.90;">
+               <image>
+                  <Image url="@../img/owl_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="102.0" layoutX="36.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/bar_name_dark.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="button_home" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_transferT" layoutX="399.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <MenuButton fx:id="button_userProfile" layoutX="1101.0" layoutY="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
+               <items>
+                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+               </items>
+               <font>
+                  <Font name="Algerian" size="12.0" />
+               </font>
+            </MenuButton>
+            <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="567.0" prefWidth="1202.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="597.0" fitWidth="1196.0" layoutX="6.0" layoutY="11.0">
+               <image>
+                  <Image url="@../img/editusertype.jpeg" />
+               </image>
+            </ImageView>
+            <TableView fx:id="userTable" layoutX="322.0" layoutY="41.0" onMouseClicked="#rowClicked" prefHeight="322.0" prefWidth="569.0">
+               <columns>
+                  <TableColumn fx:id="userIDColumn" prefWidth="109.60000610351562" text="User ID" />
+                  <TableColumn fx:id="usernameColumn" minWidth="9.599945068359375" prefWidth="115.199951171875" text="Username" />
+                  <TableColumn fx:id="fullNameColumn" prefWidth="92.53335571289062" text="Full Name" />
+                  <TableColumn fx:id="numOfTransactionColumn" prefWidth="121.066650390625" text="No. of Transaction" />
+                  <TableColumn fx:id="userTypeColumn" prefWidth="132.53338623046875" text="User Type" />
+               </columns>
+            </TableView>
+            <Button fx:id="button_saveChange" layoutX="556.0" layoutY="475.0" mnemonicParsing="false" onAction="#saveUserType" prefHeight="34.0" prefWidth="96.0" style="-fx-background-color: BLACK; -fx-border-color: GOLD;" text="SAVE CHANGE" textFill="WHITE" />
+            <AnchorPane layoutX="327.0" layoutY="349.0" prefHeight="132.0" prefWidth="583.0">
+               <children>
+                  <Text fill="WHITE" layoutX="206.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Type" wrappingWidth="100.56219482421875" y="5.0">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ChoiceBox fx:id="userTypeChoiceBox" layoutX="207.0" layoutY="56.0" prefWidth="150.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
