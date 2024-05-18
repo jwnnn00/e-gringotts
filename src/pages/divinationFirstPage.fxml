@@ -2,19 +2,22 @@
 
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane accessibleRole="IMAGE_VIEW" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-opacity: 0.90;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.Controller">
+<BorderPane accessibleRole="IMAGE_VIEW" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-opacity: 0.90;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DivinationController">
    <top>
       <AnchorPane prefHeight="943.0" prefWidth="1217.0" BorderPane.alignment="CENTER">
          <children>
@@ -37,7 +40,7 @@
                   <Font name="Bodoni MT Poster Compressed" size="15.0" />
                </font>
             </Text>
-            <Button fx:id="backToMain" ellipsisString="" layoutX="114.0" layoutY="5.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: #3C361A;" text="HOME" textFill="WHITE">
+            <Button fx:id="button_home" ellipsisString="" layoutX="114.0" layoutY="5.0" mnemonicParsing="false" onAction="#backHome" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: Black;" text="HOME" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -47,12 +50,12 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="4.0" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="11.0" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="transfer" ellipsisString="" layoutX="318.0" layoutY="3.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
+            <Button fx:id="transfer" ellipsisString="" layoutX="318.0" layoutY="5.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -74,27 +77,28 @@
                   <Image url="@../img/owl_icon.png" />
                </image>
             </ImageView>
-            <Text fill="WHITESMOKE" layoutX="55.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="117.84637582302094">
+            <Text fill="WHITESMOKE" layoutX="55.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="96.24636971950531">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="16.0" />
                </font>
             </Text>
-            <TextField layoutX="132.0" layoutY="160.0" opacity="0.45">
+            <Text fx:id="t_username" layoutX="136.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.60000610351562">
                <font>
-                  <Font name="HoloLens MDL2 Assets" size="14.0" />
+                  <Font name="HoloLens MDL2 Assets" size="12.0" />
                </font>
-            </TextField>
+            </Text>
             <Text fill="WHITESMOKE" layoutX="55.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total expenses :" wrappingWidth="123.26889157295227">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="16.0" />
                </font>
             </Text>
-            <TextField layoutX="167.0" layoutY="191.0" opacity="0.45" prefHeight="25.0" prefWidth="107.0">
-               <font>
-                  <Font name="HoloLens MDL2 Assets" size="14.0" />
-               </font>
-            </TextField>
-            <PieChart layoutX="358.0" layoutY="195.0" prefHeight="359.0" prefWidth="461.0" />
+            <Text fx:id="showTotal" layoutX="179.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="104.7999267578125" />
+            <AnchorPane layoutX="338.0" layoutY="211.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Pane prefHeight="342.0" prefWidth="445.0" />
+                  <PieChart fx:id="expenditureSummary" prefHeight="340.0" prefWidth="441.0" />
+               </children>
+            </AnchorPane>
             <AnchorPane layoutX="853.0" layoutY="40.0" prefHeight="585.0" prefWidth="347.0">
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#252525" height="585.0" stroke="#252525" strokeType="INSIDE" width="347.0" />
@@ -113,7 +117,7 @@
                         <Font name="HoloLens MDL2 Assets" size="17.0" />
                      </font>
                   </Text>
-                  <Button fx:id="FoodCategory" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Food" textFill="WHITE">
+                  <Button fx:id="FoodCategory" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" opacity="0.83" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Food" textFill="WHITE">
                      <font>
                         <Font name="HoloLens MDL2 Assets" size="12.0" />
                      </font>
@@ -160,7 +164,7 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="184.0" layoutY="278.0" opacity="0.4" stroke="#a2a2a2" strokeType="INSIDE" width="126.0" />
                   <TextField alignment="CENTER" layoutX="27.0" layoutY="279.0" prefHeight="35.0" prefWidth="126.0" promptText="START" />
                   <TextField alignment="CENTER" layoutX="184.0" layoutY="278.0" prefHeight="35.0" prefWidth="126.0" promptText="END" />
-                  <Button fx:id="dateRange" layoutX="14.0" layoutY="335.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #a2a2a2;" text="Apply" />
+                  <Button fx:id="dateRange" layoutX="14.0" layoutY="335.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #a2a2a2; -fx-background-radius: 30;" text="Apply" />
                   <Text fill="WHITESMOKE" layoutX="14.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Payment Method" wrappingWidth="167.84637582302094">
                      <font>
                         <Font name="HoloLens MDL2 Assets" size="17.0" />
@@ -179,6 +183,16 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="18.0" layoutY="427.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="175.0" layoutY="427.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
                </children></AnchorPane>
+            <MenuButton fx:id="button_userProfile" layoutX="1097.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
+               <items>
+                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+               </items>
+               <font>
+                  <Font name="Algerian" size="12.0" />
+               </font>
+            </MenuButton>
+            <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1056.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </top>

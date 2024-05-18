@@ -123,6 +123,12 @@ public class HomeController implements Initializable {
         DBUtils.changeSceneWithData(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount);
     }
 
+    @FXML
+    private void showSummary(ActionEvent event) {
+        // Change the scene to EditCurrency.fxml
+        DBUtils.changeScene(event, "/pages/divinationFirstPage.fxml", "Show Summary", userAccount.getUsername());
+    }
+
     public Account<?> userAccount;
 
     public void setUserAccount(Account<?> userAccount) {

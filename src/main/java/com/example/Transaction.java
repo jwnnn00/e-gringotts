@@ -55,12 +55,12 @@ public class Transaction {
     public int hashCode() {
         return Objects.hash(userId, amount, date, category, paymentMethod);
 
-}
-public double getBalance(){
-    return balance;
-}
+    }
+    public double getBalance(){
+        return balance;
+    }
 
-public void setBalance(double balance){
+    public void setBalance(double balance){
         this.balance=balance;
-}
+    }
 }
