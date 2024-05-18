@@ -1,19 +1,31 @@
 package com.example.controller;
 
-import com.example.model.Currency;
-import com.example.model.UserAvatar;
-import com.example.model.UserType;
+import com.example.Database;
+import com.example.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable {
@@ -52,9 +64,11 @@ public class SignUpController implements Initializable {
     private ChoiceBox<Currency> cb_currency;
 
     private String imagePath;
+    public Account<?> userAccount;
+
 
     @FXML
-    void register(javafx.event.ActionEvent event){
+    void register(javafx.event.ActionEvent event) throws IOException {
         String username = tf_username.getText();
         String fullName = tf_fullName.getText();
         String email = tf_email.getText();
@@ -82,17 +96,28 @@ public class SignUpController implements Initializable {
         Currency currency = (Currency) cb_currency.getValue();
 
 
-
-    DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
+        DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
+        setUserAccount(Database.getUserByUsername(username));
+        loadCardDetails();
 
     }
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         // Initialize the ChoiceBox with currency options
         ObservableList<Currency> currencyOptions = FXCollections.observableArrayList(Currency.KNUT, Currency.SICKLE, Currency.GALLEON);
         cb_currency.setItems(currencyOptions);
+
+
     }
+
+    public void setUserAccount(Account<?> userAccount) {
+        this.userAccount = userAccount;
+        // Use userAccount data as needed in the home scene
+    }
+
     private boolean isStrongPassword(String password) {
         return password.length() >= 8 &&
                 password.matches(".*[A-Z].*") &&
@@ -120,7 +145,7 @@ public class SignUpController implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             // Assuming imagePath is a TextField to display the selected file path
-            imagePath=selectedFile.getAbsolutePath();
+            imagePath = selectedFile.getAbsolutePath();
         }
     }
 
@@ -128,6 +153,60 @@ public class SignUpController implements Initializable {
         // Regular expression for validating email addresses
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
+    }
+
+    public void loadCardDetails() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/card.fxml"));
+            Parent root = loader.load();
+
+            CardController cardController = loader.getController();
+
+            // Retrieve card details from the database
+            // Assuming you have a method in the Database class to retrieve card details
+            Card card = Database.getCardDetails(userAccount.getUserId());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yy");
+            String formattedExpiryDate = dateFormat.format(card.getExpiryDate());
+            String cardNum = card.getCardNum();
+            StringBuilder formattedCardNum = new StringBuilder();
+            for (int i = 0; i < cardNum.length(); i++) {
+                if (i > 0 && i % 4 == 0) {
+                    formattedCardNum.append(" "); // Insert space every 4 digits
+                }
+                formattedCardNum.append(cardNum.charAt(i));
+            }
+
+            // Load card image based on userType
+            String cardImagePath;
+            switch (userAccount.getUserType()) {
+                case Silver_Snitch:
+                    cardImagePath = "/img/silver_card.png";
+                    break;
+                case Golden_Galleon:
+                    cardImagePath = "/img/golden_card.png";
+                    break;
+                case Platinum_Patronus:
+                    cardImagePath = "/img/platinum_card.png";
+                    cardController.initialize(cardImagePath, "$100.00", formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
+                    break;
+                default:
+                    cardImagePath = "/path/to/silver_card.png";
+                    break;
+            }
+            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
+
+
+            cardController.initialize(cardImagePath, "$100.00", formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
+
+
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setTitle("User Details");
+            popupStage.setScene(new Scene(root));
+            popupStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

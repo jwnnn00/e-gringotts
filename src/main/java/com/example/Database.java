@@ -17,6 +17,26 @@ public class Database {
     private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
 
+    public static int getNumberOfUsersByType(UserType userType) {
+        int count = 0;
+        // Perform a database query to retrieve the count of users by userType
+
+        String query = "SELECT COUNT(*) FROM user WHERE userType = ?";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, userType.toString());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any potential exceptions, such as database connection errors
+        }
+
+        return count;
+    }
+
     public void createAccount(Account<?> account) {
         if (checkUsernameExists(account.getUsername())) {
             System.err.println("Failed to create account: Username already exists.");
@@ -69,7 +89,7 @@ public class Database {
                 } else {
                     System.out.println("Account and Card created successfully!");
 
-                    updateUserAvatar(account.getAvatar());
+
                 }
             } else {
                 System.err.println("Failed to generate card.");
@@ -205,6 +225,37 @@ public class Database {
         return false;
     }
 
+    public static Card getCardDetails(long userId) {
+        Card card = null;
+        String query = "SELECT * FROM card WHERE userId = ?";
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setLong(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String cardNum = resultSet.getString("cardNum");
+                int cvv = resultSet.getInt("cvv");
+                Date expiryDate = resultSet.getDate("expiryDate");
+                // You might need to convert expiryDate to a java.util.Date or java.time.LocalDate if it's stored differently in your database
+                // Similarly, ensure the data types and column names match your database schema
+
+                // Assuming cardType is stored as an enum or string in your database
+                String cardTypeString = resultSet.getString("cardType");
+                Card.CardType cardType = Card.CardType.valueOf(cardTypeString);
+
+                card = new Card(cardNum, cvv, expiryDate, userId, cardType);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any SQL exceptions
+        }
+
+        return card;
+    }
 
 
 

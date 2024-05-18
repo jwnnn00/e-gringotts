@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="chartPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.NumOfUserController">
+   <children>
+      <ImageView fitHeight="438.0" fitWidth="646.0" layoutX="-33.0" style="-fx-opacity: 1;">
+         <image>
+            <Image url="@../img/numOfUser_bg.jpg" />
+         </image>
+      </ImageView>
+      <BarChart fx:id="userChart" layoutX="32.0" layoutY="88.0" prefHeight="181.0" prefWidth="516.0" style="-fx-background-color: transparent; -fx-horizontal-grid-lines-visible: false; " stylesheets="@style.css">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="x_numberOfUser">
+               <tickLabelFont>
+                  <Font size="10.0" />
+               </tickLabelFont></CategoryAxis>
+        </xAxis>
+        <yAxis>
+          <NumberAxis minorTickCount="1" side="LEFT" style="-fx-bar-fill: blue;" tickLabelFill="WHITE">
+               <tickLabelFont>
+                  <Font size="10.0" />
+               </tickLabelFont></NumberAxis>
+        </yAxis>
+      </BarChart>
+      <ImageView fitHeight="142.0" fitWidth="246.0" layoutX="177.0" layoutY="-40.0">
+         <image>
+            <Image url="@../img/getNumOfUser_signboard.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="135.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Number Of User:" wrappingWidth="185.04522705078125">
+         <font>
+            <Font name="Cambria Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="t_totalNumOfUser" fill="WHITE" layoutX="320.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number" wrappingWidth="68.2452392578125">
+         <font>
+            <Font name="Cambria Bold" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>

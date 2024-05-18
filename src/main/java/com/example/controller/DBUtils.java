@@ -48,7 +48,7 @@ public class DBUtils {
             HomeController controller = loader.getController();
 
             // Pass data to the controller
-            controller.setUserAccount(userAccount);
+            controller.initializeLoggedInPage(userAccount);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle(title);
@@ -57,7 +57,6 @@ public class DBUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void changeSceneWithData(Node node, String fxmlPath, String title, Account<?> userAccount) {
@@ -123,7 +122,8 @@ public class DBUtils {
 
         userAvatar.setUserId(userId);
 
-        changeScene(event, "/pages/home.fxml", "Welcome", username);
+
+        changeScene(event, "/pages/login.fxml", "Welcome",username);
 
 
     }
