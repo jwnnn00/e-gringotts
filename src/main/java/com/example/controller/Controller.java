@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.Database;
+import com.example.EmailSender;
 import com.example.LoginRegisterProgram;
 import com.example.model.Account;
 import com.example.model.AccountHolder;
@@ -10,15 +11,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Optional;
 
 public class Controller {
 
@@ -50,9 +49,31 @@ public class Controller {
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
 
         if (userAccount != null && userAccount.getPassword().equals(pf_password.getText())) {
-            AccountHolder.getInstance().setUser(userAccount);
-            // Pass the userAccount to the next scene
-            DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+            String otp = EmailSender.generateOTP();
+            EmailSender.sendEmail(userAccount.getEmail(), "OTP Verification", "Your OTP is: " + otp);
+
+            // Prompt the user to enter the OTP
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("OTP Verification");
+            dialog.setHeaderText("Enter the OTP sent to your email");
+            dialog.setContentText("OTP:");
+
+            Optional<String> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                String enteredOTP = result.get();
+                if (otp.equals(enteredOTP)) {
+                    AccountHolder.getInstance().setUser(userAccount);
+                    // Pass the userAccount to the next scene
+                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+                    return;
+                } else {
+                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+                    return; // Stop login process if OTP is incorrect
+                }
+            } else {
+                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+                return; // Stop login process if OTP is not entered
+            }
         } else {
             // Display error message for invalid credentials
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -62,6 +83,7 @@ public class Controller {
             alert.showAndWait();
         }
     }
+
 
 
 

@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -95,19 +96,26 @@ public class DBUtils {
         }
     }
 
-    public static void createAccount(ActionEvent event ,String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, Currency currency) {
-
-
+    public static void createAccount(ActionEvent event, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, Currency currency) {
         if (db.checkUsernameExists(username)) {
             System.err.println("Failed to create account: Username already exists.");
             return;
         }
 
+        // Generate a random salt
+        String salt = PasswordUtils.generateSalt();
+
+        // Combine the password and salt
+        String saltedPassword = password + salt;
+
+        // Hash the salted password
+        String hashedPassword = PasswordUtils.hashPassword(saltedPassword, salt);
+
         Account<?> account = new Account<>();
         account.setUsername(username);
         account.setFullName(fullName);
         account.setEmail(email);
-        account.setPassword(password);
+        account.setPassword(hashedPassword); // Store the hashed password
         account.setDateOfBirth(dateOfBirth);
         account.setAddress(address);
         account.setPhoneNumber(phoneNumber);
@@ -115,32 +123,16 @@ public class DBUtils {
         account.setAvatar(userAvatar);
         account.setCurrency(currency);
 
-        // Assuming 'db' is an instance of Database class
         db.createAccount(account);
         Long userId = account.getUserId();
-
-
         userAvatar.setUserId(userId);
 
-
-        changeScene(event, "/pages/login.fxml", "Welcome",username);
-
-
+        changeScene(event, "/pages/login.fxml", "Welcome", username);
     }
 
-    public static void loginUser(ActionEvent event, String username, String password){
 
-        if (db.login(username, password)) {
-            // Login successful, perform actions like navigating to another scene
-            showAlert("Login Successful", "Welcome back, " + username + "!");
-            // Example: change to another scene
-            // changeScene("loggedIn.fxml");
-        } else {
-            // Login failed, show error message
-            showAlert("Login Failed", "Invalid username or password. Please try again.");
-        }
-    }
-    private static void showAlert(String title, String content) {
+
+    static void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);

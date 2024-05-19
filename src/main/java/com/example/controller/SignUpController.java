@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.Database;
+import com.example.EmailSender;
 import com.example.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -197,7 +198,14 @@ public class SignUpController implements Initializable {
 
 
             cardController.initialize(cardImagePath, "$100.00", formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
+            String otp = EmailSender.generateOTP();
 
+            // Send OTP via email
+            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
+            String subject = "Verification Code for Registration";
+            String body = "Your OTP code is: " + otp;
+
+            EmailSender.sendEmail(recipientEmail, subject, body);
 
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
