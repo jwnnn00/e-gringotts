@@ -54,6 +54,13 @@ public class UserProfileController extends HomeController  implements Initializa
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         String username = loggedInAccount.getUsername();
+        t_username.setText(username);
+        t_fullName.setText(loggedInAccount.getFullName());
+        t_email.setText(loggedInAccount.getEmail());
+        t_phoneNumber.setText(loggedInAccount.getPhoneNumber());
+        t_address.setText(loggedInAccount.getAddress());
+        t_dob.setText(loggedInAccount.getDateOfBirth().toString());
+        t_currency.setText(loggedInAccount.getCurrency().toString());
         UIUtils.initializeUI(button_userProfile, user_avatar, loggedInAccount, username);
 
         // Retrieve the avatar image path from the account
@@ -99,8 +106,12 @@ public class UserProfileController extends HomeController  implements Initializa
                     t_cardType.setFill(Color.BLACK);
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "/img/platinum_card.png";
+                    cardImagePath = "/img/platinumm_card.png";
                     t_cardType.setFill(Color.WHITE);
+                    t_cardNum.setFill(Color.WHITE);
+                    t_cvv.setFill(Color.WHITE);
+                    t_balance.setFill(Color.WHITE);
+                    t_exp.setFill(Color.WHITE);
                     break;
                 default:
                     cardImagePath = "/img/silver_card.png";

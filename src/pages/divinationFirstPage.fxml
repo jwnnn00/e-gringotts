@@ -2,9 +2,12 @@
 
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -40,22 +43,22 @@
                   <Font name="Bodoni MT Poster Compressed" size="15.0" />
                </font>
             </Text>
-            <Button fx:id="button_home" ellipsisString="" layoutX="114.0" layoutY="5.0" mnemonicParsing="false" onAction="#backHome" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: Black;" text="HOME" textFill="WHITE">
+            <Button fx:id="button_home" ellipsisString="" layoutX="114.0" layoutY="6.0" mnemonicParsing="false" onAction="#backHome" onMouseClicked="#handleBackToMain" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: Black;" text="HOME" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="checkBalance" ellipsisString="" layoutX="176.0" layoutY="4.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE" AnchorPane.topAnchor="4.0">
+            <Button fx:id="checkBalance" ellipsisString="" layoutX="169.0" layoutY="4.0" mnemonicParsing="false" onMouseClicked="#handleCheckBalance" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE" AnchorPane.topAnchor="4.0">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="11.0" mnemonicParsing="false" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#handleTransactionHistory" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="transfer" ellipsisString="" layoutX="318.0" layoutY="5.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
+            <Button fx:id="transfer" ellipsisString="" layoutX="323.0" layoutY="4.0" mnemonicParsing="false" onMouseClicked="#handleTransfer" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -77,14 +80,14 @@
                   <Image url="@../img/owl_icon.png" />
                </image>
             </ImageView>
-            <Text fill="WHITESMOKE" layoutX="55.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="96.24636971950531">
+            <Text fill="WHITESMOKE" layoutX="55.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="117.84637582302094">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="16.0" />
                </font>
             </Text>
-            <Text fx:id="t_username" layoutX="136.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.60000610351562">
+            <Text fx:id="showUsername" fill="#88350e" layoutX="142.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0">
                <font>
-                  <Font name="HoloLens MDL2 Assets" size="12.0" />
+                  <Font name="HoloLens MDL2 Assets" size="17.0" />
                </font>
             </Text>
             <Text fill="WHITESMOKE" layoutX="55.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total expenses :" wrappingWidth="123.26889157295227">
@@ -92,19 +95,35 @@
                   <Font name="HoloLens MDL2 Assets" size="16.0" />
                </font>
             </Text>
-            <Text fx:id="showTotal" layoutX="179.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="104.7999267578125" />
-            <AnchorPane layoutX="338.0" layoutY="211.0" prefHeight="200.0" prefWidth="200.0">
+            <Text fx:id="showTotal" fill="#88350e" layoutX="169.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="HoloLens MDL2 Assets" size="17.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="338.0" layoutY="174.0" prefHeight="385.0" prefWidth="445.0">
                <children>
-                  <Pane prefHeight="342.0" prefWidth="445.0" />
-                  <PieChart fx:id="expenditureSummary" prefHeight="340.0" prefWidth="441.0" />
+                  <Pane layoutY="-4.0" prefHeight="390.0" prefWidth="445.0">
+                     <children>
+                        <PieChart fx:id="expenditureSummary" prefHeight="392.0" prefWidth="447.0" />
+                     </children></Pane>
+                  <TableView fx:id="showDetails" fixedCellSize="28.0" prefHeight="395.0" prefWidth="449.0" style="-fx-background-color: #a2a2a2;">
+                    <columns>
+                        <TableColumn fx:id="transactionIdColumn" prefWidth="75.0" text="Transaction ID" />
+                      <TableColumn fx:id="AmountColumn" prefWidth="75.0" text="Amount" />
+                        <TableColumn fx:id="DateColumn" prefWidth="75.0" text="Date" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="853.0" layoutY="40.0" prefHeight="585.0" prefWidth="347.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#252525" height="585.0" stroke="#252525" strokeType="INSIDE" width="347.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#252525" height="585.0" stroke="#252525" strokeType="INSIDE" width="348.0" />
                   <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="14.0" layoutY="14.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/filter_icon.jpg" />
+                        <Image url="@../img/filter_icon.png" />
                      </image>
                   </ImageView>
                   <Text fill="WHITE" fontSmoothingType="LCD" layoutX="48.0" layoutY="33.0" opacity="0.9" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
@@ -117,73 +136,62 @@
                         <Font name="HoloLens MDL2 Assets" size="17.0" />
                      </font>
                   </Text>
-                  <Button fx:id="FoodCategory" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" opacity="0.83" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Food" textFill="WHITE">
+                  <ToggleButton fx:id="FoodCategory" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#handleFoodCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Food" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="TransporataionCategory" layoutX="174.0" layoutY="94.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Transportation" textFill="WHITE">
+                  </ToggleButton>
+                  <ToggleButton fx:id="TransportationCategory" layoutX="174.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#handleTransportationCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Transportation" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="EntertainmentCategory1" layoutX="10.0" layoutY="136.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Entertainment" textFill="WHITE">
+                  </ToggleButton>
+                  <ToggleButton fx:id="EntertainmentCategory" layoutX="10.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#handleEntertainmentCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Entertainment" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="UtilitesCategory1" layoutX="174.0" layoutY="136.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Utilities" textFill="WHITE">
+                  </ToggleButton>
+                  <ToggleButton fx:id="UtilitiesCategory" layoutX="174.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#handleUtilitiesCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Utilites" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="ShoppingCategory11" layoutX="10.0" layoutY="178.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Shopping" textFill="WHITE">
+                  </ToggleButton>
+                  <ToggleButton fx:id="ShoppingCategory" layoutX="10.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#handleShoppingCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Shopping" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="Others" layoutX="174.0" layoutY="178.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Others" textFill="WHITE">
+                  </ToggleButton>
+                  <ToggleButton fx:id="Others" layoutX="174.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#handleOthers" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Others" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="10.0" layoutY="94.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="174.0" layoutY="94.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="10.0" layoutY="136.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="174.0" layoutY="136.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="10.0" layoutY="178.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="174.0" layoutY="178.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
+                  </ToggleButton>
                   <Text fill="WHITESMOKE" layoutX="14.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Date Range" wrappingWidth="117.84637582302094">
                      <font>
                         <Font name="HoloLens MDL2 Assets" size="17.0" />
                      </font>
                   </Text>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="63.0" layoutX="14.0" layoutY="265.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="310.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="27.0" layoutY="278.0" opacity="0.4" stroke="#a2a2a2" strokeType="INSIDE" width="126.0" />
+                  <DatePicker fx:id="startDate" layoutX="27.0" layoutY="278.0" prefHeight="36.0" prefWidth="126.0" promptText="         START" />
+                  <DatePicker fx:id="endDate" layoutX="184.0" layoutY="278.0" prefHeight="36.0" prefWidth="126.0" promptText="          END" />
                   <Line endX="-45.0" layoutX="227.0" layoutY="296.0" opacity="0.56" startX="-71.6666259765625" strokeWidth="5.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="184.0" layoutY="278.0" opacity="0.4" stroke="#a2a2a2" strokeType="INSIDE" width="126.0" />
-                  <TextField alignment="CENTER" layoutX="27.0" layoutY="279.0" prefHeight="35.0" prefWidth="126.0" promptText="START" />
-                  <TextField alignment="CENTER" layoutX="184.0" layoutY="278.0" prefHeight="35.0" prefWidth="126.0" promptText="END" />
-                  <Button fx:id="dateRange" layoutX="14.0" layoutY="335.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #a2a2a2; -fx-background-radius: 30;" text="Apply" />
+                  <ToggleButton fx:id="dateRange" layoutX="14.0" layoutY="335.0" minWidth="53.0" mnemonicParsing="false" onMouseClicked="#handleDateRange" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #a2a2a2; -fx-background-radius: 30;" text="Apply" />
                   <Text fill="WHITESMOKE" layoutX="14.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Payment Method" wrappingWidth="167.84637582302094">
                      <font>
                         <Font name="HoloLens MDL2 Assets" size="17.0" />
                      </font>
                   </Text>
-                  <Button fx:id="Credit" layoutX="17.0" layoutY="427.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Credit" textFill="WHITE">
+                  <ToggleButton fx:id="Credit" layoutX="17.0" layoutY="427.0" mnemonicParsing="false" onMouseClicked="#handleCredit" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Credit" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Button fx:id="Debit" layoutX="174.0" layoutY="427.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" style="-fx-background-color: #252525;" text="Debit" textFill="WHITE">
+                  </ToggleButton>
+                  <ToggleButton fx:id="Debit" layoutX="174.0" layoutY="427.0" mnemonicParsing="false" onMouseClicked="#handleDebit" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Debit" textFill="WHITE">
                      <font>
-                        <Font name="HoloLens MDL2 Assets" size="12.0" />
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
-                  </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="18.0" layoutY="427.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="175.0" layoutY="427.0" opacity="0.15" stroke="#a2a2a2" strokeType="INSIDE" width="145.0" />
+                  </ToggleButton>
                </children></AnchorPane>
-            <MenuButton fx:id="button_userProfile" layoutX="1097.0" layoutY="10.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
+            <MenuButton fx:id="button_userProfile" layoutX="1097.0" layoutY="7.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
                <items>
                   <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
                   <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
@@ -192,7 +200,7 @@
                   <Font name="Algerian" size="12.0" />
                </font>
             </MenuButton>
-            <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1056.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1044.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </top>
