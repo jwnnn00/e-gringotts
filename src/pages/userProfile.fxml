@@ -24,7 +24,7 @@
                   <Image url="@../img/bar_name_dark.png" />
                </image>
             </ImageView>
-            <Button fx:id="button_homeT" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: #3C361A;" text="Home" textFill="WHITE">
+            <Button fx:id="button_homeT" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: black;" text="Home" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -54,6 +54,11 @@
                </font>
             </MenuButton>
             <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="MarauderMapButton" layoutX="466.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
@@ -253,7 +258,7 @@
                   <Font name="Bodoni MT" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="button_history" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #252525;" text="Transaction History" textFill="WHITE">
+            <Button fx:id="button_history" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #252525;" text="Transaction History" textFill="WHITE">
                <font>
                   <Font name="Bodoni MT" size="13.0" />
                </font>

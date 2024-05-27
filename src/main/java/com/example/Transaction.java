@@ -1,66 +1,128 @@
 package com.example;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Transaction {
-
     private int transactionId;
-    private int userId;
-    private int tofrom_userID;
-    private String transactionType;
-    private double amount;
-    private double balance;
-    private LocalDate transactionDate;
-    private String category;
+    private Integer userId;
+    private Integer toFromUserID;
+    private TransactionType transactionType;
+    private BigDecimal amount;
+    private BigDecimal balance;
+    private LocalDateTime transactionDate;
+    private Category category;
+//    private PaymentMethod paymentMethod;
 
-    public Transaction(int transactionId, double amount, LocalDate transactionDate) {
+    public enum TransactionType {
+        Debit, Credit
+    }
+
+    public enum Category {
+        Food, Grocery, Shopping, Transportation, Entertainment, Utilities, Other
+    }
+
+//    public enum PaymentMethod {
+//        CreditCard, DebitCard, Cash;
+//
+//        public static PaymentMethod mapPaymentMethod(String value) {
+//            if ("Credit Card".equalsIgnoreCase(value) || "CreditCard".equalsIgnoreCase(value)) {
+//                return CreditCard;
+//            } else if ("Debit Card".equalsIgnoreCase(value) || "DebitCard".equalsIgnoreCase(value)) {
+//                return DebitCard;
+//            } else if ("Cash".equalsIgnoreCase(value)) {
+//                return Cash;
+//            } else {
+//                throw new IllegalArgumentException("Unknown payment method: " + value);
+//            }
+//        }
+//    }
+
+    public Transaction(){
+
+    }
+
+    public Transaction(int transactionId, BigDecimal amount, LocalDateTime transactionDate) {
         this.transactionId = transactionId;
         this.amount = amount;
         this.transactionDate = transactionDate;
     }
-
+    // Getters and Setters
     public int getTransactionId() {
-        return this.transactionId;
+        return transactionId;
     }
 
-    public int getUserId() {
-        return this.userId;
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public int getTofrom_userID() {
-        return this.tofrom_userID;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public String getTransactionType(){
-        return this.transactionType;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public double getAmount() {
-        return this.amount;
+    public Integer getToFromUserID() {
+        return toFromUserID;
     }
 
-    public double getBalance() {
-        return this.balance;
+    public void setToFromUserID(Integer tofromUserID) {
+        this.toFromUserID = tofromUserID;
     }
 
-    public void setBalance(double balance) {
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public LocalDate getTransactionDate() {
-        return this.transactionDate;
+    public LocalDateTime getTransactionDate() {
+        return transactionDate;
     }
 
-    public String getCategory() {
-        return this.category;
+    public void setTransactionDate(LocalDateTime transactionDate) {
+        this.transactionDate = transactionDate;
     }
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "Transaction ID=" + transactionId +
-                ", amount=" + amount +
-                ", transactionDate=" + transactionDate +
-                "}";
+    public Category getCategory() {
+        return category;
     }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+//    public PaymentMethod getPaymentMethod() {
+//        return paymentMethod;
+//    }
+//
+//    public void setPaymentMethod(String paymentMethod) {
+//        this.paymentMethod = PaymentMethod.mapPaymentMethod(paymentMethod);
+//    }
 }

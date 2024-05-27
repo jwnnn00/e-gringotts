@@ -18,6 +18,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -74,7 +75,7 @@ public class HomeController implements Initializable {
     @FXML
     private Text t_totalNumOfUser;
     @FXML
-    private BarChart<Number,String> userChart;
+    private BarChart<Number, String> userChart;
 
 
     @Override
@@ -85,8 +86,8 @@ public class HomeController implements Initializable {
         initializeLoggedInPage(loggedInAccount);
         t_totalNumOfUser = new Text();
         CategoryAxis y_typeOfUser = new CategoryAxis();
-        NumberAxis x_numberOfUser  = new NumberAxis();
-        userChart = new BarChart<>(x_numberOfUser,y_typeOfUser);
+        NumberAxis x_numberOfUser = new NumberAxis();
+        userChart = new BarChart<>(x_numberOfUser, y_typeOfUser);
 
     }
 
@@ -117,16 +118,19 @@ public class HomeController implements Initializable {
         // Change the scene to home.fxml
         DBUtils.changeScene(event, "/pages/home.fxml", "Back Page", null);
     }
+
     @FXML
     private void changeCurrency(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
         DBUtils.changeSceneWithData(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount);
     }
+
     @FXML
     private void updateUserType(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
         DBUtils.changeSceneWithData(event, "/pages/editUserType.fxml", "Edit User Type", userAccount);
     }
+
     @FXML
     private void showSummary(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
@@ -141,11 +145,11 @@ public class HomeController implements Initializable {
     }
 
     public void initializeLoggedInPage(Account<?> userAccount) {
-        this.userAccount=userAccount;
+        this.userAccount = userAccount;
         System.out.println(userAccount.getUserType());
         button_userProfile.setText(userAccount.getUsername());
 
-        String avatarPath = "file:///"+userAccount.getAvatar().getImagePath(); // Replace 'getAvatarPath' with the actual method name to retrieve the avatar path from your Account class
+        String avatarPath = "file:///" + userAccount.getAvatar().getImagePath(); // Replace 'getAvatarPath' with the actual method name to retrieve the avatar path from your Account class
 
         // Set the avatar image using the fetched path
         if (avatarPath != null) {
@@ -178,7 +182,6 @@ public class HomeController implements Initializable {
         popupStage.setScene(new Scene(root));
         popupStage.showAndWait();
     }
-
 
 
     @FXML
@@ -217,5 +220,22 @@ public class HomeController implements Initializable {
         }
     }
 
+
+    public void getNumberOfTransaction(ActionEvent event) throws IOException {
+        DBUtils.changeSceneWithData(event, "/pages/TransactionHistoryAdmin-view.fxml", "Get number Of Transaction", userAccount);
+    }
+
+    public void toMaurauderMap(ActionEvent event) {
+        DBUtils.changeSceneWithData(event, "/pages/MarauderMap-view.fxml", "Get number Of Transaction", userAccount);
+    }
+
+    public void getHistory(ActionEvent event) {
+        DBUtils.changeSceneWithData(event, "/pages/TransactionHistory-view.fxml", "Get number Of Transaction", userAccount);
+    }
+
+    public void checkBalance(ActionEvent event){
+        DBUtils.changeSceneWithData(event, "/pages/userProfile.fxml", "Get number Of Transaction", userAccount);
+
+    }
 
 }

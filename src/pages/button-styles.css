@@ -1,0 +1,42 @@
+.button {
+  -fx-font-size: 13px;
+  -fx-letter-spacing: 0px;
+  -fx-text-transform: uppercase;
+  -fx-padding: 0.7em 2em;
+  -fx-border-width: 2px;
+  -fx-border-color: #7F0909;
+  -fx-border-radius: 25px;
+  -fx-background-radius: 25px;
+  -fx-cursor: hand;
+  -fx-text-fill: #7F0909;
+  -fx-font-weight: bold;
+  -fx-background-color: #FFC500;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0, 0, 0);
+  -fx-transition: transform 0.3s ease;
+  -fx-font-family: "Optima";
+}
+
+.button:hover, #browse_date:focus {
+  -fx-text-fill: #FFC500;
+  -fx-background-color: #7F0909;
+  -fx-border-width: 2px;
+  -fx-border-color: #FFC500;
+}
+
+.button:before {
+  -fx-transition: left 0.5s ease, right 0.5s ease, opacity 0.5s ease;
+  -fx-position: absolute;
+  -fx-top: 0;
+  -fx-left: 50%;
+  -fx-right: 50%;
+  -fx-bottom: 0;
+  -fx-opacity: 0;
+  -fx-background-color: #FF0072;
+  -fx-z-index: -1;
+}
+
+.button:hover:before, .button:focus:before {
+  -fx-left: 0;
+  -fx-right: 0;
+  -fx-opacity: 1;
+}

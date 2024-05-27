@@ -1,0 +1,22 @@
+.button {
+    -fx-background-color: #AAAAAA;
+    -fx-text-fill: #0D6217;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 15px; /* Padding */
+    -fx-font-size: 13px; /* Font size */
+    -fx-border-width: 2px;
+    -fx-border-color: #0D6217;
+    -fx-border-radius: 10px; /* Rounded corners */
+    -fx-background-radius: 10px; /* Background rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0, 0, 0);
+    -fx-transition: transform 0.3s ease;
+    -fx-font-family: "Optima";
+}
+
+.button:hover {
+    -fx-background-color: #0D6217;
+    -fx-text-fill: #AAAAAA;
+    -fx-border-color: #AAAAAA;
+    -fx-border-width: 2px;
+}

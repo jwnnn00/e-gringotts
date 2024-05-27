@@ -127,11 +127,7 @@ public class DivinationController extends HomeController implements Initializabl
             showUserNameAndTotalExpenses();
         }
 
-        @FXML
-        private void handleBackToMain(MouseEvent event) {
-             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-             stage.setScene(previousScene);
-        }
+
         @FXML
         private void handleCheckBalance(MouseEvent event) {
 

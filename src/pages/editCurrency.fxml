@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.EditCurrencyController">
    <top>
-      <AnchorPane prefHeight="87.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="49.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.90;">
                <image>
@@ -32,12 +32,12 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
+            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" onAction="#checkBalance" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -57,13 +57,18 @@
                </font>
             </MenuButton>
             <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="MarauderMapButton" layoutX="480.0" layoutY="12.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
    <center>
       <AnchorPane prefHeight="530.0" prefWidth="1201.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="534.0" fitWidth="1194.0" layoutX="6.0" layoutY="4.0" style="-fx-opacity: 0.85;">
+            <ImageView fitHeight="576.0" fitWidth="1194.0" layoutX="6.0" layoutY="4.0" style="-fx-opacity: 0.85;">
                <image>
                   <Image url="@../img/changecurrency_bg.jpg" />
                </image>

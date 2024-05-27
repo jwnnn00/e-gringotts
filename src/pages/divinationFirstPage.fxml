@@ -43,17 +43,17 @@
                   <Font name="Bodoni MT Poster Compressed" size="15.0" />
                </font>
             </Text>
-            <Button fx:id="button_home" ellipsisString="" layoutX="114.0" layoutY="6.0" mnemonicParsing="false" onAction="#backHome" onMouseClicked="#handleBackToMain" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: Black;" text="HOME" textFill="WHITE">
+            <Button fx:id="button_home" ellipsisString="" layoutX="114.0" layoutY="6.0" mnemonicParsing="false" onAction="#backHome" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: Black;" text="HOME" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="checkBalance" ellipsisString="" layoutX="169.0" layoutY="4.0" mnemonicParsing="false" onMouseClicked="#handleCheckBalance" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE" AnchorPane.topAnchor="4.0">
+            <Button fx:id="checkBalance" ellipsisString="" layoutX="169.0" layoutY="4.0" mnemonicParsing="false" onAction="#checkBalance" onMouseClicked="#handleCheckBalance" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE" AnchorPane.topAnchor="4.0">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#handleTransactionHistory" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="9.0" mnemonicParsing="false" onAction="#getHistory" onMouseClicked="#handleTransactionHistory" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
@@ -201,6 +201,11 @@
                </font>
             </MenuButton>
             <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1044.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="MarauderMapButton" layoutX="398.0" layoutY="4.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>

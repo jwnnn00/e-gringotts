@@ -1,0 +1,18 @@
+#receipt-bg{
+    -fx-background-color: #A8814C;
+}
+
+#transactionID_text{
+    -fx-text-fill: red;
+
+}
+
+@font-face {
+    font-family: "Montserrat Bold";
+    src: url("/font/Montserrat-Bold.otf");
+}
+
+@font-face {
+    font-family: "Montserrat Regular";
+    src: url("/font/Montserrat-Regular.otf");
+}

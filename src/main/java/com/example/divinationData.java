@@ -83,8 +83,8 @@ public class divinationData {
             while (rs.next()) {
                 Transaction transaction = new Transaction(
                         rs.getInt("transactionId"),
-                        rs.getDouble("amount"),
-                        rs.getDate("transactionDate").toLocalDate()
+                        rs.getBigDecimal("amount"),
+                        rs.getDate("transactionDate").toLocalDate().atStartOfDay()
                 );
                 transactions.add(transaction);
             }
@@ -110,8 +110,8 @@ public class divinationData {
             while (rs.next()) {
                 Transaction transaction = new Transaction(
                         rs.getInt("transactionId"),
-                        rs.getDouble("amount"),
-                        rs.getDate("transactionDate").toLocalDate()
+                        rs.getBigDecimal("amount"),
+                        rs.getDate("transactionDate").toLocalDate().atStartOfDay()
                 );
                 transactions.add(transaction);
             }
@@ -135,8 +135,8 @@ public class divinationData {
             while (rs.next()) {
                 Transaction transaction = new Transaction(
                         rs.getInt("transactionId"),
-                        rs.getDouble("amount"),
-                        rs.getDate("transactionDate").toLocalDate()
+                        rs.getBigDecimal("amount"),
+                        rs.getDate("transactionDate").toLocalDate().atStartOfDay()
                 );
                 transactions.add(transaction);
             }
