@@ -102,20 +102,21 @@ public class DBUtils {
             return;
         }
 
-        // Generate a random salt
-        String salt = PasswordUtils.generateSalt();
-
-        // Combine the password and salt
-        String saltedPassword = password + salt;
-
-        // Hash the salted password
-        String hashedPassword = PasswordUtils.hashPassword(saltedPassword, salt);
+//        // Generate a random salt
+//        String salt = PasswordUtils.generateSalt();
+//
+//        // Combine the password and salt
+//        String saltedPassword = password + salt;
+//
+//        // Hash the salted password
+//        String hashedPassword = PasswordUtils.hashPassword(saltedPassword, salt);
 
         Account<?> account = new Account<>();
         account.setUsername(username);
         account.setFullName(fullName);
         account.setEmail(email);
-        account.setPassword(hashedPassword); // Store the hashed password
+//        account.setPassword(hashedPassword); // Store the hashed password
+        account.setPassword(password);
         account.setDateOfBirth(dateOfBirth);
         account.setAddress(address);
         account.setPhoneNumber(phoneNumber);

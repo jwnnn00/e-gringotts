@@ -33,7 +33,7 @@
                   <Font name="Algerian" size="35.0" />
                </font>
             </Text>
-            <Button layoutX="518.0" layoutY="73.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="236.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Already register? Login here!" textFill="WHITE">
+            <Button fx:id="button_login" layoutX="518.0" layoutY="73.0" mnemonicParsing="false" onAction="#login" prefHeight="47.0" prefWidth="236.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Already register? Login here!" textFill="WHITE">
                <font>
                   <Font name="Bodoni MT" size="14.0" />
                </font>

@@ -27,9 +27,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable {
+    @FXML
+    public Button button_login;
     @FXML
     private Button button_register;
 
@@ -96,10 +99,33 @@ public class SignUpController implements Initializable {
         UserAvatar userAvatar = new UserAvatar(imagePath, 0l);
         Currency currency = (Currency) cb_currency.getValue();
 
+        String otp = EmailSender.generateOTP();
+        EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
 
-        DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
-        setUserAccount(Database.getUserByUsername(username));
-        loadCardDetails();
+        // Prompt the user to enter the OTP
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("OTP Verification");
+        dialog.setHeaderText("Enter the OTP sent to your email");
+        dialog.setContentText("OTP:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String enteredOTP = result.get();
+            if (otp.equals(enteredOTP)) {
+
+                DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
+                setUserAccount(Database.getUserByUsername(username));
+                loadCardDetails();
+                return;
+                } else {
+                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+                    return; // Stop login process if OTP is incorrect
+                }
+            } else {
+                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+                return; // Stop login process if OTP is not entered
+            }
+
 
     }
 
@@ -133,6 +159,10 @@ public class SignUpController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    @FXML
+    void login (javafx.event.ActionEvent event){
+        DBUtils.changeScene(event,"/pages/login.fxml",null,null);
     }
 
     @FXML
