@@ -27,8 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SignUpController implements Initializable {
     @FXML
@@ -65,7 +64,7 @@ public class SignUpController implements Initializable {
     private File selectedFile;
 
     @FXML
-    private ChoiceBox<Currency> cb_currency;
+    private ChoiceBox<String> cb_currency;
 
     private String imagePath;
     public Account<?> userAccount;
@@ -97,7 +96,7 @@ public class SignUpController implements Initializable {
         String phoneNumber = tf_phoneNumber.getText();
         UserType userType = UserType.Silver_Snitch;
         UserAvatar userAvatar = new UserAvatar(imagePath, 0l);
-        Currency currency = (Currency) cb_currency.getValue();
+        String currency = cb_currency.getValue();
 
         String otp = EmailSender.generateOTP();
         EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
@@ -129,15 +128,25 @@ public class SignUpController implements Initializable {
 
     }
 
-    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Set<String> currencyOptions = fetchUniqueCurrencyValues();
+        cb_currency.setItems(FXCollections.observableArrayList(currencyOptions));
+    }
 
+    private Set<String> fetchUniqueCurrencyValues() {
+        Set<String> currencyValues = new HashSet<>();
+        // Fetch unique currency values from the conversion table
+        Map<String, Map<String, Object>> conversionRates = Database.fetchConversionRates();
 
-        // Initialize the ChoiceBox with currency options
-        ObservableList<Currency> currencyOptions = FXCollections.observableArrayList(Currency.KNUT, Currency.SICKLE, Currency.GALLEON);
-        cb_currency.setItems(currencyOptions);
+        if (conversionRates != null) {
+            for (Map.Entry<String, Map<String, Object>> entry : conversionRates.entrySet()) {
+                currencyValues.add(entry.getKey());
+                currencyValues.add((String) entry.getValue().get("toCurrency"));
+            }
+        }
 
-
+        return currencyValues;
     }
 
     public void setUserAccount(Account<?> userAccount) {

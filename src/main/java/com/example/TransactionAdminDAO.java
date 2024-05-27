@@ -76,7 +76,7 @@ public class TransactionAdminDAO {
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM transaction WHERE transactionDate >= ? AND transactionDate <= ? ORDER BY transactionDate DESC")) {
 
             statement.setDate(1, Date.valueOf(startDate));
-            statement.setDate(2, Date.valueOf(endDate.plusDays(1)));
+            statement.setDate(2, Date.valueOf(endDate));
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

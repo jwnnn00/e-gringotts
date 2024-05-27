@@ -1,10 +1,8 @@
 package com.example;
 
 import java.sql.*;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.sql.Date;
+import java.util.*;
 
 import com.example.model.*;
 
@@ -35,6 +33,31 @@ public class Database {
         }
 
         return count;
+    }
+
+
+
+
+    public static boolean addConversionRate(String currency, String toCurrency, double exchangeRate, double processingFee) {
+        String insertSQL = "INSERT INTO conversion (currency, toCurrency, exchangeRate, processingFee) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+
+            pstmt.setString(1, currency);
+            pstmt.setString(2, toCurrency);
+            pstmt.setDouble(3, exchangeRate);
+            pstmt.setDouble(4, processingFee);
+
+            pstmt.executeUpdate();
+            System.out.println("New conversion rate added successfully");
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error adding new conversion rate: " + e.getMessage());
+        }
+        return false;
     }
 
     public void createAccount(Account<?> account) {
@@ -188,7 +211,7 @@ public class Database {
                     // Assuming you have a method to retrieve the avatar path
                     String avatarPath = resultSet.getString("avatarImagePath");
                     // Assuming you have a method to retrieve the currency
-                    Currency currency = Currency.valueOf(resultSet.getString("currency").toUpperCase());
+                    String currency = resultSet.getString("currency").toUpperCase();
 
                     // Create and return the Account object
                     return new Account<>(userId, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, new UserAvatar(avatarPath, userId), currency);
@@ -281,8 +304,8 @@ public class Database {
         return DriverManager.getConnection(jdbcUrl, username, password);
     }
 
-    public static Map<String, Map<String, Double>> fetchConversionRates() {
-        Map<String, Map<String, Double>> conversionRates = new HashMap<>();
+    public static Map<String, Map<String, Object>> fetchConversionRates() {
+        Map<String, Map<String, Object>> conversionRates = new HashMap<>();
 
         String query = "SELECT * FROM conversion";
         try (Connection connection = getConnection();
@@ -291,14 +314,14 @@ public class Database {
 
             while (resultSet.next()) {
                 String currencyFrom = resultSet.getString("currency");
-                double toKnut = resultSet.getDouble("to_knut");
-                double toSickle = resultSet.getDouble("to_sickle");
-                double toGalleon = resultSet.getDouble("to_galleon");
+                String toCurrency = resultSet.getString("toCurrency");
+                double exchangeRate = resultSet.getDouble("exchangeRate");
+                double processingFee = resultSet.getDouble("processingFee");
 
-                Map<String, Double> conversionMap = new HashMap<>();
-                conversionMap.put("to_knut", toKnut);
-                conversionMap.put("to_sickle", toSickle);
-                conversionMap.put("to_galleon", toGalleon);
+                Map<String, Object> conversionMap = new HashMap<>();
+                conversionMap.put("toCurrency", toCurrency);
+                conversionMap.put("exchangeRate", exchangeRate);
+                conversionMap.put("processingFee", processingFee);
 
                 conversionRates.put(currencyFrom, conversionMap);
             }
@@ -309,18 +332,17 @@ public class Database {
         return conversionRates;
     }
 
-
     // Other methods...
 
-    public static void updateConversionRates(String currency, double toKnut, double toSickle, double toGalleon) {
-        String updateQuery = "UPDATE conversion SET to_knut = ?, to_sickle = ?, to_galleon = ? WHERE currency = ?";
+    public static void updateConversionRates(String currency, String toCurrency, double exchangeRate, double processingFee) {
+        String updateQuery = "UPDATE conversion SET toCurrency = ?, exchangeRate = ?, processingFee = ? WHERE currency = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
 
-            preparedStatement.setDouble(1, toKnut);
-            preparedStatement.setDouble(2, toSickle);
-            preparedStatement.setDouble(3, toGalleon);
+            preparedStatement.setString(1, toCurrency);
+            preparedStatement.setDouble(2, exchangeRate);
+            preparedStatement.setDouble(3, processingFee);
             preparedStatement.setString(4, currency);
 
             int rowsUpdated = preparedStatement.executeUpdate();

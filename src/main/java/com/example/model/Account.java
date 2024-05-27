@@ -28,9 +28,9 @@ public class Account <E>{
 
 
     private UserAvatar avatar;
-    private Currency currency;
+    private String currency;
 
-    public Account(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, Currency currency) {
+    public Account(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, String currency) {
         this.userId = userId;
         this.username = username;
         this.fullName=fullName;
@@ -53,7 +53,7 @@ public class Account <E>{
         return transactionCount;
     }
 
-    public Account(Long userId, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, Currency currency) {
+    public Account(Long userId, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency) {
         this.userId = userId;
         this.username = username;
         this.fullName=fullName;
@@ -174,11 +174,11 @@ public class Account <E>{
         this.phoneNumber = phoneNumber;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return this.currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 

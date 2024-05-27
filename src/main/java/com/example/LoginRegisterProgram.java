@@ -157,20 +157,20 @@ public class LoginRegisterProgram {
         System.out.println("3. Galleon");
         System.out.print("Enter your choice (1/2/3): ");
         int currencyChoice = scanner.nextInt();
-        Currency currency;
+        String currency;
         switch (currencyChoice) {
             case 1:
-                currency = Currency.KNUT;
+                currency = "KNUT";
                 break;
             case 2:
-                currency = Currency.SICKLE;
+                currency = "SICKLE";
                 break;
             case 3:
-                currency = Currency.GALLEON;
+                currency = "GALLEON";
                 break;
             default:
                 System.out.println("Invalid choice. Defaulting to Knut.");
-                currency = Currency.KNUT;
+                currency = "KNUT";
                 break;
         }
 

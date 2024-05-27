@@ -10,7 +10,7 @@ import java.sql.*;
 public class Goblin extends Account<Goblin> {
 
 
-public Goblin(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, Currency currency) {
+public Goblin(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, String currency) {
     super(userId, username, fullName, email, password, dateOfBirth, address, phoneNumber,card, userType, avatar,currency);
         this.setUserType(UserType.valueOf("Goblin"));
 

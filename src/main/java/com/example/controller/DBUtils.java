@@ -96,7 +96,7 @@ public class DBUtils {
         }
     }
 
-    public static void createAccount(ActionEvent event, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, Currency currency) {
+    public static void createAccount(ActionEvent event, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency) {
         if (db.checkUsernameExists(username)) {
             System.err.println("Failed to create account: Username already exists.");
             return;

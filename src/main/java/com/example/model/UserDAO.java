@@ -34,7 +34,7 @@ public class UserDAO {
                 user.setPhoneNumber(resultSet.getString("phoneNumber"));
                 user.setUserType(UserType.valueOf(resultSet.getString("userType")));
                 user.setAvatar(new UserAvatar(resultSet.getString("userType"),user.getUserId()));
-                user.setCurrency(Currency.valueOf(resultSet.getString("currency").toUpperCase()));
+                user.setCurrency((resultSet.getString("currency").toUpperCase()));
 
                 list.add(user);
             }

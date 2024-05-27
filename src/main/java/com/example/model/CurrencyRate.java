@@ -2,46 +2,46 @@ package com.example.model;
 
 public class CurrencyRate {
     private String currency;
-    private double toKnut;
-    private double toSickle;
-    private double toGalleon;
+    private String toCurrency;
+    private double exchangeRate;
+    private double processingFee;
 
-    public CurrencyRate(String currency, double toKnut, double toSickle, double toGalleon) {
+    public CurrencyRate(String currency, String toCurrency, double exchangeRate, double processingFee) {
         this.currency = currency;
-        this.toKnut = toKnut;
-        this.toSickle = toSickle;
-        this.toGalleon = toGalleon;
+        this.toCurrency = toCurrency;
+        this.exchangeRate = exchangeRate;
+        this.processingFee = processingFee;
     }
 
     public String getCurrency() {
         return currency;
     }
 
-    public double getToKnut() {
-        return toKnut;
+    public String getToCurrency() {
+        return toCurrency;
     }
 
-    public double getToSickle() {
-        return toSickle;
+    public double getExchangeRate() {
+        return exchangeRate;
     }
 
-    public double getToGalleon() {
-        return toGalleon;
+    public double getProcessingFee() {
+        return processingFee;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
-    public void setToGalleon(double toGalleon) {
-        this.toGalleon = toGalleon;
+    public void setProcessingFee(double processingFee) {
+        this.processingFee = processingFee;
     }
 
-    public void setToKnut(double toKnut) {
-        this.toKnut = toKnut;
+    public void setToCurrency(String toCurrency) {
+        this.toCurrency = toCurrency;
     }
 
-    public void setToSickle(double toSickle) {
-        this.toSickle = toSickle;
+    public void setExchangeRate(double exchangeRate) {
+        this.exchangeRate = exchangeRate;
     }
 }

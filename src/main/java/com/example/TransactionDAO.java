@@ -80,7 +80,7 @@ public class TransactionDAO {
 
             statement.setInt(1, getUserIdByUsername(username));
             statement.setDate(2, Date.valueOf(startDate));
-            statement.setDate(3, Date.valueOf(endDate.plusDays(1)));
+            statement.setDate(3, Date.valueOf(endDate));
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
