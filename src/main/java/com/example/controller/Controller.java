@@ -51,7 +51,8 @@ public class Controller {
         // Fetch user details from the database
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
 
-        if (userAccount != null && BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
+//        if (userAccount != null && userAccount.getPassword().equals(pf_password.getText())) {
+//        if (userAccount != null && BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
 //            String otp = EmailSender.generateOTP();
 //            EmailSender.sendEmail(userAccount.getEmail(), "OTP Verification", "Your OTP is: " + otp);
 //
@@ -65,11 +66,11 @@ public class Controller {
 //            if (result.isPresent()) {
 //                String enteredOTP = result.get();
 //                if (otp.equals(enteredOTP)) {
-                    AccountHolder.getInstance().setUser(userAccount);
-            sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
-                    // Pass the userAccount to the next scene
-                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
-                    return;
+//                    AccountHolder.getInstance().setUser(userAccount);
+//            sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
+//                    // Pass the userAccount to the next scene
+//                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+//                    return;
 //                } else {
 //                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
 //                    return; // Stop login process if OTP is incorrect
@@ -79,14 +80,50 @@ public class Controller {
 //                return; // Stop login process if OTP is not entered
 //            }
 
-        } else {
-            // Display error message for invalid credentials
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Failed");
-            alert.setHeaderText("Invalid username or password");
-            alert.setContentText("Please enter valid credentials.");
-            alert.showAndWait();
+//        } else {
+//            // Display error message for invalid credentials
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Login Failed");
+//            alert.setHeaderText("Invalid username or password");
+//            alert.setContentText("Please enter valid credentials.");
+//            alert.showAndWait();
+//        }
+
+        if (userAccount != null) {
+            if (BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
+                // Password matches the hashed password
+                AccountHolder.getInstance().setUser(userAccount);
+                sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
+                // Pass the userAccount to the next scene
+                DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+                return;
+            } else {
+                // Assume old format (e.g., plaintext) for demonstration purposes
+                if (userAccount.getPassword().equals(pf_password.getText())) {
+                    System.out.println("Login successful with old format!");
+
+                    // Re-hash the password using BCrypt
+                    String newHashedPassword = BCrypt.hashpw(pf_password.getText(), BCrypt.gensalt());
+                    userAccount.setPassword(newHashedPassword);
+                    Database.updateUserPassword(userAccount);
+
+                    System.out.println("Password re-hashed and updated.");
+                    AccountHolder.getInstance().setUser(userAccount);
+                    sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
+                    // Pass the userAccount to the next scene
+                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+                    return;
+                } else {
+                    System.out.println("Invalid password.");
+                }
+            }
         }
+        // Display error message for invalid credentials
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Login Failed");
+        alert.setHeaderText("Invalid username or password");
+        alert.setContentText("Please enter valid credentials.");
+        alert.showAndWait();
     }
 
 

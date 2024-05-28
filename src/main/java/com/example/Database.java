@@ -229,48 +229,69 @@ public class Database {
         }
     }
 
-    public static boolean login(String username, String password) {
-        System.out.println("Login");
+    public static void updateUserPassword(Account<?> account) {
+        String updatePasswordQuery = "UPDATE user SET password = ? WHERE userId = ?";
 
-        // Check if the username exists in the database
-        Database db = new Database();
-        Account<?> userAccount = db.getUserByUsername(username);
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(updatePasswordQuery)) {
 
-        if (userAccount != null) {
-            // Username exists
-//            if (userAccount.authenticate(password)) {
-            if (BCrypt.checkpw(password, userAccount.getPassword())) {
-                System.out.println("Login successful!");
-                return true;
+            statement.setString(1, account.getPassword());
+            statement.setLong(2, account.getUserId());
+
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                System.err.println("Failed to update password: No rows affected.");
             } else {
-                System.out.println("Invalid password.");
+                System.out.println("Password updated successfully!");
             }
-        } else {
-            // Username not found in the database
-            System.out.println("User not found.");
-        }
-        return false;
 
-//        String storedPasswordHash = userAccount.getPassword();
-//        System.out.println("Stored password hash: " + storedPasswordHash);
+        } catch (SQLException e) {
+            System.err.println("Failed to update password: " + e.getMessage());
+        }
+    }
+
+//    public static boolean login(String username, String password) {
+//        System.out.println("Login");
 //
-//        // Check if the stored password appears to be a BCrypt hash
-//        if (storedPasswordHash != null && storedPasswordHash.startsWith("$2a$")) {
-//            if (BCrypt.checkpw(password, storedPasswordHash)) {
+//        // Check if the username exists in the database
+//        Database db = new Database();
+//        Account<?> userAccount = db.getUserByUsername(username);
+//
+//        if (userAccount != null) {
+//            // Username exists
+////            if (userAccount.authenticate(password)) {
+//            if (BCrypt.checkpw(password, userAccount.getPassword())) {
 //                System.out.println("Login successful!");
 //                return true;
 //            } else {
 //                System.out.println("Invalid password.");
 //            }
 //        } else {
-//            System.out.println("Stored password does not appear to be a BCrypt hash.");
+//            // Username not found in the database
+//            System.out.println("User not found.");
 //        }
-//    } else {
-//        // Username not found in the database
-//        System.out.println("User not found.");
+//        return false;
+//
+////        String storedPasswordHash = userAccount.getPassword();
+////        System.out.println("Stored password hash: " + storedPasswordHash);
+////
+////        // Check if the stored password appears to be a BCrypt hash
+////        if (storedPasswordHash != null && storedPasswordHash.startsWith("$2a$")) {
+////            if (BCrypt.checkpw(password, storedPasswordHash)) {
+////                System.out.println("Login successful!");
+////                return true;
+////            } else {
+////                System.out.println("Invalid password.");
+////            }
+////        } else {
+////            System.out.println("Stored password does not appear to be a BCrypt hash.");
+////        }
+////    } else {
+////        // Username not found in the database
+////        System.out.println("User not found.");
+////    }
+////    return false;
 //    }
-//    return false;
-    }
 
     public static Card getCardDetails(long userId) {
         Card card = null;
