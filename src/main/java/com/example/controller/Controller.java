@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class Controller {
         // Fetch user details from the database
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
 
-        if (userAccount != null && userAccount.getPassword().equals(pf_password.getText())) {
+        if (userAccount != null && BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
 //            String otp = EmailSender.generateOTP();
 //            EmailSender.sendEmail(userAccount.getEmail(), "OTP Verification", "Your OTP is: " + otp);
 //

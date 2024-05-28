@@ -111,12 +111,16 @@ public class DBUtils {
 //        // Hash the salted password
 //        String hashedPassword = PasswordUtils.hashPassword(saltedPassword, salt);
 
+        // Hash the password using BCrypt
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+
         Account<?> account = new Account<>();
         account.setUsername(username);
         account.setFullName(fullName);
         account.setEmail(email);
-//        account.setPassword(hashedPassword); // Store the hashed password
-        account.setPassword(password);
+        account.setPassword(hashedPassword); // Store the hashed password
+//        account.setPassword(password);
         account.setDateOfBirth(dateOfBirth);
         account.setAddress(address);
         account.setPhoneNumber(phoneNumber);

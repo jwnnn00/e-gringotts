@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.*;
 
 import com.example.model.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class Database {
 
@@ -237,7 +238,8 @@ public class Database {
 
         if (userAccount != null) {
             // Username exists
-            if (userAccount.authenticate(password)) {
+//            if (userAccount.authenticate(password)) {
+            if (BCrypt.checkpw(password, userAccount.getPassword())) {
                 System.out.println("Login successful!");
                 return true;
             } else {
@@ -248,6 +250,26 @@ public class Database {
             System.out.println("User not found.");
         }
         return false;
+
+//        String storedPasswordHash = userAccount.getPassword();
+//        System.out.println("Stored password hash: " + storedPasswordHash);
+//
+//        // Check if the stored password appears to be a BCrypt hash
+//        if (storedPasswordHash != null && storedPasswordHash.startsWith("$2a$")) {
+//            if (BCrypt.checkpw(password, storedPasswordHash)) {
+//                System.out.println("Login successful!");
+//                return true;
+//            } else {
+//                System.out.println("Invalid password.");
+//            }
+//        } else {
+//            System.out.println("Stored password does not appear to be a BCrypt hash.");
+//        }
+//    } else {
+//        // Username not found in the database
+//        System.out.println("User not found.");
+//    }
+//    return false;
     }
 
     public static Card getCardDetails(long userId) {
