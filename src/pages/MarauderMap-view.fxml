@@ -35,7 +35,7 @@
                         </ImageView>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER" layoutX="172.0" layoutY="8.0" prefHeight="35.0" prefWidth="580.0" spacing="10.0">
+                <HBox alignment="CENTER" layoutX="172.0" layoutY="8.0" prefHeight="35.0" prefWidth="428.0" spacing="10.0">
                     <children>
                         <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: BLACK;" text="HOME" textAlignment="CENTER" textFill="WHITE">
                             <font>
@@ -48,11 +48,6 @@
                             </font>
                         </Button>
                         <Button fx:id="button_history_T" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: BLACK;" text="HISTORY" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font size="10.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="button_TransferT" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: BLACK;" text="TRANSFER" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font size="10.0" />
                             </font>

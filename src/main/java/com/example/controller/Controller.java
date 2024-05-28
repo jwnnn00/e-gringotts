@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.Database;
 import com.example.EmailSender;
-import com.example.LoginRegisterProgram;
+
 import com.example.model.Account;
 import com.example.model.AccountHolder;
 import com.example.model.UserType;
@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class Controller {
@@ -63,6 +65,7 @@ public class Controller {
 //                String enteredOTP = result.get();
 //                if (otp.equals(enteredOTP)) {
                     AccountHolder.getInstance().setUser(userAccount);
+            sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
                     // Pass the userAccount to the next scene
                     DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
                     return;
@@ -74,6 +77,7 @@ public class Controller {
 //                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
 //                return; // Stop login process if OTP is not entered
 //            }
+
         } else {
             // Display error message for invalid credentials
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -92,5 +96,20 @@ public class Controller {
         DBUtils.changeScene(event,"/pages/register.fxml",null,null);
     }
 
+    private void sendLoginNotification(String username, String userEmail) {
+        // Get the current date and time
+        LocalDateTime now = LocalDateTime.now();
+
+        // Format the date and time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
+
+        // Construct the email subject and body
+        String subject = "Login Notification";
+        String body = "User " + username + " logged in successfully at " + formattedDateTime + ".";
+
+        // Send the email notification using EmailSender class
+        EmailSender.sendEmail(userEmail, subject, body);
+    }
 
 }

@@ -39,11 +39,6 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_transferT" layoutX="399.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
             <MenuButton fx:id="button_userProfile" layoutX="1101.0" layoutY="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
                <items>
                   <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
@@ -54,9 +49,9 @@
                </font>
             </MenuButton>
             <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="MarauderMapButton" layoutX="466.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="MarauderMapButton" layoutX="388.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="10.0" />
+                  <Font name="Castellar" size="10.0" />
                </font>
             </Button>
          </children>
@@ -253,17 +248,12 @@
                   <Font name="Bodoni MT" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="button_balance" layoutX="60.0" layoutY="274.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" style="-fx-background-color: #252525;" text="Check Balance" textFill="WHITE">
+            <Button fx:id="button_history" layoutX="60.0" layoutY="277.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #252525;" text="Transaction History" textFill="WHITE">
                <font>
                   <Font name="Bodoni MT" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="button_history" layoutX="60.0" layoutY="315.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #252525;" text="Transaction History" textFill="WHITE">
-               <font>
-                  <Font name="Bodoni MT" size="13.0" />
-               </font>
-            </Button>
-            <Button fx:id="button_transfer" layoutX="60.0" layoutY="356.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #252525;" text="Transfer" textFill="WHITE">
+            <Button fx:id="button_transfer" layoutX="60.0" layoutY="318.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #252525;" text="Transfer" textFill="WHITE">
                <font>
                   <Font name="Bodoni MT" size="13.0" />
                </font>
@@ -273,17 +263,12 @@
                   <Image url="@../img/home_icon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/balance_logo.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/history_logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/transfer_logo.png" />
                </image>

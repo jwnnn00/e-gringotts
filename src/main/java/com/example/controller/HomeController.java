@@ -84,6 +84,7 @@ public class HomeController implements Initializable {
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
+
         t_totalNumOfUser = new Text();
         CategoryAxis y_typeOfUser = new CategoryAxis();
         NumberAxis x_numberOfUser = new NumberAxis();

@@ -58,11 +58,6 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="transfer" ellipsisString="" layoutX="323.0" layoutY="4.0" mnemonicParsing="false" onMouseClicked="#handleTransfer" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="397.0" fitWidth="319.0" layoutX="5.0" layoutY="225.0" opacity="0.45" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/divination_pic.jpg" />
@@ -100,13 +95,13 @@
                   <Font name="HoloLens MDL2 Assets" size="17.0" />
                </font>
             </Text>
-            <AnchorPane layoutX="338.0" layoutY="174.0" prefHeight="385.0" prefWidth="445.0">
+            <AnchorPane layoutX="338.0" layoutY="175.0" prefHeight="385.0" prefWidth="450.0">
                <children>
                   <Pane layoutY="-4.0" prefHeight="390.0" prefWidth="445.0">
                      <children>
-                        <PieChart fx:id="expenditureSummary" prefHeight="392.0" prefWidth="447.0" />
+                        <PieChart fx:id="expenditureSummary" minWidth="400.0" minHeight="300.0" prefWidth="400.0" prefHeight="300.0" maxWidth="400.0" maxHeight="300.0"/>
                      </children></Pane>
-                  <TableView fx:id="showDetails" fixedCellSize="28.0" prefHeight="395.0" prefWidth="449.0" style="-fx-background-color: #a2a2a2;">
+                  <TableView fx:id="showDetails" fixedCellSize="30.0" prefHeight="395.0" prefWidth="449.0" style="-fx-background-color: #a2a2a2;">
                     <columns>
                         <TableColumn fx:id="transactionIdColumn" prefWidth="75.0" text="Transaction ID" />
                       <TableColumn fx:id="AmountColumn" prefWidth="75.0" text="Amount" />
@@ -190,6 +185,11 @@
                         <Font name="HoloLens MDL2 Assets" size="15.0" />
                      </font>
                   </ToggleButton>
+                  <Button fx:id="refresh" layoutX="112.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#refreshDetails" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #686e11;" text="Refresh" textFill="WHITE">
+                     <font>
+                        <Font name="HoloLens MDL2 Assets" size="15.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
             <MenuButton fx:id="button_userProfile" layoutX="1097.0" layoutY="7.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
                <items>
@@ -201,9 +201,9 @@
                </font>
             </MenuButton>
             <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1044.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="MarauderMapButton" layoutX="398.0" layoutY="4.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="MarauderMapButton" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="10.0" />
+                  <Font name="Castellar" size="10.0" />
                </font>
             </Button>
          </children>

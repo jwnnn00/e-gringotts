@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.model.Account;
 import com.example.model.AccountHolder;
 import com.example.model.UserDAO;
+import com.example.controller.DBUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MarauderMapController  extends HomeController implements Initializable {
+    private static String friendName;
+
     @FXML
     private AnchorPane MarauderMapAnchorPane;
     @FXML
@@ -41,12 +44,15 @@ public class MarauderMapController  extends HomeController implements Initializa
     private ObservableList<Account<?>> friendsList = FXCollections.observableArrayList();
 
     private UserDAO userDAO = new UserDAO();
+    private Account<?> account;
+
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
+        account= loggedInAccount;
 
         fullName_col.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -70,7 +76,9 @@ public class MarauderMapController  extends HomeController implements Initializa
                     {
                         transfer_button.setOnAction(event -> {
                             Account<?> data = getTableView().getItems().get(getIndex());
+                            friendName=data.getUsername();
                             // Implement transfer logic here
+                            DBUtils.changeSceneWithData(event,"/pages/transfer.fxml","Transfer",account);
                             /** RMB CHANGE*/
                             System.out.println("Transfer to: " + data.toString());
                         });
@@ -117,4 +125,9 @@ public class MarauderMapController  extends HomeController implements Initializa
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public static String getFriendName() {
+        return friendName;
+    }
+
 }

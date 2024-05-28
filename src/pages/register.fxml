@@ -78,13 +78,13 @@
                            </font>
                         </Text>
                         <PasswordField fx:id="pf_password" layoutX="140.0" layoutY="250.0" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;" />
-                        <Text fill="WHITE" layoutX="120.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONFIRM PASSWORD" wrappingWidth="126.936767578125">
+                        <Text fill="WHITE" layoutX="120.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONFIRM PASSWORD" wrappingWidth="147.7367706298828">
                            <font>
                               <Font name="Corbel" size="13.0" />
                            </font>
                         </Text>
                         <PasswordField fx:id="pf_confirmPassword" layoutX="140.0" layoutY="320.0" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;" />
-                        <Text fill="WHITE" layoutX="120.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE OF BIRTH" wrappingWidth="81.33673095703125">
+                        <Text fill="WHITE" layoutX="120.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE OF BIRTH" wrappingWidth="105.33673095703125">
                            <font>
                               <Font name="Corbel" size="13.0" />
                            </font>

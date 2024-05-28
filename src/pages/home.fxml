@@ -40,11 +40,6 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_transferT" layoutX="399.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="TRANSFER" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
             <MenuButton fx:id="button_userProfile" layoutX="1101.0" layoutY="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
                <items>
                   <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
@@ -56,9 +51,9 @@
             </MenuButton>
             <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1048.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="MarauderMapButton" layoutX="480.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+            <Button fx:id="MarauderMapButton" layoutX="391.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="10.0" />
+                  <Font name="Castellar" size="10.0" />
                </font>
             </Button>
          </children>
@@ -149,7 +144,7 @@
                   <Font name="Book Antiqua Bold" size="16.0" />
                </font>
             </Text>
-            <Button fx:id="button_transfer" layoutX="881.0" layoutY="60.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
+            <Button fx:id="button_transfer" layoutX="881.0" layoutY="60.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: transparent;">
                <font>
                   <Font name="Segoe Fluent Icons" size="12.0" />
                </font>
