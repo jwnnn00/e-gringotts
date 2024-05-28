@@ -12,7 +12,7 @@ public class Database {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency ,balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)";
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
 
     public static int getNumberOfUsersByType(UserType userType) {
@@ -80,6 +80,7 @@ public class Database {
             userStatement.setString(8, account.getUserType().toString());
             userStatement.setString(9, account.getAvatar().getImagePath());
             userStatement.setString(10, account.getCurrency().toString());
+            userStatement.setDouble(11,account.getBalance());
 
             int userAffectedRows = userStatement.executeUpdate();
             if (userAffectedRows == 0) {
@@ -212,9 +213,10 @@ public class Database {
                     String avatarPath = resultSet.getString("avatarImagePath");
                     // Assuming you have a method to retrieve the currency
                     String currency = resultSet.getString("currency").toUpperCase();
+                    double balance = resultSet.getDouble("balance");
 
                     // Create and return the Account object
-                    return new Account<>(userId, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, new UserAvatar(avatarPath, userId), currency);
+                    return new Account<>(userId, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, new UserAvatar(avatarPath, userId), currency,balance);
                 } else {
                     // User not found
                     return null;

@@ -123,6 +123,7 @@ public class DBUtils {
         account.setUserType(userType);
         account.setAvatar(userAvatar);
         account.setCurrency(currency);
+        account.setBalance(2000);
 
         db.createAccount(account);
         Long userId = account.getUserId();

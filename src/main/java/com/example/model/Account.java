@@ -29,8 +29,9 @@ public class Account <E>{
 
     private UserAvatar avatar;
     private String currency;
+    private double balance;
 
-    public Account(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, String currency) {
+    public Account(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, String currency,double balance) {
         this.userId = userId;
         this.username = username;
         this.fullName=fullName;
@@ -43,6 +44,7 @@ public class Account <E>{
         this.userType=userType;
         this.avatar=avatar;
         this.currency=currency;
+        this.balance=balance;
     }
 
     public Account() {
@@ -53,7 +55,7 @@ public class Account <E>{
         return transactionCount;
     }
 
-    public Account(Long userId, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency) {
+    public Account(Long userId, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency,double balance) {
         this.userId = userId;
         this.username = username;
         this.fullName=fullName;
@@ -62,10 +64,10 @@ public class Account <E>{
         this.dateOfBirth = dateOfBirth;
         this.address=address;
         this.phoneNumber=phoneNumber;
-
         this.userType=userType;
         this.avatar=userAvatar;
         this.currency=currency;
+        this.balance=balance;
 
     }
 
@@ -182,6 +184,14 @@ public class Account <E>{
         this.currency = currency;
     }
 
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public void setLogin(boolean check){
         this.check = check;

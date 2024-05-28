@@ -122,7 +122,7 @@ public class UserProfileController extends HomeController  implements Initializa
 
 
             i_cardType.setImage(new javafx.scene.image.Image(cardImagePath));
-            t_balance.setText("$"+String.valueOf(100.00));
+            t_balance.setText("$"+String.valueOf(loggedInAccount.getBalance()));
             t_cardNum.setText(String.valueOf(formattedCardNum));
             t_exp.setText(formattedExpiryDate);
             t_cvv.setText(String.valueOf(card.getCVV()));

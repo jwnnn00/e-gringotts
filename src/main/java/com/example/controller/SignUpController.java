@@ -227,7 +227,7 @@ public class SignUpController implements Initializable {
                     break;
                 case Platinum_Patronus:
                     cardImagePath = "/img/platinum_card.png";
-                    cardController.initialize(cardImagePath, "$100.00", formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
+                    cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
                     break;
                 default:
                     cardImagePath = "/path/to/silver_card.png";
@@ -236,7 +236,7 @@ public class SignUpController implements Initializable {
             ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
 
 
-            cardController.initialize(cardImagePath, "$100.00", formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
+            cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
             String otp = EmailSender.generateOTP();
 
             // Send OTP via email
