@@ -82,6 +82,7 @@ public class Database {
             userStatement.setString(9, account.getAvatar().getImagePath());
             userStatement.setString(10, account.getCurrency().toString());
             userStatement.setDouble(11,account.getBalance());
+            userStatement.setString(12, account.getPin());
 
             int userAffectedRows = userStatement.executeUpdate();
             if (userAffectedRows == 0) {
@@ -215,9 +216,9 @@ public class Database {
                     // Assuming you have a method to retrieve the currency
                     String currency = resultSet.getString("currency").toUpperCase();
                     double balance = resultSet.getDouble("balance");
-
+                    String pin = resultSet.getString("pin");
                     // Create and return the Account object
-                    return new Account<>(userId, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, new UserAvatar(avatarPath, userId), currency,balance);
+                    return new Account<>(userId, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, new UserAvatar(avatarPath, userId), currency,balance,pin);
                 } else {
                     // User not found
                     return null;
@@ -417,6 +418,22 @@ public class Database {
         }
 
 
+    public static String getUserPin(String username) {
+        String pin = null;
+        String query = "SELECT pin FROM user WHERE username = ?";
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                pin = resultSet.getString("pin");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pin;
+    }
 
 
 }

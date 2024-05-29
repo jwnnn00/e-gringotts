@@ -31,11 +31,12 @@ public class Controller {
     private Stage stage;
     private Scene scene;
     private final Database db = new Database();
+    private Account<?> account;
 
     @FXML
     void login(javafx.event.ActionEvent event) {
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
-
+account=userAccount;
         if (userAccount != null) {
             if (BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
                 handleOTPVerification(event, userAccount);
@@ -51,27 +52,70 @@ public class Controller {
     }
 
     private void handleOTPVerification(javafx.event.ActionEvent event, Account<?> userAccount) {
-        String otp = EmailSender.generateOTP();
-        EmailSender.sendEmail(userAccount.getEmail(), "OTP Verification", "Your OTP is: " + otp);
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("OTP Verification");
-        dialog.setHeaderText("Enter the OTP sent to your email");
-        dialog.setContentText("OTP:");
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            String enteredOTP = result.get();
-            if (otp.equals(enteredOTP)) {
+        // OTP verification logic here
+        // If OTP is verified, then proceed to PIN verification
+        if (verifyOTP()) {
+            if (verifyPin()) {
                 AccountHolder.getInstance().setUser(userAccount);
                 sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
                 DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
             } else {
-                showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.", "");
+                DBUtils.showAlert("Invalid PIN", "The entered PIN is incorrect. Please try again.");
             }
         } else {
-            showAlert("OTP Required", "Please enter the OTP sent to your email.", "");
+            DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
         }
+    }
+
+    private boolean verifyPin() {
+        TextInputDialog pinDialog = new TextInputDialog();
+        pinDialog.setTitle("PIN Verification");
+        pinDialog.setHeaderText("Enter your PIN");
+        pinDialog.setContentText("PIN:");
+
+        Optional<String> pinResult = pinDialog.showAndWait();
+        if (pinResult.isPresent()) {
+            String enteredPin = pinResult.get();
+            String storedPin = Database.getUserPin(tf_username.getText());
+            return enteredPin.equals(storedPin);
+        } else {
+            DBUtils.showAlert("PIN Required", "Please enter your PIN.");
+            return false;
+        }
+    }
+
+    private boolean verifyOTP() {
+        try {
+            System.out.println(account.getEmail());
+            // Generate and send OTP
+            String otp = EmailSender.generateOTP();
+            EmailSender.sendEmail(account.getEmail(), "OTP Verification", "Your OTP is: " + otp);
+
+            // Prompt the user to enter the OTP
+            TextInputDialog otpDialog = new TextInputDialog();
+            otpDialog.setTitle("OTP Verification");
+            otpDialog.setHeaderText("Enter the OTP sent to your email");
+            otpDialog.setContentText("OTP:");
+
+            Optional<String> otpResult = otpDialog.showAndWait();
+            if (otpResult.isPresent()) {
+                String enteredOTP = otpResult.get();
+                if (otp.equals(enteredOTP)) {
+                    return true;
+                } else {
+                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+                    return false;
+                }
+            } else {
+                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+                return false;
+            }
+        } catch (Exception e) {
+            DBUtils.showAlert("OTP Error", "An error occurred while verifying the OTP: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     private void handleOldFormatPassword(javafx.event.ActionEvent event, Account<?> userAccount) {

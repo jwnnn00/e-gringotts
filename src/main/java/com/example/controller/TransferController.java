@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.CurrencyConverter;
 
+import com.example.Database;
 import com.example.EmailSender;
 import com.example.Transaction;
 import com.example.controller.MarauderMapController;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
@@ -34,6 +36,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import static com.example.controller.DBUtils.showAlert;
 
 public class TransferController extends HomeController implements Initializable {
 
@@ -236,28 +240,34 @@ public class TransferController extends HomeController implements Initializable 
 
         @FXML
         void proceedToPayment(ActionEvent event) {
+            boolean pinVerified = promptForPin();
 
-            if (balance1 >= totalAmount) {
-                balance1 -= totalAmount;
-                balance2 += exchangeAmount;
-                updateBalanceInDatabase(balance1, loggedInUsername );
-                updateBalanceInDatabase(balance2, friendName);
-                transactionHistory1(loggedInUsername, friendName);
-                transactionHistory2(friendName, loggedInUsername);
+            if(pinVerified) {
 
-                sendTransferNotification(loggedInAccount.getEmail());
+                if (balance1 >= totalAmount) {
+                    balance1 -= totalAmount;
+                    balance2 += exchangeAmount;
+                    updateBalanceInDatabase(balance1, loggedInUsername);
+                    updateBalanceInDatabase(balance2, friendName);
+                    transactionHistory1(loggedInUsername, friendName);
+                    transactionHistory2(friendName, loggedInUsername);
+
+                    sendTransferNotification(loggedInAccount.getEmail());
 
 //                Transaction transaction = createTransactionObject(); // You need to implement this method
 //                displayReceipt(transaction);
 
 
-            } else {
-                // Show insufficient balance message
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Insufficient Balance");
-                alert.setHeaderText(null);
-                alert.setContentText("Insufficient balance. Please add funds to your account.");
-                alert.showAndWait();
+                } else {
+                    // Show insufficient balance message
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Insufficient Balance");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Insufficient balance. Please add funds to your account.");
+                    alert.showAndWait();
+                }
+            }else{
+                System.out.println("PIN verification failed. Payment aborted.");
             }
         }
 
@@ -440,6 +450,27 @@ public class TransferController extends HomeController implements Initializable 
 
         return transactionId;
 }
+    private boolean promptForPin() {
+        TextInputDialog pinDialog = new TextInputDialog();
+        pinDialog.setTitle("PIN Verification");
+        pinDialog.setHeaderText("Enter your 6-digit PIN");
+        pinDialog.setContentText("PIN:");
 
+        Optional<String> pinResult = pinDialog.showAndWait();
+        if (pinResult.isPresent()) {
+            String enteredPin = pinResult.get();
+            String storedPin = Database.getUserPin(loggedInUsername); // Assuming you have a method to get the stored PIN from the database
+
+            if (enteredPin.equals(storedPin)) {
+                return true; // PIN is correct
+            } else {
+                showAlert("Invalid PIN", "The entered PIN is incorrect. Please try again.");
+                return false; // PIN is incorrect
+            }
+        } else {
+            showAlert("PIN Required", "Please enter your PIN.");
+            return false; // PIN is not entered
+        }
+    }
 
     }
