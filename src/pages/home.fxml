@@ -30,7 +30,7 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" onAction="#openUserProfile" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
+            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" onAction="#checkBalance" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>
