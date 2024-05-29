@@ -83,9 +83,9 @@
                         <Font name="Segoe Fluent Icons" size="15.0" />
                      </font>
                   </Button>
-                  <HBox alignment="CENTER" spacing="100.0">
+                  <HBox alignment="CENTER" spacing="30.0">
                      <children>
-                        <Button fx:id="button_register" mnemonicParsing="false" onAction="#signUp" prefHeight="29.0" prefWidth="117.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Create Account" textFill="WHITE">
+                        <Button fx:id="button_register" mnemonicParsing="false" onAction="#signUp" prefHeight="29.0" prefWidth="126.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Create Account" textFill="WHITE">
                            <font>
                               <Font name="Optima Bold" size="14.0" />
                            </font>
@@ -93,7 +93,15 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Need help?" textFill="WHITE">
+                        <Button fx:id="button_forgotPassword" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Forget Password" textFill="WHITE">
+                           <font>
+                              <Font name="Optima Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="109.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Need help?" textFill="WHITE">
                            <font>
                               <Font name="Optima Bold" size="14.0" />
                            </font>

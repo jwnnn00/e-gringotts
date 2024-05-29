@@ -149,7 +149,7 @@ public class HomeController implements Initializable {
 
     public void initializeLoggedInPage(Account<?> userAccount) {
         this.userAccount = userAccount;
-        System.out.println(userAccount.getUserType());
+        //System.out.println(userAccount.getUserType());
         button_userProfile.setText(userAccount.getUsername());
 
         String avatarPath = "file:///" + userAccount.getAvatar().getImagePath(); // Replace 'getAvatarPath' with the actual method name to retrieve the avatar path from your Account class

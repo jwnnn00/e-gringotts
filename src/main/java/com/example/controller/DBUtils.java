@@ -28,9 +28,6 @@ public class DBUtils {
         try {
             FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
             Parent root = loader.load();
-
-
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle(title);
             stage.setScene(new Scene(root, 1200, 625));

@@ -100,6 +100,11 @@ public class Controller {
         DBUtils.changeScene(event, "/pages/register.fxml", null, null);
     }
 
+    @FXML
+    void forgotPassword(javafx.event.ActionEvent event) {
+        DBUtils.changeScene(event, "/pages/forgot-password-view.fxml", "Forgot Password", null);
+    }
+
     private void sendLoginNotification(String username, String userEmail) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

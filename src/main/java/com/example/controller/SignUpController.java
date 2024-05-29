@@ -32,6 +32,8 @@ public class SignUpController implements Initializable {
     public Button button_login;
     @FXML
     private Button button_register;
+    @FXML
+    private Button button_forgotPassword;
 
     @FXML
     private TextField tf_username;
