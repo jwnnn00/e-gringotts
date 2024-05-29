@@ -39,6 +39,7 @@ public class Controller {
         if (userAccount != null) {
             if (BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
                 handleOTPVerification(event, userAccount);
+
             } else if (userAccount.getPassword().equals(pf_password.getText())) {
                 handleOldFormatPassword(event, userAccount);
             } else {

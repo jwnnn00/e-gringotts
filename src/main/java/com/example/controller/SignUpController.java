@@ -4,7 +4,6 @@ import com.example.Database;
 import com.example.EmailSender;
 import com.example.model.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,13 +14,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -220,13 +217,13 @@ public class SignUpController implements Initializable {
             String cardImagePath;
             switch (userAccount.getUserType()) {
                 case Silver_Snitch:
-                    cardImagePath = "/img/silver_card.png";
+                    cardImagePath = "//silver_card.png";
                     break;
                 case Golden_Galleon:
-                    cardImagePath = "/img/golden_card.png";
+                    cardImagePath = "//golden_card.png";
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "/img/platinum_card.png";
+                    cardImagePath = "//platinum_card.png";
                     cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
                     break;
                 default:

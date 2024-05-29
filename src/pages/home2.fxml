@@ -35,7 +35,7 @@
                   <Font name="Castellar" size="10.0" />
                </font>
             </Button>
-            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
                <font>
                   <Font name="Castellar" size="10.0" />
                </font>

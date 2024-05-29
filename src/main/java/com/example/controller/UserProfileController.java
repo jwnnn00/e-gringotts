@@ -7,26 +7,23 @@ import com.example.model.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 
-
-import java.awt.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
-import static java.awt.Color.white;
-
-public class UserProfileController extends HomeController  implements Initializable {
+public class UserProfileController extends HomeController implements Initializable {
 
     @FXML
     private Button button_logoutUP;
     @FXML
     private Text t_username, t_fullName, t_email, t_phoneNumber, t_address, t_dob, t_currency;
+    @FXML
+    private  Text t_usernameB, t_usertype;
 
     @FXML
     private ImageView i_userAvatar;
@@ -48,13 +45,14 @@ public class UserProfileController extends HomeController  implements Initializa
     private Text t_cardType;
     CardController cardController;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         String username = loggedInAccount.getUsername();
         t_username.setText(username);
+        t_usernameB.setText(username);
+        t_usertype.setText(loggedInAccount.getUserType().toString());
         t_fullName.setText(loggedInAccount.getFullName());
         t_email.setText(loggedInAccount.getEmail());
         t_phoneNumber.setText(loggedInAccount.getPhoneNumber());
@@ -71,9 +69,13 @@ public class UserProfileController extends HomeController  implements Initializa
             Image image = new Image("file:///" + avatarPath);
             i_userAvatar.setImage(image);
         } else {
-
-            Image image = new Image("/img/USER_ICON.png");
-            i_userAvatar.setImage(image);
+            URL avatarUrl = getClass().getResource("/img/USER_ICON.png");
+            if (avatarUrl != null) {
+                Image image = new Image(avatarUrl.toExternalForm());
+                i_userAvatar.setImage(image);
+            } else {
+                System.err.println("Resource not found: /img/USER_ICON.png");
+            }
         }
 
         if (loggedInAccount != null) {
@@ -94,19 +96,18 @@ public class UserProfileController extends HomeController  implements Initializa
             }
 
             // Load card image based on userType
-            String cardImagePath;
-            String textColor;
+            String cardImagePath = "";
             switch (loggedInAccount.getUserType()) {
                 case Silver_Snitch:
                     cardImagePath = "/img/silver_card.png";
                     t_cardType.setFill(Color.BLACK);
                     break;
                 case Golden_Galleon:
-                    cardImagePath = "/img/golden_card.png";
+                    cardImagePath = "/img/gold_card.png";
                     t_cardType.setFill(Color.BLACK);
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "/img/platinumm_card.png";
+                    cardImagePath = "/img/platinum_card.png";
                     t_cardType.setFill(Color.WHITE);
                     t_cardNum.setFill(Color.WHITE);
                     t_cvv.setFill(Color.WHITE);
@@ -118,25 +119,22 @@ public class UserProfileController extends HomeController  implements Initializa
                     t_cardType.setFill(Color.BLACK);
                     break;
             }
-            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
 
+            URL cardImageUrl = getClass().getResource(cardImagePath);
+            if (cardImageUrl != null) {
+                i_cardType.setImage(new Image(cardImageUrl.toExternalForm()));
+            } else {
+                System.err.println("Resource not found: " + cardImagePath);
+            }
 
-            i_cardType.setImage(new javafx.scene.image.Image(cardImagePath));
-            t_balance.setText("$"+String.valueOf(loggedInAccount.getBalance()));
-            t_cardNum.setText(String.valueOf(formattedCardNum));
+            t_balance.setText("$" + loggedInAccount.getBalance());
+            t_cardNum.setText(formattedCardNum.toString());
             t_exp.setText(formattedExpiryDate);
             t_cvv.setText(String.valueOf(card.getCVV()));
             t_cardType.setText(card.getCardType().toString());
-
-
         } else {
             // Handle the case where user data is not found
             System.out.println("User data not found.");
         }
-
-
-
     }
 }
-
-
