@@ -7,213 +7,271 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.UserProfileController">
    <top>
-      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" stylesheets="@header-styles.css">
          <children>
-            <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.90;">
-               <image>
-                  <Image url="@../img/owl_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="31.0" fitWidth="102.0" layoutX="36.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/bar_name_dark.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="button_homeT" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: black;" text="Home" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
-            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
-            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
-            <MenuButton fx:id="button_userProfile" layoutX="1101.0" layoutY="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
-               <items>
-                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
-                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
-               </items>
-               <font>
-                  <Font name="Algerian" size="12.0" />
-               </font>
-            </MenuButton>
-            <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="MarauderMapButton" layoutX="388.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
+            <HBox alignment="CENTER" layoutX="26.0" layoutY="9.0" prefHeight="50.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/owl_icon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="40.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/bar_name_dark.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="44.0" prefWidth="446.0" spacing="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="90.0" text="HOME" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="button_balanceT" mnemonicParsing="false" onAction="#checkBalance" prefHeight="30.0" prefWidth="90.0" text="BALANCE" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="button_historyT" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="90.0" text="HISTORY" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="MarauderMapButton" mnemonicParsing="false" onAction="#toMarauderMap" prefHeight="30.0" prefWidth="146.0" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="1028.0" spacing="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="user_avatar" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                  <MenuButton fx:id="button_userProfile" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: black;" text="Username" textFill="WHITE">
+                     <items>
+                        <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                        <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+                     </items>
+                     <font>
+                        <Font name="Algerian" size="12.0" />
+                     </font>
+                  </MenuButton>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane prefHeight="211.0" prefWidth="694.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="571.0" prefWidth="925.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="user_avatar1" fitHeight="200.0" fitWidth="192.0" layoutX="558.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="185.0" fitWidth="312.0" layoutX="598.0" layoutY="350.0">
+            <ImageView fx:id="user_avatar1" fitHeight="200.0" fitWidth="192.0" layoutX="558.0" layoutY="79.0" pickOnBounds="true" AnchorPane.rightAnchor="50.0" />
+            <ImageView fitHeight="198.0" fitWidth="335.0" layoutX="574.0" layoutY="343.0">
                <image>
                   <Image url="@../img/userprofile_bg.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="61.0" layoutY="43.0" prefHeight="292.0" prefWidth="562.0" style="-fx-background-color: #252525; -fx-background-radius: 15;">
+            <AnchorPane layoutX="61.0" layoutY="43.0" prefHeight="284.0" prefWidth="575.0" style="-fx-background-color: #252525; -fx-background-radius: 15;">
                <children>
-                  <Text fill="WHITE" layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information" wrappingWidth="235.7366180419922">
-                     <font>
-                        <Font name="Courier New Bold" size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="86.93670654296875">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" wrappingWidth="86.93670654296875">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="86.93670654296875">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" wrappingWidth="115.73675537109375">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="115.73675537109375">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" wrappingWidth="115.73675537109375">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITE" layoutX="58.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currency" wrappingWidth="115.73675537109375">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_username" fill="#dbc596" layoutX="277.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_fullName" fill="#dbc596" layoutX="277.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_email" fill="#dbc596" layoutX="277.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_phoneNumber" fill="#dbc596" layoutX="277.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_address" fill="#dbc596" layoutX="277.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_dob" fill="#dbc596" layoutX="277.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="t_currency" fill="#dbc596" layoutX="277.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currency" textAlignment="RIGHT" wrappingWidth="200.0">
-                     <font>
-                        <Font name="Courier New" size="13.0" />
-                     </font>
-                  </Text>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/username_logo.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/fullname_logo.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/email_logo.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/phonenum_logo.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/address_logo.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/dob_logo.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" layoutX="30.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/currency_logo.png" />
-                     </image>
-                  </ImageView>
+                  <VBox layoutX="14.0" layoutY="-2.81787109375" spacing="30.0" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="22.5">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal Information" wrappingWidth="301.7869110107422">
+                           <font>
+                              <Font name="Courier New Bold" size="19.0" />
+                           </font>
+                        </Text>
+                        <HBox spacing="150.0">
+                           <children>
+                              <VBox spacing="15.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/username_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="86.93670654296875">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/fullname_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" wrappingWidth="86.93670654296875">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/email_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="86.93670654296875">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/phonenum_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" wrappingWidth="115.73675537109375">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/address_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" wrappingWidth="115.73675537109375">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/dob_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" wrappingWidth="115.73675537109375">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/currency_logo.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Currency" wrappingWidth="115.73675537109375">
+                                             <font>
+                                                <Font name="Courier New" size="13.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="15.0">
+                                 <children>
+                                    <Text fx:id="t_username" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="t_fullName" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="t_email" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="t_phoneNumber" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="t_address" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="t_dob" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="t_currency" fill="#dbc596" strokeType="OUTSIDE" strokeWidth="0.0" text="Currency" textAlignment="RIGHT" wrappingWidth="200.0">
+                                       <font>
+                                          <Font name="Courier New" size="13.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="126.0" layoutY="357.0" prefHeight="186.0" prefWidth="314.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 15;">
+            <AnchorPane layoutX="126.0" layoutY="357.0" prefHeight="209.0" prefWidth="373.0" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 15;">
                <children>
-                  <ImageView fx:id="i_cardType" fitHeight="235.0" fitWidth="400.0">
+                  <ImageView fx:id="i_cardType" fitHeight="235.0" fitWidth="400.0" layoutY="-21.0">
                      <image>
                         <Image url="@../img/silver_card.png" />
                      </image>
                   </ImageView>
-                  <Text fx:id="t_cardNum" layoutX="67.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000 0000 0000 0000">
+                  <Text fx:id="t_cardNum" layoutX="61.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0000 0000 0000 0000">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Text>
-                  <Text fx:id="t_balance" layoutX="222.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 100.00" wrappingWidth="113.03863525390625">
+                  <Text fx:id="t_balance" layoutX="222.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$ 100.00" wrappingWidth="113.03863525390625">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="25.0" />
                      </font>
                   </Text>
-                  <Text fx:id="t_exp" layoutX="98.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="05/27">
+                  <Text fx:id="t_exp" layoutX="98.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="05/27">
                      <font>
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="t_cvv" layoutX="187.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="123">
+                  <Text fx:id="t_cvv" layoutX="187.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="123">
                      <font>
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Text>
-                  <Text fx:id="t_cardType" layoutX="290.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="66.50091552734375">
+                  <Text fx:id="t_cardType" layoutX="286.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" wrappingWidth="57.809326171875">
                      <font>
                         <Font name="Arial" size="13.0" />
                      </font>
                   </Text>
                </children></AnchorPane>
-            <ImageView fx:id="i_userAvatar" fitHeight="200.0" fitWidth="200.0" layoutX="540.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="i_userAvatar" fitHeight="232.0" fitWidth="200.0" layoutX="540.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0">
                <image>
 
                </image></ImageView>
@@ -223,66 +281,98 @@
    <left>
       <AnchorPane prefHeight="571.0" prefWidth="275.0" style="-fx-background-color: #252525;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#8a8a8a" layoutX="29.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back," wrappingWidth="138.93670272827148">
-               <font>
-                  <Font name="Old English Text MT" size="20.0" />
-               </font>
-            </Text>
-            <Text fx:id="t_usernameB" fill="WHITE" layoutX="29.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="150.93670654296875">
-               <font>
-                  <Font name="Eras Bold ITC" size="22.0" />
-               </font>
-            </Text>
-            <Text fx:id="t_usertype" fill="WHITE" layoutX="29.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERTYPE" wrappingWidth="150.93670654296875">
-               <font>
-                  <Font name="Baskerville Old Face" size="19.0" />
-               </font>
-            </Text>
-            <Text fill="WHITE" layoutX="29.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User" wrappingWidth="150.93670654296875">
-               <font>
-                  <Font name="Bodoni MT Condensed" size="15.0" />
-               </font>
-            </Text>
-            <Button fx:id="button_home" layoutX="60.0" layoutY="238.0" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="55.0" style="-fx-background-color: #252525;" text="Home" textFill="WHITE">
-               <font>
-                  <Font name="Bodoni MT" size="13.0" />
-               </font>
-            </Button>
-            <Button fx:id="button_history" layoutX="60.0" layoutY="277.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #252525;" text="Transaction History" textFill="WHITE">
-               <font>
-                  <Font name="Bodoni MT" size="13.0" />
-               </font>
-            </Button>
-            <Button fx:id="button_transfer" layoutX="60.0" layoutY="318.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #252525;" text="Transfer" textFill="WHITE">
-               <font>
-                  <Font name="Bodoni MT" size="13.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/home_icon.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/history_logo.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="318.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/transfer_logo.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="button_logoutUP" layoutX="51.0" layoutY="496.0" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #252525;" text="Logout" textFill="#8a8a8a">
-               <font>
-                  <Font name="Bodoni MT" size="13.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="30.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/logout_icon.png" />
-               </image>
-            </ImageView>
+            <VBox alignment="TOP_RIGHT" layoutX="29.0" layoutY="49.62000274658203" spacing="70.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Text fill="#8a8a8a" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back," wrappingWidth="138.93670272827148">
+                           <font>
+                              <Font name="Optima Regular" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="t_usernameB" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME" wrappingWidth="150.93670654296875">
+                           <font>
+                              <Font name="Optima Regular" size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <Text fx:id="t_usertype" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="USERTYPE" wrappingWidth="150.93670654296875">
+                           <font>
+                              <Font name="Optima Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User" wrappingWidth="150.93670654296875">
+                           <font>
+                              <Font name="Optima Regular" size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="20.0" stylesheets="@header-styles.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/home_icon.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="55.0" style="-fx-background-color: #252525;" text="Home" textFill="WHITE">
+                                 <font>
+                                    <Font name="Bodoni MT" size="13.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/history_logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="button_history" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #252525;" text="Transaction History" textFill="WHITE">
+                                 <font>
+                                    <Font name="Bodoni MT" size="13.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/transfer_logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="button_transfer" mnemonicParsing="false" onAction="#toMarauderMap" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #252525;" text="Transfer" textFill="WHITE">
+                                 <font>
+                                    <Font name="Bodoni MT" size="13.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" stylesheets="@header-styles.css">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/logout_icon.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="button_logoutUP" mnemonicParsing="false" onAction="#logout" prefHeight="30.0" prefWidth="68.0" style="-fx-background-color: #252525;" text="Logout" textFill="#8a8a8a">
+                           <font>
+                              <Font name="Bodoni MT" size="13.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </left>

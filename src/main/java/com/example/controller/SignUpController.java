@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class SignUpController implements Initializable {
@@ -72,12 +73,29 @@ public class SignUpController implements Initializable {
         String username = tf_username.getText();
         String fullName = tf_fullName.getText();
         String email = tf_email.getText();
+        String password = pf_password.getText();
+        String confirmPassword = pf_confirmPassword.getText();
+        LocalDate dobValue = dob.getValue();
+        String address = tf_address.getText();
+        String phoneNumber = tf_phoneNumber.getText();
+        UserType userType = UserType.Silver_Snitch;
+        UserAvatar userAvatar = new UserAvatar(imagePath, 0L);
+        String currency = cb_currency.getValue();
+
+        // Check if any of the fields is empty
+        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty() ||
+                confirmPassword.isEmpty() || dobValue == null || address.isEmpty() ||
+                phoneNumber.isEmpty() || currency == null) {
+            showAlert("Incomplete Fields", "Please fill in all the required fields.");
+            return;
+        }
+
+
         if (!isValidEmail(email)) {
             showAlert("Invalid Email", "Please enter a valid email address.");
             return;
         }
-        String password = pf_password.getText();
-        String confirmPassword = pf_confirmPassword.getText();
+
         if (!password.equals(confirmPassword)) {
             showAlert("Password Mismatch", "Passwords do not match. Please try again.");
             return;
@@ -88,12 +106,7 @@ public class SignUpController implements Initializable {
             showAlert("Weak Password", "Password must be at least 8 characters long and contain uppercase, lowercase, digit, and special character.");
             return;
         }
-        java.sql.Date dateOfBirth = Date.valueOf(dob.getValue());
-        String address = tf_address.getText();
-        String phoneNumber = tf_phoneNumber.getText();
-        UserType userType = UserType.Silver_Snitch;
-        UserAvatar userAvatar = new UserAvatar(imagePath, 0l);
-        String currency = cb_currency.getValue();
+
 
         String otp = EmailSender.generateOTP();
         EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
@@ -105,10 +118,18 @@ public class SignUpController implements Initializable {
         dialog.setContentText("OTP:");
 
         Optional<String> result = dialog.showAndWait();
+
+        if (dobValue == null) {
+            showAlert("Invalid Date", "Please select a valid date of birth.");
+            return;
+        }
+
+        java.sql.Date dateOfBirth = java.sql.Date.valueOf(dobValue); // Convert LocalDate to java.sql.Date
+
+
         if (result.isPresent()) {
             String enteredOTP = result.get();
             if (otp.equals(enteredOTP)) {
-
                 DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
                 setUserAccount(Database.getUserByUsername(username));
                 loadCardDetails();
@@ -121,8 +142,6 @@ public class SignUpController implements Initializable {
                 DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
                 return; // Stop login process if OTP is not entered
             }
-
-
     }
 
     @Override
@@ -142,7 +161,6 @@ public class SignUpController implements Initializable {
                 currencyValues.add((String) entry.getValue().get("toCurrency"));
             }
         }
-
         return currencyValues;
     }
 
@@ -238,7 +256,7 @@ public class SignUpController implements Initializable {
 
             // Send OTP via email
             String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
-            String subject = "Verification Code for Registration";
+            String subject = "Verification Code for e-Gringotts Registration";
             String body = "Your OTP code is: " + otp;
 
             EmailSender.sendEmail(recipientEmail, subject, body);
@@ -252,5 +270,4 @@ public class SignUpController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }

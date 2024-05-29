@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -13,7 +14,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -22,191 +25,268 @@
 
 <BorderPane accessibleRole="IMAGE_VIEW" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-opacity: 0.90;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DivinationController">
    <top>
-      <AnchorPane prefHeight="943.0" prefWidth="1217.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" stylesheets="@header-styles.css">
          <children>
-            <ImageView fitHeight="689.0" fitWidth="921.0" layoutX="-1.0" layoutY="-65.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/divination_bg.jpg" />
-               </image>
-               <effect>
-                  <BoxBlur />
-               </effect>
-            </ImageView>
-            <Rectangle arcHeight="4.0" arcWidth="1.0" height="42.0" layoutX="1.0" layoutY="-2.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="10.0" width="1200.0" />
-            <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="14.0" layoutY="7.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/owl_icon.png" />
-               </image>
-            </ImageView>
-            <Text fill="#ede9e9" fontSmoothingType="LCD" layoutX="51.0" layoutY="26.0" opacity="0.58" strokeType="OUTSIDE" strokeWidth="0.0" text="Gringotts Bank" textAlignment="CENTER">
-               <font>
-                  <Font name="Bodoni MT Poster Compressed" size="15.0" />
-               </font>
-            </Text>
-            <Button fx:id="button_home" ellipsisString="" layoutX="114.0" layoutY="6.0" mnemonicParsing="false" onAction="#backHome" prefHeight="28.0" prefWidth="62.0" style="-fx-background-color: Black;" text="HOME" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
-            <Button fx:id="checkBalance" ellipsisString="" layoutX="169.0" layoutY="4.0" mnemonicParsing="false" onAction="#checkBalance" onMouseClicked="#handleCheckBalance" prefHeight="31.0" prefWidth="79.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE" AnchorPane.topAnchor="4.0">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
-            <Button fx:id="transactionHistory" ellipsisString="" layoutX="250.0" layoutY="9.0" mnemonicParsing="false" onAction="#getHistory" onMouseClicked="#handleTransactionHistory" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="397.0" fitWidth="319.0" layoutX="5.0" layoutY="225.0" opacity="0.45" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/divination_pic.jpg" />
-               </image>
-            </ImageView>
-            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="79.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenditure Summary">
-               <font>
-                  <Font name="Gill Sans Ultra Bold" size="26.0" />
-               </font>
-            </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a2a2a2" height="102.0" layoutX="44.0" layoutY="123.0" opacity="0.86" stroke="#a2a2a2" strokeType="INSIDE" width="241.0" />
-            <Circle fill="#444242" layoutX="75.0" layoutY="125.0" opacity="0.97" radius="33.0" stroke="#444242" strokeType="INSIDE" />
-            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="54.0" layoutY="101.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/owl_icon.png" />
-               </image>
-            </ImageView>
-            <Text fill="WHITESMOKE" layoutX="55.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="117.84637582302094">
-               <font>
-                  <Font name="HoloLens MDL2 Assets" size="16.0" />
-               </font>
-            </Text>
-            <Text fx:id="showUsername" fill="#88350e" layoutX="142.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0">
-               <font>
-                  <Font name="HoloLens MDL2 Assets" size="17.0" />
-               </font>
-            </Text>
-            <Text fill="WHITESMOKE" layoutX="55.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total expenses :" wrappingWidth="123.26889157295227">
-               <font>
-                  <Font name="HoloLens MDL2 Assets" size="16.0" />
-               </font>
-            </Text>
-            <Text fx:id="showTotal" fill="#88350e" layoutX="169.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0">
-               <font>
-                  <Font name="HoloLens MDL2 Assets" size="17.0" />
-               </font>
-            </Text>
-            <AnchorPane layoutX="338.0" layoutY="175.0" prefHeight="385.0" prefWidth="450.0">
+            <HBox alignment="CENTER" layoutX="26.0" layoutY="9.0" prefHeight="50.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Pane layoutY="-4.0" prefHeight="390.0" prefWidth="445.0">
-                     <children>
-                        <PieChart fx:id="expenditureSummary" minWidth="400.0" minHeight="300.0" prefWidth="400.0" prefHeight="300.0" maxWidth="400.0" maxHeight="300.0"/>
-                     </children></Pane>
-                  <TableView fx:id="showDetails" fixedCellSize="30.0" prefHeight="395.0" prefWidth="449.0" style="-fx-background-color: #a2a2a2;">
-                    <columns>
-                        <TableColumn fx:id="transactionIdColumn" prefWidth="75.0" text="Transaction ID" />
-                      <TableColumn fx:id="AmountColumn" prefWidth="75.0" text="Amount" />
-                        <TableColumn fx:id="DateColumn" prefWidth="75.0" text="Date" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="853.0" layoutY="40.0" prefHeight="585.0" prefWidth="347.0">
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#252525" height="585.0" stroke="#252525" strokeType="INSIDE" width="348.0" />
-                  <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="14.0" layoutY="14.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/filter_icon.png" />
+                        <Image url="@../img/owl_icon.png" />
                      </image>
                   </ImageView>
-                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="48.0" layoutY="33.0" opacity="0.9" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
+                  <ImageView fitHeight="40.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/bar_name_dark.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="44.0" prefWidth="446.0" spacing="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="90.0" text="HOME" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font name="Gill Sans Ultra Bold" size="20.0" />
-                     </font>
-                  </Text>
-                  <Text fill="WHITESMOKE" layoutX="14.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Category" wrappingWidth="117.84637582302094">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="17.0" />
-                     </font>
-                  </Text>
-                  <ToggleButton fx:id="FoodCategory" layoutX="10.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#handleFoodCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Food" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton fx:id="TransportationCategory" layoutX="174.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#handleTransportationCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Transportation" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton fx:id="EntertainmentCategory" layoutX="10.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#handleEntertainmentCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Entertainment" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton fx:id="UtilitiesCategory" layoutX="174.0" layoutY="136.0" mnemonicParsing="false" onMouseClicked="#handleUtilitiesCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Utilites" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton fx:id="ShoppingCategory" layoutX="10.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#handleShoppingCategory" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Shopping" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton fx:id="Others" layoutX="174.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#handleOthers" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Others" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <Text fill="WHITESMOKE" layoutX="14.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Date Range" wrappingWidth="117.84637582302094">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="17.0" />
-                     </font>
-                  </Text>
-                  <DatePicker fx:id="startDate" layoutX="27.0" layoutY="278.0" prefHeight="36.0" prefWidth="126.0" promptText="         START" />
-                  <DatePicker fx:id="endDate" layoutX="184.0" layoutY="278.0" prefHeight="36.0" prefWidth="126.0" promptText="          END" />
-                  <Line endX="-45.0" layoutX="227.0" layoutY="296.0" opacity="0.56" startX="-71.6666259765625" strokeWidth="5.0" />
-                  <ToggleButton fx:id="dateRange" layoutX="14.0" layoutY="335.0" minWidth="53.0" mnemonicParsing="false" onMouseClicked="#handleDateRange" prefHeight="32.0" prefWidth="309.0" style="-fx-background-color: #a2a2a2; -fx-background-radius: 30;" text="Apply" />
-                  <Text fill="WHITESMOKE" layoutX="14.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Payment Method" wrappingWidth="167.84637582302094">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="17.0" />
-                     </font>
-                  </Text>
-                  <ToggleButton fx:id="Credit" layoutX="17.0" layoutY="427.0" mnemonicParsing="false" onMouseClicked="#handleCredit" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Credit" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <ToggleButton fx:id="Debit" layoutX="174.0" layoutY="427.0" mnemonicParsing="false" onMouseClicked="#handleDebit" prefHeight="36.0" prefWidth="145.0" style="-fx-background-radius: 20; -fx-background-color: #a2a2a2;" text="Debit" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
-                     </font>
-                  </ToggleButton>
-                  <Button fx:id="refresh" layoutX="112.0" layoutY="520.0" mnemonicParsing="false" onMouseClicked="#refreshDetails" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #686e11;" text="Refresh" textFill="WHITE">
-                     <font>
-                        <Font name="HoloLens MDL2 Assets" size="15.0" />
+                        <Font size="10.0" />
                      </font>
                   </Button>
-               </children></AnchorPane>
-            <MenuButton fx:id="button_userProfile" layoutX="1097.0" layoutY="7.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
-               <items>
-                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
-                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
-               </items>
-               <font>
-                  <Font name="Algerian" size="12.0" />
-               </font>
-            </MenuButton>
-            <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1044.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="MarauderMapButton" layoutX="323.0" layoutY="3.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Castellar" size="10.0" />
-               </font>
-            </Button>
+                  <Button fx:id="button_balanceT" mnemonicParsing="false" onAction="#checkBalance" prefHeight="30.0" prefWidth="90.0" text="BALANCE" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="button_historyT" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="90.0" text="HISTORY" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="MarauderMapButton" mnemonicParsing="false" onAction="#toMarauderMap" prefHeight="30.0" prefWidth="146.0" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="1028.0" spacing="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="user_avatar" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                  <MenuButton fx:id="button_userProfile" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: black;" text="Username" textFill="WHITE">
+                     <items>
+                        <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                        <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+                     </items>
+                     <font>
+                        <Font name="Algerian" size="12.0" />
+                     </font>
+                  </MenuButton>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>
+   <center>
+      <AnchorPane prefHeight="703.0" prefWidth="1312.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <children>
+               <ImageView fitHeight="571.0" fitWidth="1200.0" layoutX="-1.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <image>
+                     <Image url="@../img/divination_bg.jpg" />
+                  </image>
+                  <effect>
+                     <BoxBlur />
+                  </effect>
+               </ImageView>
+               <ImageView fitHeight="358.0" fitWidth="318.0" layoutX="5.0" layoutY="225.0" opacity="0.45" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0">
+                  <image>
+                     <Image url="@../img/divination_pic.jpg" />
+                  </image>
+               </ImageView>
+               <Text fill="WHITE" fontSmoothingType="LCD" layoutX="42.0" layoutY="79.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Expenditure Summary">
+                  <font>
+                     <Font name="Optima ExtraBlack" size="26.0" />
+                  </font>
+               </Text>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a2a2a2" height="102.0" layoutX="44.0" layoutY="123.0" opacity="0.86" stroke="#a2a2a2" strokeType="INSIDE" width="241.0" />
+               <Circle fill="#444242" layoutX="75.0" layoutY="125.0" opacity="0.97" radius="33.0" stroke="#444242" strokeType="INSIDE" />
+               <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="54.0" layoutY="101.0" opacity="0.53" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../img/owl_icon.png" />
+                  </image>
+               </ImageView>
+            <HBox layoutX="55.0" layoutY="167.26400756835938" spacing="10.0">
+               <children>
+                     <Text fill="WHITESMOKE" strokeType="OUTSIDE" strokeWidth="0.0" text="Username :" wrappingWidth="117.84637582302094">
+                        <font>
+                           <Font name="Optima Bold" size="16.0" />
+                        </font>
+                     </Text>
+                     <Text fx:id="showUsername" fill="#88350e" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font>
+                           <Font name="Optima Bold" size="16.0" />
+                        </font>
+                     </Text>
+               </children>
+            </HBox>
+            <HBox layoutX="55.0" layoutY="196.26400756835938" spacing="10.0">
+               <children>
+                     <Text fill="WHITESMOKE" strokeType="OUTSIDE" strokeWidth="0.0" text="Total expenses :" wrappingWidth="123.26889157295227">
+                        <font>
+                           <Font name="Optima Bold" size="16.0" />
+                        </font>
+                     </Text>
+                     <Text fx:id="showTotal" fill="#88350e" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <font>
+                           <Font name="Optima Bold" size="16.0" />
+                        </font>
+                     </Text>
+               </children>
+            </HBox>
+               <AnchorPane layoutX="338.0" layoutY="177.0" prefHeight="344.0" prefWidth="450.0">
+                  <children>
+                     <Pane layoutY="-50.0" prefHeight="390.0" prefWidth="445.0">
+                        <children>
+                           <PieChart fx:id="expenditureSummary" maxHeight="300.0" maxWidth="400.0" minHeight="300.0" minWidth="400.0" prefHeight="300.0" prefWidth="400.0" />
+                        </children></Pane>
+                     <TableView fx:id="showDetails" fixedCellSize="30.0" layoutY="-49.0" prefHeight="395.0" prefWidth="449.0" style="-fx-background-color: #a2a2a2;">
+                        <columns>
+                           <TableColumn fx:id="transactionIdColumn" prefWidth="75.0" text="Transaction ID" />
+                           <TableColumn fx:id="AmountColumn" prefWidth="75.0" text="Amount" />
+                           <TableColumn fx:id="DateColumn" prefWidth="75.0" text="Date" />
+                        </columns>
+                        <columnResizePolicy>
+                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                     </TableView>
+                  </children>
+               </AnchorPane>
+               <AnchorPane layoutX="853.0" layoutY="40.0" prefHeight="571.0" prefWidth="347.0" style="-fx-background-color: #252525;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="14.0" spacing="30.0" stylesheets="@divinationButton-styles.css" AnchorPane.bottomAnchor="28.25" AnchorPane.leftAnchor="18.5" AnchorPane.rightAnchor="18.5" AnchorPane.topAnchor="28.25">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                           <children>
+                                 <ImageView fitHeight="28.0" fitWidth="25.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@../img/filter_icon.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Text fill="WHITE" fontSmoothingType="LCD" opacity="0.9" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
+                                    <font>
+                                       <Font name="Optima Bold" size="16.0" />
+                                    </font>
+                                 </Text>
+                           </children>
+                        </HBox>
+                        <VBox spacing="10.0">
+                           <children>
+                                 <Text fill="WHITESMOKE" strokeType="OUTSIDE" strokeWidth="0.0" text="By Category" wrappingWidth="117.84637582302094">
+                                    <font>
+                                       <Font name="Optima Bold" size="16.0" />
+                                    </font>
+                                 </Text>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <HBox spacing="20.0">
+                                       <children>
+                                             <ToggleButton fx:id="FoodCategory" mnemonicParsing="false" onMouseClicked="#handleFoodCategory" prefHeight="36.0" prefWidth="145.0" text="Food" textFill="WHITE">
+                                                <font>
+                                                   <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                                </font>
+                                             </ToggleButton>
+                                             <ToggleButton fx:id="TransportationCategory" mnemonicParsing="false" onMouseClicked="#handleTransportationCategory" prefHeight="36.0" prefWidth="145.0" text="Transportation" textFill="WHITE">
+                                                <font>
+                                                   <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                                </font>
+                                             </ToggleButton>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="20.0">
+                                       <children>
+                                             <ToggleButton fx:id="EntertainmentCategory" mnemonicParsing="false" onMouseClicked="#handleEntertainmentCategory" prefHeight="36.0" prefWidth="145.0" text="Entertainment" textFill="WHITE">
+                                                <font>
+                                                   <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                                </font>
+                                             </ToggleButton>
+                                             <ToggleButton fx:id="UtilitiesCategory" mnemonicParsing="false" onMouseClicked="#handleUtilitiesCategory" prefHeight="36.0" prefWidth="145.0" text="Utilites" textFill="WHITE">
+                                                <font>
+                                                   <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                                </font>
+                                             </ToggleButton>
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="20.0">
+                                       <children>
+                                             <ToggleButton fx:id="ShoppingCategory" mnemonicParsing="false" onMouseClicked="#handleShoppingCategory" prefHeight="36.0" prefWidth="145.0" text="Shopping" textFill="WHITE">
+                                                <font>
+                                                   <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                                </font>
+                                             </ToggleButton>
+                                             <ToggleButton fx:id="Others" mnemonicParsing="false" onMouseClicked="#handleOthers" prefHeight="36.0" prefWidth="145.0" text="Others" textFill="WHITE">
+                                                <font>
+                                                   <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                                </font>
+                                             </ToggleButton>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                           <children>
+                                 <Text fill="WHITESMOKE" strokeType="OUTSIDE" strokeWidth="0.0" text="By Date Range" wrappingWidth="117.84637582302094">
+                                    <font>
+                                       <Font name="Optima Bold" size="16.0" />
+                                    </font>
+                                 </Text>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                             <DatePicker fx:id="startDate" prefHeight="36.0" prefWidth="130.0" promptText="         START" />
+                                             <Line endX="-45.0" opacity="0.56" startX="-71.6666259765625" strokeWidth="5.0" />
+                                             <DatePicker fx:id="endDate" prefHeight="36.0" prefWidth="130.0" promptText="          END" />
+                                       </children>
+                                    </HBox>
+                                       <ToggleButton fx:id="dateRange" minWidth="53.0" mnemonicParsing="false" onMouseClicked="#handleDateRange" prefHeight="32.0" prefWidth="309.0" text="Apply" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0">
+                           <children>
+                                 <Text fill="WHITESMOKE" strokeType="OUTSIDE" strokeWidth="0.0" text="By Payment Method" wrappingWidth="167.84637582302094">
+                                    <font>
+                                       <Font name="Optima Bold" size="16.0" />
+                                    </font>
+                                 </Text>
+                              <HBox spacing="20.0">
+                                 <children>
+                                       <ToggleButton fx:id="Credit" mnemonicParsing="false" onMouseClicked="#handleCredit" prefHeight="36.0" prefWidth="145.0" text="Credit" textFill="WHITE">
+                                          <font>
+                                             <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                          </font>
+                                       </ToggleButton>
+                                       <ToggleButton fx:id="Debit" mnemonicParsing="false" onMouseClicked="#handleDebit" prefHeight="36.0" prefWidth="145.0" text="Debit" textFill="WHITE">
+                                          <font>
+                                             <Font name="HoloLens MDL2 Assets" size="15.0" />
+                                          </font>
+                                       </ToggleButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                           <Button fx:id="refresh" mnemonicParsing="false" onMouseClicked="#refreshDetails" prefHeight="39.0" prefWidth="137.0" stylesheets="@divinationButton-styles.css" text="Refresh" textFill="WHITE">
+                              <font>
+                                 <Font name="HoloLens MDL2 Assets" size="15.0" />
+                              </font>
+                           </Button>
+                     </children>
+                  </VBox>
+                  </children>
+               </AnchorPane>
+            </children>
+         <stylesheets>
+            <URL value="@text-styles.css" />
+            <URL value="@divinationButton-styles.css" />
+         </stylesheets>
+      </AnchorPane>
+   </center>
 </BorderPane>

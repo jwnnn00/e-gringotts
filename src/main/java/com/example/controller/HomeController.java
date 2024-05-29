@@ -65,6 +65,7 @@ public class HomeController implements Initializable {
 
     @FXML
     public ImageView user_avatar;
+
     @FXML
     private Button button_changeCurrency;
 
@@ -91,6 +92,7 @@ public class HomeController implements Initializable {
         userChart = new BarChart<>(x_numberOfUser, y_typeOfUser);
 
     }
+
 
     @FXML
     private void backHome() {
@@ -168,7 +170,6 @@ public class HomeController implements Initializable {
                 button_next.setVisible(false);
             }
         }
-
     }
 
 
@@ -198,7 +199,6 @@ public class HomeController implements Initializable {
         DBUtils.changeSceneWithData(menuButton, "/pages/userProfile.fxml", "User Profile", userAccount);
     }
 
-
     @FXML
     private void logout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -226,16 +226,16 @@ public class HomeController implements Initializable {
         DBUtils.changeSceneWithData(event, "/pages/TransactionHistoryAdmin-view.fxml", "Get number Of Transaction", userAccount);
     }
 
-    public void toMaurauderMap(ActionEvent event) {
-        DBUtils.changeSceneWithData(event, "/pages/MarauderMap-view.fxml", "Get number Of Transaction", userAccount);
+    public void toMarauderMap(ActionEvent event) {
+        DBUtils.changeSceneWithData(event, "/pages/MarauderMap-view.fxml", "Marauder's Map", userAccount);
     }
 
     public void getHistory(ActionEvent event) {
-        DBUtils.changeSceneWithData(event, "/pages/TransactionHistory-view.fxml", "Get number Of Transaction", userAccount);
+        DBUtils.changeSceneWithData(event, "/pages/TransactionHistory-view.fxml", "Transaction History", userAccount);
     }
 
     public void checkBalance(ActionEvent event){
-        DBUtils.changeSceneWithData(event, "/pages/userProfile.fxml", "Get number Of Transaction", userAccount);
+        DBUtils.changeSceneWithData(event, "/pages/userProfile.fxml", "User Profile", userAccount);
 
     }
 

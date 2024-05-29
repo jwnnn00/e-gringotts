@@ -21,56 +21,60 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.TransactionHistoryController">
    <top>
-      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" stylesheets="@header-styles.css">
          <children>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <HBox alignment="CENTER" layoutX="26.0" layoutY="9.0" prefHeight="50.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/owl_icon.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="28.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/bar_name_dark.png" />
                      </image>
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" layoutX="172.0" layoutY="8.0" prefHeight="35.0" prefWidth="446.0" spacing="10.0">
+            <HBox alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="44.0" prefWidth="446.0" spacing="10.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: BLACK;" text="HOME" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="90.0" text="HOME" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="button_balanceT" mnemonicParsing="false" onAction="#checkBalance" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: BLACK;" text="BALANCE" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_balanceT" mnemonicParsing="false" onAction="#checkBalance" prefHeight="30.0" prefWidth="90.0" text="BALANCE" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #3C361A;" text="HISTORY" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_historyT" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="90.0" text="HISTORY" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
-                  <Button fx:id="MarauderMapButton" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="MarauderMapButton" mnemonicParsing="false" onAction="#toMarauderMap" prefHeight="30.0" prefWidth="146.0" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <MenuButton fx:id="button_userProfile" layoutX="1087.0" layoutY="9.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
-               <items>
-                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
-                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
-               </items>
-               <font>
-                  <Font name="Algerian" size="12.0" />
-               </font>
-            </MenuButton>
-            <ImageView fx:id="user_avatar" fitHeight="36.0" fitWidth="41.0" layoutX="1046.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox alignment="CENTER" layoutX="1028.0" spacing="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="user_avatar" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                  <MenuButton fx:id="button_userProfile" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: black;" text="Username" textFill="WHITE">
+                     <items>
+                        <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                        <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+                     </items>
+                     <font>
+                        <Font name="Algerian" size="12.0" />
+                     </font>
+                  </MenuButton>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </top>
