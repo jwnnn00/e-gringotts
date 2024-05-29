@@ -56,7 +56,7 @@ public class ForgotPasswordController {
         if (userDAO.emailExists(email)) {
             // Generate OTP and send it to the user's email
             String otp = EmailSender.generateOTP();
-            EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
+            EmailSender.sendEmail(email, "OTP Verification for Password Reset", "Your OTP is: " + otp);
 
             // Prompt the user to enter the OTP
             TextInputDialog dialog = new TextInputDialog();
