@@ -29,10 +29,14 @@ public class Controller {
     private Stage stage;
     private Scene scene;
 
+    private final Database db = new Database();
+    private Account<?> account;
+
+
     @FXML
     void login(javafx.event.ActionEvent event) {
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
-
+account=userAccount;
         if (userAccount != null) {
             //System.out.println("User found: " + userAccount.getUsername());
             //System.out.println("Stored password hash: " + userAccount.getPassword());
@@ -71,7 +75,46 @@ public class Controller {
     }
 
     private void handleOTPVerification(javafx.event.ActionEvent event, Account<?> userAccount) {
-        String otp = EmailSender.generateOTP();
+
+        if (verifyOTP()) {
+            if (verifyPin()) {
+                AccountHolder.getInstance().setUser(userAccount);
+                sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
+                String userType = String.valueOf(userAccount.getUserType());
+                System.out.println(userType);
+                if(userType.equals("Goblin")){
+                    DBUtils.changeSceneWithData(event, "/pages/home3.fxml", "Goblin Home", userAccount);
+                }else{
+                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
+                }
+            } else {
+
+                DBUtils.showAlert("Invalid PIN", "The entered PIN is incorrect. Please try again.");
+        } else {
+            DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+        }
+    }
+
+    private boolean verifyPin() {
+        TextInputDialog pinDialog = new TextInputDialog();
+        pinDialog.setTitle("PIN Verification");
+        pinDialog.setHeaderText("Enter your PIN");
+        pinDialog.setContentText("PIN:");
+
+        Optional<String> pinResult = pinDialog.showAndWait();
+        if (pinResult.isPresent()) {
+            String enteredPin = pinResult.get();
+            String storedPin = Database.getUserPin(tf_username.getText());
+            return enteredPin.equals(storedPin);
+        } else {
+            DBUtils.showAlert("PIN Required", "Please enter your PIN.");
+            return false;
+        }
+    }
+
+    private boolean verifyOTP() {
+        try {
+           String otp = EmailSender.generateOTP();
         LocalDateTime otpTime = EmailSender.generateOTPTime();
 
         String subject = "OTP Verification Code for Secure Login";
@@ -85,31 +128,32 @@ public class Controller {
                 + "Gringotts Bank Support Team\n";
 
         EmailSender.sendEmail(userAccount.getEmail(), subject, body);
+     
+            // Prompt the user to enter the OTP
+            TextInputDialog otpDialog = new TextInputDialog();
+            otpDialog.setTitle("OTP Verification");
+            otpDialog.setHeaderText("Enter the OTP sent to your email");
+            otpDialog.setContentText("OTP:");
 
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("OTP Verification");
-        dialog.setHeaderText("Enter the OTP sent to your email");
-        dialog.setContentText("OTP:");
-
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            String enteredOTP = result.get();
-            if (isValidOTP(enteredOTP, otpTime)) {
-                AccountHolder.getInstance().setUser(userAccount);
-                sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
-                String userType = String.valueOf(userAccount.getUserType());
-                System.out.println(userType);
-                if(userType.equals("Goblin")){
-                    DBUtils.changeSceneWithData(event, "/pages/home3.fxml", "Goblin Home", userAccount);
-                }else{
-                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
+            Optional<String> otpResult = otpDialog.showAndWait();
+            if (otpResult.isPresent()) {
+                String enteredOTP = otpResult.get();
+                if (otp.equals(enteredOTP)) {
+                    return true;
+                } else {
+                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+                    return false;
                 }
             } else {
-                showAlert("Invalid OTP", "The entered OTP is incorrect or has expired. Please try again.", "");
+                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+                return false;
             }
-        } else {
-            showAlert("OTP Required", "Please enter the OTP sent to your email.", "");
+        } catch (Exception e) {
+            DBUtils.showAlert("OTP Error", "An error occurred while verifying the OTP: " + e.getMessage());
+            e.printStackTrace();
+            return false;
         }
+
     }
 
     private void handleOldFormatPassword(javafx.event.ActionEvent event, Account<?> userAccount) {

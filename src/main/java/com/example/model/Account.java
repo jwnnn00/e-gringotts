@@ -30,8 +30,9 @@ public class Account <E>{
     private UserAvatar avatar;
     private String currency;
     private double balance;
+    private String pin;
 
-    public Account(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, String currency,double balance) {
+    public Account(Long userId, String username, String fullName,String email, String password, Date dateOfBirth, String address, String phoneNumber,Card card, UserType userType, UserAvatar avatar, String currency,double balance, String pin) {
         this.userId = userId;
         this.username = username;
         this.fullName=fullName;
@@ -45,6 +46,7 @@ public class Account <E>{
         this.avatar=avatar;
         this.currency=currency;
         this.balance=balance;
+        this.pin=pin;
     }
 
     public Account() {
@@ -55,7 +57,7 @@ public class Account <E>{
         return transactionCount;
     }
 
-    public Account(Long userId, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency,double balance) {
+    public Account(Long userId, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency,double balance, String pin) {
         this.userId = userId;
         this.username = username;
         this.fullName=fullName;
@@ -68,6 +70,7 @@ public class Account <E>{
         this.avatar=userAvatar;
         this.currency=currency;
         this.balance=balance;
+        this.pin=pin;
 
     }
 
@@ -205,4 +208,8 @@ public class Account <E>{
         password = null;
         check = false;
     }
+
+    public String getPin(){return pin;}
+
+    public void setPin(String pin){this.pin=pin;}
 }

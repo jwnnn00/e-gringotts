@@ -70,6 +70,7 @@ public class SignUpController implements Initializable {
     public Account<?> userAccount;
 
 
+
     @FXML
     void register(javafx.event.ActionEvent event) throws IOException {
         String username = tf_username.getText();
@@ -135,17 +136,50 @@ public class SignUpController implements Initializable {
                 DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
                 setUserAccount(Database.getUserByUsername(username));
                 loadCardDetails();
+
                 return;
+            }
+            java.sql.Date dateOfBirth = Date.valueOf(dob.getValue());
+            String address = tf_address.getText();
+            String phoneNumber = tf_phoneNumber.getText();
+            UserType userType = UserType.Silver_Snitch;
+            UserAvatar userAvatar = new UserAvatar(imagePath, 0l);
+            String currency = cb_currency.getValue();
+
+            String otp = EmailSender.generateOTP();
+            EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
+
+            // Prompt the user to enter the OTP
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("OTP Verification");
+            dialog.setHeaderText("Enter the OTP sent to your email");
+            dialog.setContentText("OTP:");
+
+
+
+            Optional<String> otpResult = dialog.showAndWait();
+
+            if (otpResult.isPresent()) {
+                String enteredOTP = otpResult.get();
+                if (otp.equals(enteredOTP)) {
+                    // Prompt for PIN
+                    String pin = promptForPin();
+                    if (pin == null) {
+                        return; // Stop registration if PIN setup was cancelled or invalid
+                    }
+
+                    // Proceed with account creation
+                    DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency, pin);
+                    setUserAccount(Database.getUserByUsername(username));
+                    loadCardDetails();
                 } else {
                     DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
-                    return; // Stop login process if OTP is incorrect
                 }
             } else {
                 DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
-                return; // Stop login process if OTP is not entered
             }
-    }
-
+        }
+      
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Set<String> currencyOptions = fetchUniqueCurrencyValues();
@@ -270,6 +304,29 @@ public class SignUpController implements Initializable {
             popupStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+    }
+
+    private String promptForPin() {
+        while (true) {
+            TextInputDialog pinDialog = new TextInputDialog();
+            pinDialog.setTitle("PIN Setup");
+            pinDialog.setHeaderText("Set your 6-digit PIN");
+            pinDialog.setContentText("PIN:");
+
+            Optional<String> pinResult = pinDialog.showAndWait();
+            if (pinResult.isPresent()) {
+                String pin = pinResult.get();
+                if (pin.matches("\\d{6}")) {
+                    return pin; // Return valid PIN
+                } else {
+                    showAlert("Invalid PIN", "PIN must be exactly 6 digits. Please try again.");
+                }
+            } else {
+                showAlert("PIN Required", "You must set a 6-digit PIN to complete registration.");
+                return null; // Return null if PIN setup was cancelled
+            }
         }
     }
 }
