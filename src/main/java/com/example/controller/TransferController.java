@@ -19,12 +19,16 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
+import javafx.scene.image.WritableImage;
 import javafx.scene.text.Text;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -256,6 +260,7 @@ public class TransferController extends HomeController implements Initializable 
 
 //                Transaction transaction = createTransactionObject(); // You need to implement this method
 //                displayReceipt(transaction);
+//                displayReceiptAndSendEmail(createTransactionObject(), loggedInAccount.getEmail());
 
 
                 } else {
@@ -317,6 +322,68 @@ public class TransferController extends HomeController implements Initializable 
             stage.setScene(new Scene(root));
             stage.setTitle("Transaction Receipt");
             stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayReceiptAndSendEmail(Transaction transaction, String recipientEmail) {
+        try {
+            // Load the Receipt.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller
+            ReceiptController receiptController = loader.getController();
+
+            // Set the transaction details
+            receiptController.setTransactionDetails(transaction);
+
+            // Create a new stage for the receipt
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Transaction Receipt");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Generate image receipt (optional)
+        generateImageReceipt(transaction);
+
+        // Send email with attachments
+        String subject = "Transaction Receipt";
+        String body = "Dear user,\n\nPlease find your transaction receipt attached.\n\nThank you for using Gringotts Bank.";
+        String attachmentImagePath = "receipts/" + transaction.getTransactionId() + ".png";
+        System.out.println(attachmentImagePath);
+        EmailSender.sendEmailWithAttachments(recipientEmail, subject, body, attachmentImagePath);
+    }
+
+
+    public void generateImageReceipt(Transaction transaction) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            // Take snapshot of the scene
+            WritableImage writableImage = scene.snapshot(null);
+
+            // Convert to BufferedImage
+            int width = (int) writableImage.getWidth();
+            int height = (int) writableImage.getHeight();
+            javafx.scene.image.PixelReader pixelReader = writableImage.getPixelReader();
+            java.awt.image.BufferedImage bufferedImage = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int argb = pixelReader.getArgb(x, y);
+                    bufferedImage.setRGB(x, y, argb);
+                }
+            }
+
+            // Write BufferedImage to file
+            ImageIO.write(bufferedImage, "png", new File("receipts/" + transaction.getTransactionId() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -411,7 +478,8 @@ public class TransferController extends HomeController implements Initializable 
                 transaction.setCategory(Transaction.Category.valueOf(category));
 
                 // Display the receipt
-                displayReceipt(transaction);
+                //displayReceipt(transaction);
+                displayReceiptAndSendEmail(transaction, loggedInAccount.getEmail());
             } else {
                 System.out.println("Failed to record transaction.");
             }
@@ -449,7 +517,10 @@ public class TransferController extends HomeController implements Initializable 
         }
 
         return transactionId;
+    
 }
+
+
     private boolean promptForPin() {
         TextInputDialog pinDialog = new TextInputDialog();
         pinDialog.setTitle("PIN Verification");
@@ -474,3 +545,4 @@ public class TransferController extends HomeController implements Initializable 
     }
 
     }
+

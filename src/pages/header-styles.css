@@ -1,0 +1,47 @@
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-border-radius: 1px; /* Rounded corners */
+    -fx-background-radius: 1px; /* Background rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0, 0, 0);
+    -fx-transition: transform 0.3s ease;
+    -fx-font-family: "Optima";
+}
+
+.button:hover {
+    -fx-background-color: #3C361A;
+    -fx-text-fill: #946B2D;
+    -fx-border-color: #946B2D;
+    -fx-border-width: 1px;
+}
+
+.menu-button {
+/*    -fx-background-color: black;
+    -fx-font-family: "Optima";*/
+    -fx-cursor: hand;
+/*    -fx-text-fill: white;
+    -fx-font-size: 13px;*/
+    -fx-padding: 8px 12px; /* Add padding for better visual */
+}
+
+.menu-button:hover {
+    -fx-background-color: #3C361A;
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-font-family: "Optima";
+    -fx-cursor: hand;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px; /* Add padding for better visual */
+    -fx-margin: 0; /* Ensure no margin */
+}
+
+.menu-item:focused {
+    -fx-background-color: #3C361A; /* Corrected background color on focus */
+    /* -fx-text-fill: black; Remove this line if not needed */
+}
