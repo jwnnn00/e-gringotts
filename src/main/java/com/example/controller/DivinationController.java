@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
@@ -88,7 +89,8 @@ public class DivinationController extends HomeController implements Initializabl
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-
+    // Define date and time format
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
         AccountHolder holder = AccountHolder.getInstance();
@@ -108,6 +110,20 @@ public class DivinationController extends HomeController implements Initializabl
         transactionIdColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Integer>("transactionId"));
         AmountColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("amount"));
         DateColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transactionDate"));
+        //DateColumn.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDateTime>("transactionDate"));
+
+        // Set a cell factory to format the LocalDateTime value
+        DateColumn.setCellFactory(column -> new TableCell<Transaction, LocalDate>() {
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.format(FORMATTER));
+                }
+            }
+        });
 
         showDetails.setVisible(false);
     }

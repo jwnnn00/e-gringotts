@@ -1,0 +1,51 @@
+#register {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+#register .viewport {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane {
+    -fx-background: #6E5433;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background: #6E5433;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: #6E5433;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #372e29;
+    -fx-background-radius: 10px;
+    -fx-padding: 1px;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.3), 6, 0.0, 0, 0);
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: #6E5433;
+    -fx-background-radius: 10px;
+    -fx-padding: 0;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.3), 6, 0.0, 0, 0);
+}

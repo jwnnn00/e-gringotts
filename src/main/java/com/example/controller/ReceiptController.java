@@ -3,8 +3,15 @@ package com.example.controller;
 import com.example.Transaction;
 import com.example.TransactionDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.WritableImage;
 import javafx.scene.text.Text;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
 public class ReceiptController {
@@ -49,6 +56,33 @@ public class ReceiptController {
         amount_text.setText(String.valueOf(transaction.getAmount()));
     }
 
+    public void generateImageReceipt(Transaction transaction) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
 
+            // Take snapshot of the scene
+            WritableImage writableImage = scene.snapshot(null);
+
+            // Convert to BufferedImage
+            int width = (int) writableImage.getWidth();
+            int height = (int) writableImage.getHeight();
+            javafx.scene.image.PixelReader pixelReader = writableImage.getPixelReader();
+            java.awt.image.BufferedImage bufferedImage = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int argb = pixelReader.getArgb(x, y);
+                    bufferedImage.setRGB(x, y, argb);
+                }
+            }
+
+            // Write BufferedImage to file
+            ImageIO.write(bufferedImage, "png", new File("receipts/" + transaction.getTransactionId() + ".png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
