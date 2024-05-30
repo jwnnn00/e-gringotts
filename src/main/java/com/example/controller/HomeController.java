@@ -84,6 +84,7 @@ public class HomeController implements Initializable {
 
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
+        userAccount=loggedInAccount;
         initializeLoggedInPage(loggedInAccount);
 
         /*t_totalNumOfUser = new Text();
@@ -93,8 +94,13 @@ public class HomeController implements Initializable {
 
     }
 
+    @FXML
     public void backHome(ActionEvent event) {
-        DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
+        if (userAccount.getUserType().equals(UserType.Goblin)) {
+            DBUtils.changeSceneWithData(event, "/pages/home3.fxml", "Home", userAccount);
+        } else {
+            DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
+        }
     }
 
     protected void changeScene(String fxmlFileName) {
@@ -119,22 +125,22 @@ public class HomeController implements Initializable {
         DBUtils.changeScene(event, "/pages/home.fxml", "Back Page", null);
     }
 
-    /*@FXML
+    @FXML
     private void changeCurrency(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
         DBUtils.changeSceneWithData(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount);
-    }*/
+    }
 
-    /*@FXML
+    @FXML
     private void updateUserType(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
         DBUtils.changeSceneWithData(event, "/pages/editUserType.fxml", "Edit User Type", userAccount);
-    }*/
+    }
 
     @FXML
     private void showSummary(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
-        DBUtils.changeScene(event, "/pages/divinationFirstPage.fxml", "Show Summary", userAccount.getUsername());
+        DBUtils.changeSceneWithData(event, "/pages/divinationFirstPage.fxml", "Show Summary", userAccount);
     }
 
     public Account<?> userAccount;
@@ -217,8 +223,19 @@ public class HomeController implements Initializable {
             }
         }
     }
+    @FXML
+    void getNumberOfUsers(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/getNumOfUser.fxml"));
+        Parent root = loader.load();
 
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.setTitle("User Details");
+        popupStage.setScene(new Scene(root));
+        popupStage.showAndWait();
 
+    }
+@FXML
     public void getNumberOfTransaction(ActionEvent event) throws IOException {
         DBUtils.changeSceneWithData(event, "/pages/TransactionHistoryAdmin-view.fxml", "Get number Of Transaction", userAccount);
     }
@@ -227,9 +244,11 @@ public class HomeController implements Initializable {
         DBUtils.changeSceneWithData(event, "/pages/MarauderMap-view.fxml", "Marauder's Map", userAccount);
     }
 
+    @FXML
     public void getHistory(ActionEvent event) {
         DBUtils.changeSceneWithData(event, "/pages/TransactionHistory-view.fxml", "Transaction History", userAccount);
     }
+    @FXML
 
     public void checkBalance(ActionEvent event){
         DBUtils.changeSceneWithData(event, "/pages/userProfile.fxml", "User Profile", userAccount);

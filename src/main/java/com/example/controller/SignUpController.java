@@ -109,6 +109,13 @@ public class SignUpController implements Initializable {
             showAlert("Weak Password", "Password must be at least 8 characters long and contain uppercase, lowercase, digit, and special character.");
             return;
         }
+        if (dobValue == null) {
+            showAlert("Invalid Date", "Please select a valid date of birth.");
+            return;
+        }
+
+        java.sql.Date dateOfBirth = java.sql.Date.valueOf(dobValue); // Convert LocalDate to java.sql.Date
+
 
 
         String otp = EmailSender.generateOTP();
@@ -119,42 +126,6 @@ public class SignUpController implements Initializable {
         dialog.setTitle("OTP Verification");
         dialog.setHeaderText("Enter the OTP sent to your email");
         dialog.setContentText("OTP:");
-
-        Optional<String> result = dialog.showAndWait();
-
-        if (dobValue == null) {
-            showAlert("Invalid Date", "Please select a valid date of birth.");
-            return;
-        }
-
-        java.sql.Date dateOfBirth = java.sql.Date.valueOf(dobValue); // Convert LocalDate to java.sql.Date
-
-
-        if (result.isPresent()) {
-            String enteredOTP = result.get();
-            if (otp.equals(enteredOTP)) {
-                DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency);
-                setUserAccount(Database.getUserByUsername(username));
-                loadCardDetails();
-
-                return;
-            }
-            java.sql.Date dateOfBirth = Date.valueOf(dob.getValue());
-            String address = tf_address.getText();
-            String phoneNumber = tf_phoneNumber.getText();
-            UserType userType = UserType.Silver_Snitch;
-            UserAvatar userAvatar = new UserAvatar(imagePath, 0l);
-            String currency = cb_currency.getValue();
-
-            String otp = EmailSender.generateOTP();
-            EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
-
-            // Prompt the user to enter the OTP
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("OTP Verification");
-            dialog.setHeaderText("Enter the OTP sent to your email");
-            dialog.setContentText("OTP:");
-
 
 
             Optional<String> otpResult = dialog.showAndWait();
@@ -178,8 +149,8 @@ public class SignUpController implements Initializable {
             } else {
                 DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
             }
-        }
-      
+
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Set<String> currencyOptions = fetchUniqueCurrencyValues();

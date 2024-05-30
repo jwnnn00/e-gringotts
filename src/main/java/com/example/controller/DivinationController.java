@@ -36,15 +36,6 @@ public class DivinationController extends HomeController implements Initializabl
     private int userId;
 
 
-
-    @FXML
-    private Button backToMain;
-    @FXML
-    private Button checkBalance;
-    @FXML
-    private Button transactionHistory;
-    @FXML
-    private Button transfer;
     @FXML
     private Text showUsername;
     @FXML
@@ -84,8 +75,9 @@ public class DivinationController extends HomeController implements Initializabl
     private ToggleButton Debit;
     @FXML
     private Button refresh;
+    private Account<?>account;
 
-    private static final String URL = "jdbc:mysql://localhost:3307/gringottsbank";
+    private static final String URL = "jdbc:mysql://localhost:3306/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
@@ -96,6 +88,8 @@ public class DivinationController extends HomeController implements Initializabl
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         String username = loggedInAccount.getUsername();
+        account=loggedInAccount;
+
         showUsername.setText(username);
         this.userId= Math.toIntExact(loggedInAccount.getUserId());
         try {
@@ -112,7 +106,9 @@ public class DivinationController extends HomeController implements Initializabl
         DateColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transactionDate"));
         //DateColumn.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDateTime>("transactionDate"));
 
-        // Set a cell factory to format the LocalDateTime value
+
+        DateColumn.setCellValueFactory(new PropertyValueFactory<>("date")); // Assuming "date" is the property for dates in your Transaction class
+
         DateColumn.setCellFactory(column -> new TableCell<Transaction, LocalDate>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
@@ -145,20 +141,20 @@ public class DivinationController extends HomeController implements Initializabl
         showUserNameAndTotalExpenses();
     }
 
-
-    @FXML
-    private void handleCheckBalance(MouseEvent event) {
-
-        System.out.println("Check Balance button clicked");
-    }
-    @FXML
-    private void handleTransactionHistory(MouseEvent event) {
-        System.out.println("Transaction History button clicked");
-    }
-    @FXML
-    private void handleTransfer(MouseEvent event) {
-        System.out.println("Transfer button clicked");
-    }
+//
+//    @FXML
+//    private void handleCheckBalance(MouseEvent event) {
+//
+//        System.out.println("Check Balance button clicked");
+//    }
+//    @FXML
+//    private void handleTransactionHistory(MouseEvent event) {
+//        System.out.println("Transaction History button clicked");
+//    }
+//    @FXML
+//    private void handleTransfer(MouseEvent event) {
+//        System.out.println("Transfer button clicked");
+//    }
 
     @FXML
     private void showUserNameAndTotalExpenses() throws SQLException {
