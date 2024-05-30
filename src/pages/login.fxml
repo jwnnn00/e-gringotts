@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover; -fx-background-image: url('/img/login_bg.jpg'); -fx-opacity: 0.95;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover; -fx-background-image: url('/img/login_bg.jpg'); -fx-opacity: 0.95;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.Controller">
    <top>
       <AnchorPane prefHeight="51.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
@@ -38,9 +38,9 @@
                   <Image url="@../img/login_bg_center.jpeg" />
                </image>
             </ImageView>
-            <VBox alignment="TOP_CENTER" layoutX="417.0" layoutY="75.0" spacing="30.0" AnchorPane.leftAnchor="391.5" AnchorPane.rightAnchor="391.5">
+            <VBox alignment="TOP_CENTER" layoutX="392.0" layoutY="75.0" prefHeight="494.0" prefWidth="489.0" spacing="40.0" AnchorPane.leftAnchor="354.5" AnchorPane.rightAnchor="354.5" AnchorPane.topAnchor="20.0">
                <children>
-                  <ImageView fitHeight="132.0" fitWidth="417.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="142.0" fitWidth="491.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/login_bank.png" />
                      </image>
@@ -57,10 +57,13 @@
                               <Image url="@../img/login_user.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="tf_username" prefHeight="35.0" prefWidth="250.0" promptText="  Username" style="-fx-background-radius: 20;">
+                        <TextField fx:id="tf_username" prefHeight="35.0" prefWidth="250.0" promptText="  Username" style="-fx-background-radius: 15;">
                            <font>
                               <Font name="Segoe UI Light" size="12.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
                         </TextField>
                      </children>
                   </HBox>
@@ -71,21 +74,27 @@
                               <Image url="@../img/login_password.png" />
                            </image>
                         </ImageView>
-                        <PasswordField fx:id="pf_password" prefHeight="35.0" prefWidth="250.0" promptText="Password" style="-fx-background-radius: 20;">
+                        <PasswordField fx:id="pf_password" prefHeight="35.0" prefWidth="250.0" promptText="Password" style="-fx-background-radius: 15;">
                            <font>
                               <Font name="Segoe UI Light" size="12.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
                         </PasswordField>
                      </children>
                   </HBox>
                   <Button fx:id="button_login" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="142.0" style="-fx-background-radius: 5; -fx-background-color: #DBC596;" stylesheets="@loginButton-styles.css" text="Login">
                      <font>
-                        <Font name="Segoe Fluent Icons" size="15.0" />
+                        <Font size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <HBox alignment="CENTER" spacing="30.0">
                      <children>
-                        <Button fx:id="button_register" mnemonicParsing="false" onAction="#signUp" prefHeight="29.0" prefWidth="126.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Create Account" textFill="WHITE">
+                        <Button fx:id="button_register" mnemonicParsing="false" onAction="#signUp" prefHeight="29.0" prefWidth="126.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Create Account" textFill="WHITE">
                            <font>
                               <Font name="Optima Bold" size="14.0" />
                            </font>
@@ -93,7 +102,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="button_forgotPassword" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Forget Password" textFill="WHITE">
+                        <Button fx:id="button_forgotPassword" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Forget Password" textFill="WHITE">
                            <font>
                               <Font name="Optima Bold" size="14.0" />
                            </font>
@@ -101,7 +110,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="109.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Need help?" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="109.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Need help?" textFill="WHITE">
                            <font>
                               <Font name="Optima Bold" size="14.0" />
                            </font>

@@ -42,6 +42,10 @@ public class ForgotPasswordController {
         } else if (!setPasswordField.getText().equals(confirmPasswordField.getText())){
             showAlert("Password Mismatch", "Passwords do not match. Please try again.");
             return;
+        }else if (!isStrongPassword(setPasswordField.getText())){
+            // Check if password meets criteria
+            showAlert("Weak Password", "Password must be at least 8 characters long and contain uppercase, lowercase, digit, and special character.");
+            return;
         }else{
             System.out.println("Fields are valid. Continue to register");
             email = emailTextField.getText();
@@ -96,6 +100,14 @@ public class ForgotPasswordController {
         emailTextField.setText("");
         setPasswordField.setText("");
         confirmPasswordField.setText("");
+    }
+
+    private boolean isStrongPassword(String password) {
+        return password.length() >= 8 &&
+                password.matches(".*[A-Z].*") &&
+                password.matches(".*[a-z].*") &&
+                password.matches(".*\\d.*") &&
+                password.matches(".*[!@#$%^&*()-_=+].*");
     }
 
     // Method to redirect to the login page

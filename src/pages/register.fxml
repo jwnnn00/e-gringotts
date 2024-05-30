@@ -40,16 +40,16 @@
                   <Image url="@../img/login_bg_center.jpeg" />
                </image>
             </ImageView>
-            <VBox alignment="TOP_CENTER" layoutX="380.0" layoutY="20.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" layoutX="380.0" layoutY="20.0" spacing="10.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new account" textAlignment="CENTER" wrappingWidth="418.1366882324219">
                      <font>
                         <Font name="Optima ExtraBlack" size="35.0" />
                      </font>
                   </Text>
-                  <Button fx:id="button_login" mnemonicParsing="false" onAction="#login" prefHeight="47.0" prefWidth="236.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Already register? Login here!" textFill="WHITE">
+                  <Button fx:id="button_login" mnemonicParsing="false" onAction="#login" prefHeight="47.0" prefWidth="236.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Already register? Login here!" textFill="WHITE">
                      <font>
-                        <Font name="Bodoni MT" size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -59,7 +59,7 @@
             </VBox>
             <ScrollPane fx:id="register" hbarPolicy="NEVER" layoutX="454.0" layoutY="130.0" prefHeight="378.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@scrollPane-styles.css" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="425.0">
                <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="741.0" prefWidth="260.0" spacing="15.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="708.0" prefWidth="303.0" spacing="15.0">
                      <children>
                         <VBox spacing="5.0">
                            <children>
@@ -72,6 +72,9 @@
                                  <font>
                                     <Font name="Segoe UI Light" size="11.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
                               </TextField>
                            </children>
                         </VBox>
@@ -86,6 +89,9 @@
                                  <font>
                                     <Font name="Segoe UI Light" size="11.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
                               </TextField>
                            </children>
                         </VBox>
@@ -100,6 +106,9 @@
                                  <font>
                                     <Font name="Segoe UI Light" size="11.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
                               </TextField>
                            </children>
                         </VBox>
@@ -110,7 +119,10 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <PasswordField fx:id="pf_password" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;" />
+                              <PasswordField fx:id="pf_password" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></PasswordField>
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
@@ -120,7 +132,10 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <PasswordField fx:id="pf_confirmPassword" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;" />
+                              <PasswordField fx:id="pf_confirmPassword" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></PasswordField>
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
@@ -130,7 +145,7 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <DatePicker fx:id="dob" prefHeight="35.0" prefWidth="261.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #292929; -fx-border-color: #fff; -fx-text-fill: white;" />
+                              <DatePicker fx:id="dob" prefHeight="35.0" prefWidth="302.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #292929; -fx-border-color: #fff; -fx-text-fill: white;" />
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
@@ -144,6 +159,9 @@
                                  <font>
                                     <Font name="Segoe UI Light" size="11.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
                               </TextField>
                            </children>
                         </VBox>
@@ -158,6 +176,9 @@
                                  <font>
                                     <Font name="Segoe UI Light" size="11.0" />
                                  </font>
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
                               </TextField>
                            </children>
                         </VBox>
@@ -168,7 +189,7 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="button_uploadPic" mnemonicParsing="false" onAction="#uploadPicture" prefHeight="35.0" prefWidth="261.0" style="-fx-background-color: #292929; -fx-border-color: #fff; -fx-background-radius: 20; -fx-border-radius: 30;" text="Upload" textFill="WHITE" />
+                              <Button fx:id="button_uploadPic" mnemonicParsing="false" onAction="#uploadPicture" prefHeight="35.0" prefWidth="302.0" style="-fx-background-color: #292929; -fx-border-color: #fff; -fx-background-radius: 20; -fx-border-radius: 30;" text="Upload" textFill="WHITE" />
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
@@ -178,12 +199,15 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <ChoiceBox fx:id="cb_currency" prefHeight="35.0" prefWidth="261.0" style="-fx-background-color: #292929; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #fff; -fx-text-fill: white;" />
+                              <ChoiceBox fx:id="cb_currency" prefHeight="35.0" prefWidth="302.0" style="-fx-background-color: #292929; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #fff; -fx-text-fill: white;" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
                </content>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
             </ScrollPane>
             <Button fx:id="button_register" layoutX="512.5" layoutY="522.364990234375" mnemonicParsing="false" onAction="#register" prefHeight="41.0" prefWidth="154.0" stylesheets="@loginButton-styles.css" text="Register" AnchorPane.leftAnchor="523.0" AnchorPane.rightAnchor="523.0">
                <font>

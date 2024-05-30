@@ -1,6 +1,7 @@
 package com.example;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.Random;
 import javax.activation.DataHandler;
@@ -101,5 +102,10 @@ public class EmailSender {
         // Generate a 6-digit OTP
         int otp = 100000 + new Random().nextInt(900000);
         return String.valueOf(otp);
+    }
+
+    public static LocalDateTime generateOTPTime() {
+        LocalDateTime otpTime = LocalDateTime.now();
+        return otpTime;
     }
 }

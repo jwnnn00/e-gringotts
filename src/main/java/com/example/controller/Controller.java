@@ -10,49 +10,81 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class Controller {
 
+    private final Database db = new Database();
     @FXML
     private Button button_login;
-
     @FXML
     private Button button_register;
-
     @FXML
     private PasswordField pf_password;
-
     @FXML
     private TextField tf_username;
-
     private Stage stage;
     private Scene scene;
-    private final Database db = new Database();
 
     @FXML
     void login(javafx.event.ActionEvent event) {
         Account<?> userAccount = Database.getUserByUsername(tf_username.getText());
 
         if (userAccount != null) {
-            if (BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
-                handleOTPVerification(event, userAccount);
+            //System.out.println("User found: " + userAccount.getUsername());
+            //System.out.println("Stored password hash: " + userAccount.getPassword());
 
-            } else if (userAccount.getPassword().equals(pf_password.getText())) {
-                handleOldFormatPassword(event, userAccount);
-            } else {
-                showAlert("Login Failed", "Invalid username or password", "Please enter valid credentials.");
+            try {
+                if (isBCryptHash(userAccount.getPassword())) {
+                    if (BCrypt.checkpw(pf_password.getText(), userAccount.getPassword())) {
+                        //System.out.println("Password matches (BCrypt).");
+                        handleOTPVerification(event, userAccount);
+                    } else {
+                        //System.out.println("Password does not match.");
+                        showAlert("Login Failed", "Invalid username or password", "Please enter valid credentials.");
+                    }
+                } else {
+                    if (userAccount.getPassword().equals(pf_password.getText())) {
+                        //System.out.println("Password matches (plain text).");
+                        handleOldFormatPassword(event, userAccount);
+                    } else {
+                        //System.out.println("Password does not match.");
+                        showAlert("Login Failed", "Invalid username or password", "Please enter valid credentials.");
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                // Handle invalid salt version
+                //System.out.println("Invalid salt version: " + e.getMessage());
+                showAlert("Login Failed", "Invalid password format", "Please reset your password.");
             }
         } else {
-            showAlert("Login Failed", "Invalid username or password", "Please enter valid credentials.");
+            //System.out.println("No user found with username: " + tf_username.getText());
+            showAlert("Login Failed", "Invalid username", "Please enter register before login.");
         }
+    }
+
+    private boolean isBCryptHash(String password) {
+        return password != null && (password.startsWith("$2a$") || password.startsWith("$2b$"));
     }
 
     private void handleOTPVerification(javafx.event.ActionEvent event, Account<?> userAccount) {
         String otp = EmailSender.generateOTP();
-        EmailSender.sendEmail(userAccount.getEmail(), "OTP Verification", "Your OTP is: " + otp);
+        LocalDateTime otpTime = EmailSender.generateOTPTime();
+
+        String subject = "OTP Verification Code for Secure Login";
+        String body = "Dear " + userAccount.getUsername() + ",\n\n"
+                + "To enhance the security of your account, we require a One-Time Password (OTP) for your login.\n\n"
+                + "Your OTP is: " + otp + "\n\n"
+                + "Please enter this code within the next 10 minutes to complete your login process.\n\n"
+                + "If you did not request this OTP, please secure your account immediately by changing your password and contacting our support team.\n\n"
+                + "Thank you for your cooperation.\n\n"
+                + "Best regards,\n"
+                + "Gringotts Bank Support Team\n";
+
+        EmailSender.sendEmail(userAccount.getEmail(), subject, body);
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("OTP Verification");
@@ -62,12 +94,12 @@ public class Controller {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             String enteredOTP = result.get();
-            if (otp.equals(enteredOTP)) {
+            if (isValidOTP(enteredOTP, otpTime)) {
                 AccountHolder.getInstance().setUser(userAccount);
                 sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
                 DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
             } else {
-                showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.", "");
+                showAlert("Invalid OTP", "The entered OTP is incorrect or has expired. Please try again.", "");
             }
         } else {
             showAlert("OTP Required", "Please enter the OTP sent to your email.", "");
@@ -111,8 +143,25 @@ public class Controller {
         String formattedDateTime = now.format(formatter);
 
         String subject = "Login Notification";
-        String body = "User " + username + " logged in successfully at " + formattedDateTime + ".";
+        String body = "Dear " + username + ",\n\n"
+                + "We noticed a login to your account at " + formattedDateTime + ".\n\n"
+                + "If this was you, no further action is required. If you did not log in at this time, please secure your account immediately by changing your password or contacting our support team.\n\n"
+                + "For your reference, here are the details of the login:\n"
+                + "Username: " + username + "\n"
+                + "Date and Time: " + formattedDateTime + "\n\n"
+                + "Thank you for your attention to this matter.\n\n"
+                + "Best regards,\n"
+                + "Gringotts Bank Support Team\n";
 
         EmailSender.sendEmail(userEmail, subject, body);
     }
+
+    private boolean isValidOTP(String enteredOTP, LocalDateTime otpTime) {
+        LocalDateTime now = LocalDateTime.now();
+        long minutesElapsed = java.time.Duration.between(otpTime, now).toMinutes();
+
+        // Check if the OTP is correct and within the 10-minute window
+        return enteredOTP.equals(enteredOTP) && minutesElapsed <= 10;
+    }
+
 }
