@@ -1,0 +1,18 @@
+.button {
+    -fx-font-size: 13px;
+    -fx-padding: 0.7em 2em;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-text-fill: #7F0909;
+    -fx-font-weight: bold;
+    -fx-background-color: #DBC596;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0, 0, 0);
+    -fx-font-family: "Optima";
+}
+
+/* Since we can't use :before, let's use an effect or a different approach for hover */
+.button:hover {
+    -fx-background-color: #7F0909;
+    -fx-text-fill:white;
+    -fx-effect: innershadow(gaussian, rgba(89,28,114,19, 0.6), 10, 0, 0, 0);
+}
