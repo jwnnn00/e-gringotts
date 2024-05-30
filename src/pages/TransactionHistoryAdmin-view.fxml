@@ -92,7 +92,7 @@
             </ImageView>
             <AnchorPane layoutX="120.0" layoutY="7.0" prefHeight="256.0" prefWidth="942.0" AnchorPane.bottomAnchor="335.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="5.0">
                <children>
-                  <VBox layoutX="10.0" layoutY="9.999998092651367" prefHeight="195.0" prefWidth="922.0" spacing="15.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="9.999998092651367" prefHeight="195.0" prefWidth="922.0" spacing="15.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="TRANSACTION HISTORY">
                            <font>

@@ -86,18 +86,15 @@ public class HomeController implements Initializable {
         Account<?> loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
 
-        t_totalNumOfUser = new Text();
+        /*t_totalNumOfUser = new Text();
         CategoryAxis y_typeOfUser = new CategoryAxis();
         NumberAxis x_numberOfUser = new NumberAxis();
-        userChart = new BarChart<>(x_numberOfUser, y_typeOfUser);
+        userChart = new BarChart<>(x_numberOfUser, y_typeOfUser);*/
 
     }
 
-
-    @FXML
-    private void backHome() {
-        // Call a method to change the scene to home.fxml
-        changeScene("/pages/home.fxml");
+    public void backHome(ActionEvent event) {
+        DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
     }
 
     protected void changeScene(String fxmlFileName) {
@@ -122,17 +119,17 @@ public class HomeController implements Initializable {
         DBUtils.changeScene(event, "/pages/home.fxml", "Back Page", null);
     }
 
-    @FXML
+    /*@FXML
     private void changeCurrency(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
         DBUtils.changeSceneWithData(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount);
-    }
+    }*/
 
-    @FXML
+    /*@FXML
     private void updateUserType(ActionEvent event) {
         // Change the scene to EditCurrency.fxml
         DBUtils.changeSceneWithData(event, "/pages/editUserType.fxml", "Edit User Type", userAccount);
-    }
+    }*/
 
     @FXML
     private void showSummary(ActionEvent event) {
@@ -161,19 +158,19 @@ public class HomeController implements Initializable {
             user_avatar.setImage(image);
         }
 
-        if (userAccount != null && button_next != null) {
-            if (userAccount.getUserType() == UserType.Goblin) {
-                // Show the "Next Page" button for admin functions
-                button_next.setVisible(true);
-            } else {
-                // Hide the "Next Page" button for non-admin users
-                button_next.setVisible(false);
-            }
-        }
+//        if (userAccount != null && button_next != null) {
+//            if (userAccount.getUserType() == UserType.Goblin) {
+//                // Show the "Next Page" button for admin functions
+//                button_next.setVisible(true);
+//            } else {
+//                // Hide the "Next Page" button for non-admin users
+//                button_next.setVisible(false);
+//            }
+//        }
     }
 
 
-    @FXML
+    /*@FXML
     void getNumberOfUsers(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/getNumOfUser.fxml"));
         Parent root = loader.load();
@@ -183,7 +180,7 @@ public class HomeController implements Initializable {
         popupStage.setTitle("User Details");
         popupStage.setScene(new Scene(root));
         popupStage.showAndWait();
-    }
+    }*/
 
 
     @FXML

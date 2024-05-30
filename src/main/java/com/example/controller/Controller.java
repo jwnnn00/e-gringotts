@@ -97,7 +97,13 @@ public class Controller {
             if (isValidOTP(enteredOTP, otpTime)) {
                 AccountHolder.getInstance().setUser(userAccount);
                 sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
-                DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+                String userType = String.valueOf(userAccount.getUserType());
+                System.out.println(userType);
+                if(userType.equals("Goblin")){
+                    DBUtils.changeSceneWithData(event, "/pages/home3.fxml", "Goblin Home", userAccount);
+                }else{
+                    DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
+                }
             } else {
                 showAlert("Invalid OTP", "The entered OTP is incorrect or has expired. Please try again.", "");
             }
@@ -116,7 +122,14 @@ public class Controller {
         System.out.println("Password re-hashed and updated.");
         AccountHolder.getInstance().setUser(userAccount);
         sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
-        DBUtils.changeSceneWithData(event, "/pages/home.fxml", "User Page", userAccount);
+
+        String userType = String.valueOf(userAccount.getUserType());
+        if(userType.equals("Goblin")){
+            DBUtils.changeSceneWithData(event, "/pages/home3.fxml", "Goblin Home", userAccount);
+        }else{
+            DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
+        }
+
     }
 
     private void showAlert(String title, String header, String content) {
