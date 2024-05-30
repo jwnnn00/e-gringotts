@@ -1,9 +1,0 @@
-.button {
-    -fx-text-fill: white;
-    -fx-font-family: "Optima";
-}
-
-.button:hover {
-    -fx-text-fill: #FFC500;
-    -fx-font-family: "Optima";
-}

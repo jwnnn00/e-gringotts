@@ -216,6 +216,7 @@ public class TransactionHistoryController extends HomeController implements Init
             receiptStage.setTitle("Transaction Receipt");
             receiptStage.setScene(new Scene(receiptRoot));
             receiptStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Print Error", "An error occurred while printing: " + e.getMessage());

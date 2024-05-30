@@ -11,153 +11,117 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.TransferController">
    <top>
-      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" stylesheets="@header-styles.css">
+      <AnchorPane prefHeight="54.0" prefWidth="1200.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" layoutX="26.0" layoutY="9.0" prefHeight="50.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/owl_icon.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="40.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/bar_name_dark.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="217.0" layoutY="10.0" prefHeight="44.0" prefWidth="446.0" spacing="10.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button fx:id="button_home" mnemonicParsing="false" onAction="#backHome" prefHeight="30.0" prefWidth="90.0" text="HOME" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="button_balanceT" mnemonicParsing="false" onAction="#checkBalance" prefHeight="30.0" prefWidth="90.0" text="BALANCE" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="button_historyT" mnemonicParsing="false" onAction="#getHistory" prefHeight="30.0" prefWidth="90.0" text="HISTORY" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="MarauderMapButton" mnemonicParsing="false" onAction="#toMarauderMap" prefHeight="30.0" prefWidth="146.0" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="1028.0" spacing="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ImageView fx:id="user_avatar" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
-                  <MenuButton fx:id="button_userProfile" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: black;" text="Username" textFill="WHITE">
-                     <items>
-                        <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
-                        <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
-                     </items>
-                     <font>
-                        <Font name="Algerian" size="12.0" />
-                     </font>
-                  </MenuButton>
-               </children>
-            </HBox>
+            <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.90;">
+               <image>
+                  <Image url="@../img/owl_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="102.0" layoutX="36.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/bar_name_dark.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="button_home" layoutX="146.0" layoutY="17.0" mnemonicParsing="false" onAction="#backHome" prefHeight="20.0" prefWidth="70.0" style="-fx-background-color: black;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_balanceT" layoutX="235.0" layoutY="17.0" mnemonicParsing="false" onAction="#openUserProfile" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="BALANCE" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_historyT" layoutX="317.0" layoutY="17.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="22.0" prefWidth="70.0" style="-fx-background-color: BLACK;" text="HISTORY" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
+            <MenuButton fx:id="button_userProfile" layoutX="1101.0" layoutY="13.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" style="-fx-background-color: black;" textFill="WHITE">
+               <items>
+                  <MenuItem fx:id="button_openUserProfile" onAction="#openUserProfile" text="User Profile" />
+                  <MenuItem fx:id="button_logout" onAction="#logout" text="Log Out" />
+               </items>
+               <font>
+                  <Font name="Algerian" size="12.0" />
+               </font>
+            </MenuButton>
+            <ImageView fitHeight="36.0" fitWidth="41.0" layoutX="1060.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="user_avatar" fitHeight="30.0" fitWidth="30.0" layoutX="1048.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="MarauderMapButton" layoutX="393.0" layoutY="13.0" mnemonicParsing="false" onAction="#toMaurauderMap" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: BLACK;" text="MARAUDER'S MAP" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Castellar" size="10.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
    <center>
       <AnchorPane prefHeight="211.0" prefWidth="694.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" layoutX="25.0" layoutY="7.0" prefHeight="532.0" prefWidth="775.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="19.0">
+            <VBox alignment="CENTER" layoutX="25.0" layoutY="7.0" prefHeight="532.0" prefWidth="775.0" spacing="20.0">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
                <children>
                   <Label fx:id="welcomeText" text="Transfer" textFill="WHITE">
                      <font>
-                        <Font name="Optima ExtraBlack" size="41.0" />
+                        <Font name="Broadway" size="41.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="450" prefWidth="735" style="-fx-background-color: white; -fx-background-radius: 5;">
+                  <AnchorPane prefHeight="450" prefWidth="735" style="-fx-background-color: white;">
                      <children>
-                        <VBox layoutX="96.0" layoutY="61.974998474121094" spacing="30.0">
-                           <children>
-                              <HBox alignment="CENTER_LEFT" spacing="40.0">
-                                 <children>
-                                    <Text text="From Currency" textAlignment="RIGHT" wrappingWidth="200">
-                                       <font>
-                                          <Font name="Optima Bold" size="25.0" />
-                                       </font>
-                                    </Text>
-                                    <ChoiceBox fx:id="FromCurrency" prefHeight="26.0" prefWidth="219.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="40.0">
-                                 <children>
-                                    <Text text="To Currency" textAlignment="RIGHT" wrappingWidth="200">
-                                       <font>
-                                          <Font name="Optima Bold" size="25.0" />
-                                       </font>
-                                    </Text>
-                                    <ChoiceBox fx:id="ToCurrency" prefHeight="26.0" prefWidth="219.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="40.0">
-                                 <children>
-                                    <Text text="Amount" textAlignment="RIGHT" wrappingWidth="200">
-                                       <font>
-                                          <Font name="Optima Bold" size="25.0" />
-                                       </font>
-                                    </Text>
-                                    <TextField fx:id="askAmount" prefHeight="26.0" prefWidth="219.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="40.0">
-                                 <children>
-                                    <Text text="Category" textAlignment="RIGHT" wrappingWidth="200">
-                                       <font>
-                                          <Font name="Optima Bold" size="25.0" />
-                                       </font>
-                                    </Text>
-                                    <ChoiceBox fx:id="Category" prefHeight="26.0" prefWidth="219.0" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="40.0">
-                                 <children>
-                                    <Button onAction="#getTotalAmount" prefHeight="39.0" prefWidth="129.0" stylesheets="@loginButton-styles.css" text="Get Total">
-                                       <font>
-                                          <Font name="Berlin Sans FB Demi Bold" size="13.0" />
-                                       </font>
-                                    </Button>
-                                    <Text fx:id="getTotal">
-                                       <font>
-                                          <Font name="Berlin Sans FB" size="25.0" />
-                                       </font>
-                                    </Text>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <Button layoutX="583.0" layoutY="359.0" onAction="#proceedToPayment" prefHeight="39.0" prefWidth="124.0" stylesheets="@button-styles.css" text="Proceed">
+                        <ChoiceBox fx:id="FromCurrency" layoutX="330" layoutY="68" prefHeight="26.0" prefWidth="219.0" />
+                        <Text layoutX="96.0" layoutY="85.0" text="From Currency" textAlignment="RIGHT" wrappingWidth="200">
                            <font>
-                              <Font size="19.0" />
+                              <Font name="Berlin Sans FB" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="96.0" layoutY="145.0" text="To Currency" textAlignment="RIGHT" wrappingWidth="200">
+                           <font>
+                              <Font name="Berlin Sans FB" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="96.0" layoutY="202.0" text="Amount" textAlignment="RIGHT" wrappingWidth="200">
+                           <font>
+                              <Font name="Berlin Sans FB" size="25.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="96.0" layoutY="262.0" text="Category" textAlignment="RIGHT" wrappingWidth="200">
+                           <font>
+                              <Font name="Berlin Sans FB" size="25.0" />
+                           </font>
+                        </Text>
+                        <ChoiceBox fx:id="ToCurrency" layoutX="330" layoutY="126" prefHeight="26.0" prefWidth="218.0" />
+                        <TextField fx:id="askAmount" layoutX="330" layoutY="184" />
+                        <ChoiceBox fx:id="Category" layoutX="330" layoutY="242" prefHeight="26.0" prefWidth="219.0" />
+                        <Button layoutX="226.0" layoutY="304.0" onAction="#getTotalAmount" prefHeight="34.0" prefWidth="86.0" text="Get Total">
+                           <font>
+                              <Font name="Berlin Sans FB Demi Bold" size="13.0" />
                            </font>
                         </Button>
+                        <Button layoutX="628.0" layoutY="359.0" onAction="#proceedToPayment" prefHeight="32.0" prefWidth="79.0" text="Proceed">
+                           <font>
+                              <Font name="Berlin Sans FB Demi Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <Text fx:id="getTotal" layoutX="330" layoutY="322">
+                           <font>
+                              <Font name="Berlin Sans FB" size="25.0" />
+                           </font>
+                        </Text>
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
-            <ImageView fitHeight="560.0" fitWidth="400.0" layoutX="796.0" layoutY="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="560.0" fitWidth="400.0" layoutX="796.0" layoutY="6.0">
                <image>
                   <Image url="@../img/transfer_bg.jpg" />
                </image>
