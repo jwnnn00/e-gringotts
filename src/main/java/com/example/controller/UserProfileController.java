@@ -23,7 +23,7 @@ public class UserProfileController extends HomeController implements Initializab
     @FXML
     private Text t_username, t_fullName, t_email, t_phoneNumber, t_address, t_dob, t_currency;
     @FXML
-    private  Text t_usernameB, t_userType;
+    private  Text t_usernameB, t_usertype;
 
     @FXML
     private ImageView i_userAvatar;
@@ -52,7 +52,7 @@ public class UserProfileController extends HomeController implements Initializab
         String username = loggedInAccount.getUsername();
         t_username.setText(username);
         t_usernameB.setText(username);
-        t_userType.setText(loggedInAccount.getUserType().toString());
+        t_usertype.setText(loggedInAccount.getUserType().toString());
         t_fullName.setText(loggedInAccount.getFullName());
         t_email.setText(loggedInAccount.getEmail());
         t_phoneNumber.setText(loggedInAccount.getPhoneNumber());
@@ -107,7 +107,7 @@ public class UserProfileController extends HomeController implements Initializab
                     t_cardType.setFill(Color.BLACK);
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "/img/platinum_card.png";
+                    cardImagePath = "/img/platinumm_card.png";
                     t_cardType.setFill(Color.WHITE);
                     t_cardNum.setFill(Color.WHITE);
                     t_cvv.setFill(Color.WHITE);

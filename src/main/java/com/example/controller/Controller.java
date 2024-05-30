@@ -29,7 +29,7 @@ public class Controller {
     private Stage stage;
     private Scene scene;
 
-    private final Database db = new Database();
+
     private Account<?> account;
 
 
@@ -82,35 +82,39 @@ account=userAccount;
                 sendLoginNotification(userAccount.getUsername(), userAccount.getEmail());
                 String userType = String.valueOf(userAccount.getUserType());
                 System.out.println(userType);
-                if(userType.equals("Goblin")){
+                if (userType.equals("Goblin")) {
                     DBUtils.changeSceneWithData(event, "/pages/home3.fxml", "Goblin Home", userAccount);
-                }else{
+                } else {
                     DBUtils.changeSceneWithData(event, "/pages/home.fxml", "Home", userAccount);
                 }
             } else {
 
                 DBUtils.showAlert("Invalid PIN", "The entered PIN is incorrect. Please try again.");
-        } else {
+            }
+        }else{
             DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+
         }
     }
+            private boolean verifyPin () {
+                TextInputDialog pinDialog = new TextInputDialog();
+                pinDialog.setTitle("PIN Verification");
+                pinDialog.setHeaderText("Enter your PIN");
+                pinDialog.setContentText("PIN:");
 
-    private boolean verifyPin() {
-        TextInputDialog pinDialog = new TextInputDialog();
-        pinDialog.setTitle("PIN Verification");
-        pinDialog.setHeaderText("Enter your PIN");
-        pinDialog.setContentText("PIN:");
+                Optional<String> pinResult = pinDialog.showAndWait();
+                if (pinResult.isPresent()) {
+                    String enteredPin = pinResult.get();
+                    String storedPin = Database.getUserPin(tf_username.getText());
+                    return enteredPin.equals(storedPin);
+                } else {
+                    DBUtils.showAlert("PIN Required", "Please enter your PIN.");
 
-        Optional<String> pinResult = pinDialog.showAndWait();
-        if (pinResult.isPresent()) {
-            String enteredPin = pinResult.get();
-            String storedPin = Database.getUserPin(tf_username.getText());
-            return enteredPin.equals(storedPin);
-        } else {
-            DBUtils.showAlert("PIN Required", "Please enter your PIN.");
-            return false;
-        }
+                }
+                return false;
     }
+
+
 
     private boolean verifyOTP() {
         try {
@@ -118,7 +122,7 @@ account=userAccount;
         LocalDateTime otpTime = EmailSender.generateOTPTime();
 
         String subject = "OTP Verification Code for Secure Login";
-        String body = "Dear " + userAccount.getUsername() + ",\n\n"
+        String body = "Dear " + account.getUsername() + ",\n\n"
                 + "To enhance the security of your account, we require a One-Time Password (OTP) for your login.\n\n"
                 + "Your OTP is: " + otp + "\n\n"
                 + "Please enter this code within the next 10 minutes to complete your login process.\n\n"
@@ -127,13 +131,10 @@ account=userAccount;
                 + "Best regards,\n"
                 + "Gringotts Bank Support Team\n";
 
-        EmailSender.sendEmail(userAccount.getEmail(), subject, body);
+        EmailSender.sendEmail(account.getEmail(), subject, body);
      
             // Prompt the user to enter the OTP
             TextInputDialog otpDialog = new TextInputDialog();
-            otpDialog.setTitle("OTP Verification");
-            otpDialog.setHeaderText("Enter the OTP sent to your email");
-            otpDialog.setContentText("OTP:");
 
             Optional<String> otpResult = otpDialog.showAndWait();
             if (otpResult.isPresent()) {
