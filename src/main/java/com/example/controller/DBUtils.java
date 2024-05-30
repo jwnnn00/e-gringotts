@@ -28,9 +28,6 @@ public class DBUtils {
         try {
             FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
             Parent root = loader.load();
-
-
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle(title);
             stage.setScene(new Scene(root, 1200, 625));
@@ -45,11 +42,18 @@ public class DBUtils {
             FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlPath));
             Parent root = loader.load();
 
-            // Access controller of the loaded FXML
-            HomeController controller = loader.getController();
-
-            // Pass data to the controller
-            controller.initializeLoggedInPage(userAccount);
+            String userType = String.valueOf(userAccount.getUserType());
+            if(userType.equals("Goblin")){
+                // Access controller of the loaded FXML
+                HomeAdminController controller = loader.getController();
+                // Pass data to the controller
+                controller.initializeLoggedInPage(userAccount);
+            }else {
+                // Access controller of the loaded FXML
+                HomeController controller = loader.getController();
+                // Pass data to the controller
+                controller.initializeLoggedInPage(userAccount);
+            }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle(title);
@@ -65,11 +69,18 @@ public class DBUtils {
             FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlPath));
             Parent root = loader.load();
 
-            // Access controller of the loaded FXML
-            HomeController controller = loader.getController();
-
-            // Pass data to the controller
-            controller.setUserAccount(userAccount);
+            String userType = String.valueOf(userAccount.getUserType());
+            if(userType.equals("Goblin")){
+                // Access controller of the loaded FXML
+                HomeAdminController controller = loader.getController();
+                // Pass data to the controller
+                controller.setUserAccount(userAccount);
+            }else {
+                // Access controller of the loaded FXML
+                HomeController controller = loader.getController();
+                // Pass data to the controller
+                controller.setUserAccount(userAccount);
+            }
 
             // Get the stage from the provided node
             Stage stage = (Stage) node.getScene().getWindow();
