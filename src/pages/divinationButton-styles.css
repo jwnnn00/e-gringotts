@@ -1,0 +1,34 @@
+.button {
+    -fx-background-color: #a2a2a2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 15px; /* Padding */
+    -fx-font-size: 15px; /* Font size */
+    -fx-background-radius: 20px; /* Background rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0, 0, 0);
+    -fx-transition: transform 0.3s ease;
+    -fx-font-family: "Optima";
+}
+
+.button:hover {
+    -fx-background-color: maroon;
+    -fx-text-fill: white;
+}
+
+.toggle-button {
+    -fx-background-color: #a2a2a2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px; /* Padding */
+    -fx-font-size: 15px; /* Font size */
+    -fx-background-radius: 20px; /* Background rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0, 0, 0);
+    -fx-font-family: "Optima";
+}
+
+.toggle-button:hover {
+    -fx-background-color: skyblue;
+    -fx-text-fill: white;
+}
