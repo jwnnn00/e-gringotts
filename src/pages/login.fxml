@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -9,19 +8,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover; -fx-background-image: url('/img/login_bg.jpg'); -fx-opacity: 0.95;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1200.0" style="-fx-background-size: cover; -fx-background-image: url('/img/login_bg.jpg'); -fx-opacity: 0.95;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.Controller">
    <top>
       <AnchorPane prefHeight="51.0" prefWidth="1200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="51.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/login_bg_top.jpeg" />
-               </image>
-            </ImageView>
             <ImageView fitHeight="43.0" fitWidth="42.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/owl_icon.png" />
@@ -31,97 +23,53 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane prefHeight="364.0" prefWidth="713.0" stylesheets="@text-styles.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="364.0" prefWidth="713.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="574.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="132.0" fitWidth="417.0" layoutX="417.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/login_bg_center.jpeg" />
+                  <Image url="@../img/login_bank.png" />
                </image>
             </ImageView>
-            <VBox alignment="TOP_CENTER" layoutX="392.0" layoutY="75.0" prefHeight="494.0" prefWidth="489.0" spacing="40.0" AnchorPane.leftAnchor="354.5" AnchorPane.rightAnchor="354.5" AnchorPane.topAnchor="20.0">
-               <children>
-                  <ImageView fitHeight="142.0" fitWidth="491.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/login_bank.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="loginSlogan" text="Log in to your account to access your Gringotts Bank" textFill="#dddbdb">
-                     <font>
-                        <Font name="Optima Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="TOP_CENTER" spacing="25.0">
-                     <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/login_user.png" />
-                           </image>
-                        </ImageView>
-                        <TextField fx:id="tf_username" prefHeight="35.0" prefWidth="250.0" promptText="  Username" style="-fx-background-radius: 15;">
-                           <font>
-                              <Font name="Segoe UI Light" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="TEXT" />
-                           </cursor>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_CENTER" spacing="25.0">
-                     <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/login_password.png" />
-                           </image>
-                        </ImageView>
-                        <PasswordField fx:id="pf_password" prefHeight="35.0" prefWidth="250.0" promptText="Password" style="-fx-background-radius: 15;">
-                           <font>
-                              <Font name="Segoe UI Light" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="TEXT" />
-                           </cursor>
-                        </PasswordField>
-                     </children>
-                  </HBox>
-                  <Button fx:id="button_login" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="142.0" style="-fx-background-radius: 5; -fx-background-color: #DBC596;" stylesheets="@loginButton-styles.css" text="Login">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <HBox alignment="CENTER" spacing="30.0">
-                     <children>
-                        <Button fx:id="button_register" mnemonicParsing="false" onAction="#signUp" prefHeight="29.0" prefWidth="126.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Create Account" textFill="WHITE">
-                           <font>
-                              <Font name="Optima Bold" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button fx:id="button_forgotPassword" mnemonicParsing="false" onAction="#forgotPassword" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Forget Password" textFill="WHITE">
-                           <font>
-                              <Font name="Optima Bold" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="109.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Need help?" textFill="WHITE">
-                           <font>
-                              <Font name="Optima Bold" size="14.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
+            <TextField fx:id="tf_username" layoutX="543.0" layoutY="280.0" prefHeight="35.0" prefWidth="250.0" promptText="  Username" style="-fx-background-radius: 20;">
+               <font>
+                  <Font name="Segoe UI Light" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="483.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/login_user.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="483.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/login_password.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="button_login" layoutX="558.0" layoutY="405.0" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="142.0" style="-fx-background-radius: 5; -fx-background-color: #DBC596;" text="Login">
+               <font>
+                  <Font name="Segoe Fluent Icons" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="button_register" layoutX="472.0" layoutY="458.0" mnemonicParsing="false" onAction="#signUp" prefHeight="29.0" prefWidth="117.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Create Account" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="660.0" layoutY="456.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="117.0" style="-fx-background-color: rgba(0, 0, 0, 0);" text="Need help?" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Button>
+            <PasswordField fx:id="pf_password" layoutX="543.0" layoutY="345.0" prefHeight="35.0" prefWidth="250.0" promptText="Password" style="-fx-background-radius: 20;">
+               <font>
+                  <Font name="Segoe UI Light" size="12.0" />
+               </font>
+            </PasswordField>
+            <Label fx:id="loginSlogan" layoutX="488.0" layoutY="210.0" text="Log in to your account to access your gringotts bank" textFill="#9c9c9c">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </center>

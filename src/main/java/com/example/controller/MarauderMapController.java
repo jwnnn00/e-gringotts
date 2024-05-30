@@ -52,7 +52,7 @@ public class MarauderMapController  extends HomeController implements Initializa
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
-        account = loggedInAccount;
+        account= loggedInAccount;
 
         fullName_col.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         username_col.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -106,7 +106,7 @@ public class MarauderMapController  extends HomeController implements Initializa
             return;
         }else{
             friendsList.clear();
-            List<Account<?>> user = userDAO.getUserList(searchValue, account.getUserId());
+            List<Account<?>> user = userDAO.getUserList(searchValue);
                 if (user.isEmpty()) {
                     showAlert("No user found", "No user was found for the value entered.");
                     search.clear();
