@@ -4,19 +4,21 @@ import com.example.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAO {
-    public ObservableList<Account<?>> getUserList(String search, Long userIdToExclude) {
+    public ObservableList<Account<?>> getUserList(String search) {
         ObservableList<Account<?>> list = FXCollections.observableArrayList();
 
         try (Connection connection = Database.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE (phoneNumber LIKE ? OR fullName LIKE ?) AND userId <> ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE phoneNumber LIKE ? or fullName LIKE ?")) {
 
             // Use wildcards to match partial strings
             statement.setString(1, "%" + search + "%");
             statement.setString(2, "%" + search + "%");
-            statement.setLong(3, userIdToExclude);
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -43,41 +45,4 @@ public class UserDAO {
         return list;
     }
 
-    public Boolean emailExists(String email) throws SQLException {
-        String query = "SELECT email FROM user WHERE email = ?";
-        try(Connection con = Database.getConnection()){
-            try(PreparedStatement ps = con.prepareStatement(query)){
-                ps.setString(1, email);
-                try(ResultSet rs = ps.executeQuery()){
-                    return rs.next();
-                }
-            }
-        }
-    }
-
-    public boolean isPasswordIdentical(String email, String password) throws SQLException{
-        String query = "SELECT password FROM user where email = ? AND password = ?";
-        try(Connection con = Database.getConnection()){
-            try(PreparedStatement ps = con.prepareStatement(query)){
-                ps.setString(1, email);
-                ps.setString(2, password);
-                try(ResultSet rs = ps.executeQuery()){
-                    return rs.next();
-                }
-            }
-        }
-    }
-
-    public boolean updatePassword(String email, String password) throws SQLException{
-        String query = "UPDATE user SET password = ? WHERE email = ?";
-        int rowsUpdated;
-        try(Connection con = Database.getConnection()){
-            try(PreparedStatement ps = con.prepareStatement(query)){
-                ps.setString(1, password);
-                ps.setString(2, email);
-                rowsUpdated = ps.executeUpdate();
-            }
-        }
-        return rowsUpdated > 0;
-    }
 }

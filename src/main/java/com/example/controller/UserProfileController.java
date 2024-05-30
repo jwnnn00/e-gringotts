@@ -63,7 +63,7 @@ public class UserProfileController extends HomeController implements Initializab
 
         // Retrieve the avatar image path from the account
         String avatarPath = loggedInAccount.getAvatar().getImagePath();
-        //System.out.println(avatarPath);
+        System.out.println(avatarPath);
         // Load the avatar image into the ImageView
         if (avatarPath != null && !avatarPath.isEmpty()) {
             Image image = new Image("file:///" + avatarPath);

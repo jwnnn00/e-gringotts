@@ -1,9 +1,1 @@
 .default-colour0.chart-bar{-fx-bar-fill:Blue}
-
-.wand-cursor {
-    -fx-cursor: url("img/wand-cursor.png"), auto;
-}
-
-.hand-cursor {
-    -fx-cursor: url("img/hand-cursor.png"), auto;
-}

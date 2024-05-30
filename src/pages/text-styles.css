@@ -1,7 +1,3 @@
-.label {
-    -fx-font-family: "Optima";
- }
-
 /*Choice Box Style*/
 .choice-box .context-menu {
     -fx-background-color: black;
