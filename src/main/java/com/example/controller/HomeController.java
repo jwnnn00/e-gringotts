@@ -148,4 +148,34 @@ public class HomeController implements Initializable {
     public void checkBalance(ActionEvent event) {
         DBUtils.changeSceneWithData(event, "/pages/userProfile.fxml", "User Profile", userAccount);
     }
+
+    @FXML
+    private void changeCurrency(ActionEvent event) {
+        // Change the scene to EditCurrency.fxml
+        DBUtils.changeSceneWithData(event, "/pages/editCurrency.fxml", "Edit Currency", userAccount);
+    }
+
+    @FXML
+    public void getNumberOfTransaction(ActionEvent event) throws IOException {
+        DBUtils.changeSceneWithData(event, "/pages/TransactionHistoryAdmin-view.fxml", "Get number Of Transaction", userAccount);
+    }
+
+    @FXML
+    private void updateUserType(ActionEvent event) {
+        // Change the scene to EditCurrency.fxml
+        DBUtils.changeSceneWithData(event, "/pages/editUserType.fxml", "Edit User Type", userAccount);
+    }
+
+    @FXML
+    void getNumberOfUsers(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/getNumOfUser.fxml"));
+        Parent root = loader.load();
+
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.setTitle("User Details");
+        popupStage.setScene(new Scene(root));
+        popupStage.showAndWait();
+
+    }
 }
