@@ -88,10 +88,29 @@
                         <Font name="Optima ExtraBlack" size="41.0" />
                      </font>
                   </Label>
-                  <AnchorPane prefHeight="450" prefWidth="735" style="-fx-background-color: white; -fx-background-radius: 5;">
+                  <AnchorPane prefHeight="450" prefWidth="735" style="-fx-background-color: gray; -fx-background-radius: 5;">
                      <children>
-                        <VBox layoutX="96.0" layoutY="61.974998474121094" spacing="30.0">
+                        <VBox layoutX="96.0" layoutY="61.974998474121094" spacing="30.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="138.0" AnchorPane.topAnchor="10.0">
                            <children>
+                              <HBox alignment="CENTER" spacing="20.0">
+                                 <children>
+                                    <Label fx:id="fromUser_label" text="From" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Optima Bold" size="28.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="37.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/arrow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="toUser_label" text="To" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Optima Bold" size="28.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="40.0">
                                  <children>
                                     <Text text="From Currency" textAlignment="RIGHT" wrappingWidth="200">
@@ -141,14 +160,14 @@
                                     </Button>
                                     <Text fx:id="getTotal">
                                        <font>
-                                          <Font name="Berlin Sans FB" size="25.0" />
+                                          <Font size="18.0" />
                                        </font>
                                     </Text>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <Button layoutX="583.0" layoutY="359.0" onAction="#proceedToPayment" prefHeight="39.0" prefWidth="124.0" stylesheets="@button-styles.css" text="Proceed">
+                        <Button layoutX="581.0" layoutY="371.0" onAction="#proceedToPayment" prefHeight="39.0" prefWidth="124.0" stylesheets="@button-styles.css" text="Proceed">
                            <font>
                               <Font size="19.0" />
                            </font>

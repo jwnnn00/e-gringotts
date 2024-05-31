@@ -1,44 +1,6 @@
 .label {
     -fx-font-family: "Optima";
- }
-
-/*Choice Box Style*/
-.choice-box .context-menu {
-    -fx-background-color: black;
-    -fx-mark-color: orange; /*arrow color*/
-    -fx-opacity: 0.9;
-    -fx-border-radius: 10;
-    -fx-font-family: "Optima";
 }
-
-/* Set the preferred width of menu items */
-.choice-box .menu-item > .label {
-    -fx-pref-width: 495; /* Adjust this width as needed */
-}
-
-/* Focused item background color in the list*/
-.choice-box .menu-item:focused{
-    -fx-background-color: orange;
-
-}
-
-/* Text color of non-focused items in the list*/
-.choice-box .menu-item > .label {
-    -fx-text-fill: white;
-}
-
-/* Text color of focused item in the list*/
-.choice-box .menu-item:focused > .label {
-    -fx-text-fill: black;
-}
-
-
-/* Selected item text color on the control itself*/
-.choice-box > .label {
-    -fx-text-fill: white;
-}
-
-
 
 /*Text Field Style*/
 .text-field {
@@ -52,6 +14,23 @@
     -fx-border-color: #fce188;
     -fx-effect: dropshadow(three-pass-box, #524314, 2, 0, 0, 0);
 }
+
+/*Text Area Style*/
+.text-area {
+    -fx-font-family: "Optima";
+    -fx-border-width: 0px;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.text-area .content{
+      -fx-font-family: "Optima";
+      -fx-background-color: black;
+      -fx-text-fill: white;
+      -fx-opacity: 0.8;
+      -fx-border-width: 0.5px;
+      -fx-border-color: #fce188;
+  }
 
 
 /*Date Picker Style*/

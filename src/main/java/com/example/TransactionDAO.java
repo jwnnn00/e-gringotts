@@ -41,7 +41,7 @@ public class TransactionDAO {
     }
     public ObservableList<Transaction> getTransactionsByUsername(String username) {
         int userID = Math.toIntExact(Database.getUserByUsername(username).getUserId());
-        System.out.println(userID);
+        //System.out.println(userID);
         ObservableList<Transaction> list = FXCollections.observableArrayList();
 
         try (Connection connection = Database.getConnection();

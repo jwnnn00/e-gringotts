@@ -43,6 +43,9 @@ public class UpdateUserTypeController extends HomeController implements Initiali
     private Text selectedUserText;
 
     @FXML
+    private Label usernameLabel;
+
+    @FXML
     private ChoiceBox<String> userTypeChoiceBox;
 
     @FXML
@@ -84,9 +87,9 @@ public class UpdateUserTypeController extends HomeController implements Initiali
         if (event.getClickCount() == 2) {
             selectedUser = userTable.getSelectionModel().getSelectedItem();
             if (selectedUser != null) {
-                System.out.println(selectedUser.getUserId());
+                //System.out.println(selectedUser.getUserId());
                 userTypeChoiceBox.setValue(selectedUser.getUserType().toString());
-
+                usernameLabel.setText(selectedUser.getUsername());
             }
         }
     }

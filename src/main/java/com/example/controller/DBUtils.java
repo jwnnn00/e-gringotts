@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.Modality;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class DBUtils {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
 
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
@@ -79,8 +80,6 @@ public class DBUtils {
     }
 
 
-
-
     public static void clearSession(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource("/pages/login.fxml"));
@@ -93,7 +92,7 @@ public class DBUtils {
         }
     }
 
-    public static void createAccount(ActionEvent event, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency,String pin) {
+    public static void createAccount(ActionEvent event, String username, String fullName, String email, String password, java.sql.Date dateOfBirth, String address, String phoneNumber, UserType userType, UserAvatar userAvatar, String currency, String pin) {
         if (db.checkUsernameExists(username)) {
             System.err.println("Failed to create account: Username already exists.");
             return;
@@ -135,17 +134,13 @@ public class DBUtils {
     }
 
 
-
-    static void showAlert(String title, String content) {
+    public static void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-
-
 
 
 }

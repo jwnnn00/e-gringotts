@@ -110,7 +110,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="109.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Need help?" textFill="WHITE">
+                        <Button fx:id="button_needHelp" mnemonicParsing="false" onAction="#needHelp" prefHeight="29.0" prefWidth="109.0" style="-fx-background-color: rgba(0, 0, 0, 0);" stylesheets="@fgtPwButton-styles.css" text="Need help?" textFill="WHITE">
                            <font>
                               <Font name="Optima Bold" size="14.0" />
                            </font>

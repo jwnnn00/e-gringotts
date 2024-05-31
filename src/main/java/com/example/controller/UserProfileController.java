@@ -107,7 +107,7 @@ public class UserProfileController extends HomeController implements Initializab
                     t_cardType.setFill(Color.BLACK);
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "/img/platinumm_card.png";
+                    cardImagePath = "/platinumm_card.png";
                     t_cardType.setFill(Color.WHITE);
                     t_cardNum.setFill(Color.WHITE);
                     t_cvv.setFill(Color.WHITE);

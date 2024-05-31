@@ -17,7 +17,7 @@ public class ForgotPasswordController {
     @FXML
     private Button login_button;
     @FXML
-    private Button button_register;
+    private Button button_reset;
     @FXML
     private TextField emailTextField;
     @FXML
@@ -47,7 +47,7 @@ public class ForgotPasswordController {
             showAlert("Weak Password", "Password must be at least 8 characters long and contain uppercase, lowercase, digit, and special character.");
             return;
         }else{
-            System.out.println("Fields are valid. Continue to register");
+            System.out.println("Fields are valid. Continue to change password");
             email = emailTextField.getText();
             password = setPasswordField.getText();
             resetPassword(actionEvent);

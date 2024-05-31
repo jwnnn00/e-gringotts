@@ -1,6 +1,7 @@
 package com.example.controller;
-import com.example.Transaction;
 
+import com.example.Transaction;
+import com.example.divinationData;
 import com.example.model.Account;
 import com.example.model.AccountHolder;
 import javafx.collections.FXCollections;
@@ -20,13 +21,12 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import com.example.divinationData;
 
 import static com.example.divinationData.*;
 
@@ -34,7 +34,6 @@ public class DivinationController extends HomeController implements Initializabl
 
     private Scene previousScene;
     private int userId;
-
 
     @FXML
     private Text showUsername;
@@ -48,9 +47,9 @@ public class DivinationController extends HomeController implements Initializabl
     @FXML
     private TableColumn<Transaction, Integer> transactionIdColumn;
     @FXML
-    private TableColumn<Transaction,Double> AmountColumn;
+    private TableColumn<Transaction, Double> AmountColumn;
     @FXML
-    private TableColumn<Transaction,LocalDate> DateColumn;
+    private TableColumn<Transaction, LocalDateTime> DateColumn;
     @FXML
     private ToggleButton FoodCategory;
     @FXML
@@ -75,43 +74,41 @@ public class DivinationController extends HomeController implements Initializabl
     private ToggleButton Debit;
     @FXML
     private Button refresh;
-    private Account<?>account;
+    private Account<?> account;
 
     private static final String URL = "jdbc:mysql://localhost:3306/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
     // Define date and time format
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         String username = loggedInAccount.getUsername();
-        account=loggedInAccount;
+        account = loggedInAccount;
 
         showUsername.setText(username);
-        this.userId= Math.toIntExact(loggedInAccount.getUserId());
+        this.userId = Math.toIntExact(loggedInAccount.getUserId());
+
         try {
             showUserNameAndTotalExpenses();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-
         UIUtils.initializeUI(button_userProfile, user_avatar, loggedInAccount, username);
         handlePieChart();
-        transactionIdColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Integer>("transactionId"));
-        AmountColumn.setCellValueFactory(new PropertyValueFactory<Transaction,Double>("amount"));
-        DateColumn.setCellValueFactory(new PropertyValueFactory<Transaction,LocalDate>("transactionDate"));
-        //DateColumn.setCellValueFactory(new PropertyValueFactory<Transaction, LocalDateTime>("transactionDate"));
 
+        transactionIdColumn.setCellValueFactory(new PropertyValueFactory<>("transactionId"));
+        AmountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        DateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionDate"));
 
-        DateColumn.setCellValueFactory(new PropertyValueFactory<>("date")); // Assuming "date" is the property for dates in your Transaction class
-
-        DateColumn.setCellFactory(column -> new TableCell<Transaction, LocalDate>() {
+        DateColumn.setCellFactory(column -> new TableCell<Transaction, LocalDateTime>() {
             @Override
-            protected void updateItem(LocalDate item, boolean empty) {
+            protected void updateItem(LocalDateTime item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
@@ -141,34 +138,18 @@ public class DivinationController extends HomeController implements Initializabl
         showUserNameAndTotalExpenses();
     }
 
-//
-//    @FXML
-//    private void handleCheckBalance(MouseEvent event) {
-//
-//        System.out.println("Check Balance button clicked");
-//    }
-//    @FXML
-//    private void handleTransactionHistory(MouseEvent event) {
-//        System.out.println("Transaction History button clicked");
-//    }
-//    @FXML
-//    private void handleTransfer(MouseEvent event) {
-//        System.out.println("Transfer button clicked");
-//    }
-
     @FXML
     private void showUserNameAndTotalExpenses() throws SQLException {
         try (Connection conn = divinationData.DatabaseManager.getConnection()) {
-
             double totalExpenses = divinationData.calculateTotalExpenditures(conn, userId);
             showTotal.setText(String.format("%.2f", totalExpenses));
         }
     }
 
     private void displayTransactions(List<Transaction> transactions) {
-        for (Transaction transaction : transactions) {
-            System.out.println(transaction); // Print transaction details
-        }
+//        for (Transaction transaction : transactions) {
+//            System.out.println(transaction); // Print transaction details
+//        }
 
         ObservableList<Transaction> transactionList = FXCollections.observableArrayList(transactions);
         expenditureSummary.setVisible(false);
@@ -184,12 +165,10 @@ public class DivinationController extends HomeController implements Initializabl
         try (Connection conn = divinationData.DatabaseManager.getConnection()) {
             Map<String, Double> expenditures = divinationData.calculateExpenditures(conn, userId);
 
-            // Calculate total expenditure
             double totalExpenditure = expenditures.values().stream().mapToDouble(Double::doubleValue).sum();
 
             ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-            // Create pie chart data
             for (Map.Entry<String, Double> entry : expenditures.entrySet()) {
                 double percentage = (entry.getValue() / totalExpenditure) * 100;
                 pieChartData.add(new PieChart.Data(entry.getKey() + " (" + String.format("%.2f", percentage) + "%)", entry.getValue()));
@@ -201,17 +180,17 @@ public class DivinationController extends HomeController implements Initializabl
 
             final Tooltip[] activeTooltip = {null};
             for (final PieChart.Data data : expenditureSummary.getData()) {
-                Tooltip tooltip = new Tooltip(data.getName()+" - "+data.getPieValue());
-                Tooltip.install(data.getNode(),tooltip);
+                Tooltip tooltip = new Tooltip(data.getName() + " - " + data.getPieValue());
+                Tooltip.install(data.getNode(), tooltip);
                 data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        if(activeTooltip[0] != null){
+                        if (activeTooltip[0] != null) {
                             activeTooltip[0].hide();
                         }
                         tooltip.show(data.getNode(), mouseEvent.getSceneX(), mouseEvent.getSceneY());
                         activeTooltip[0] = tooltip;
-                        System.out.println(data.getName()+" - "+data.getPieValue());
+                        System.out.println(data.getName() + " - " + data.getPieValue());
                     }
                 });
             }
@@ -220,44 +199,48 @@ public class DivinationController extends HomeController implements Initializabl
         }
     }
 
-
     @FXML
     private void handleFoodCategory(MouseEvent event) throws SQLException {
         FoodCategory.isSelected();
         handleCategoryToggle(event, "Food");
     }
+
     @FXML
     private void handleTransportationCategory(MouseEvent event) throws SQLException {
         TransportationCategory.isSelected();
         handleCategoryToggle(event, "Transportation");
     }
+
     @FXML
     private void handleEntertainmentCategory(MouseEvent event) throws SQLException {
         EntertainmentCategory.isSelected();
         handleCategoryToggle(event, "Entertainment");
     }
+
     @FXML
     private void handleUtilitiesCategory(MouseEvent event) throws SQLException {
         UtilitiesCategory.isSelected();
         handleCategoryToggle(event, "Utilities");
     }
+
     @FXML
     private void handleShoppingCategory(MouseEvent event) throws SQLException {
         ShoppingCategory.isSelected();
         handleCategoryToggle(event, "Shopping");
     }
+
     @FXML
     private void handleOthers(MouseEvent event) throws SQLException {
         Others.isSelected();
         handleCategoryToggle(event, "Others");
     }
 
-    private void handleCategoryToggle(MouseEvent event, String category){
+    private void handleCategoryToggle(MouseEvent event, String category) {
         ToggleButton toggleButton = (ToggleButton) event.getSource();
         if (toggleButton.isSelected()) {
             expenditureSummary.setVisible(false);
             showDetails.setVisible(true);
-            try{
+            try {
                 List<Transaction> filteredTransactions = filterTransactionsByCategory(userId, category);
                 displayTransactions(filteredTransactions);
             } catch (SQLException e) {
@@ -276,23 +259,27 @@ public class DivinationController extends HomeController implements Initializabl
             LocalDate end = endDate.getValue();
 
             if (start != null && end != null) {
-                try {
-                    List<Transaction> filteredTransactions = filterTransactionsByDateRange(userId, start,end);
-                    ObservableList<Transaction> tableList = FXCollections.observableArrayList(filteredTransactions);
-                    displayTransactions(tableList);
-                } catch (DateTimeParseException e) {
-                    // Show alert for invalid date format
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Date Format");
-                    alert.setHeaderText("Please use yyyy-MM-dd format for dates.");
-                    alert.showAndWait();
+                if (start.isAfter(end)) {
+                    showAlert("Invalid Date Range", "Start date cannot be after end date.");
+                    startDate.setValue(null);
+                    endDate.setValue(null);
+                } else {
+                    try {
+                        List<Transaction> filteredTransactions = filterTransactionsByDateRange(userId, start, end);
+                        if (filteredTransactions.isEmpty()) {
+                            showAlert("No Transactions", "No transactions were found for the selected date range.");
+                            startDate.setValue(null);
+                            endDate.setValue(null);
+                            return;
+                        }
+                        ObservableList<Transaction> tableList = FXCollections.observableArrayList(filteredTransactions);
+                        displayTransactions(tableList);
+                    } catch (DateTimeParseException e) {
+                        showAlert("Invalid Date Format", "Please use yyyy-MM-dd format for dates.");
+                    }
                 }
             } else {
-                // Show alert for missing dates
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Missing Dates");
-                alert.setHeaderText("Please enter both start date and end date.");
-                alert.showAndWait();
+                showAlert("Missing Dates", "Please enter both start date and end date.");
             }
         }
     }
@@ -302,18 +289,19 @@ public class DivinationController extends HomeController implements Initializabl
         Credit.isSelected();
         handlePaymentMethodToggle(event, "Credit");
     }
+
     @FXML
     private void handleDebit(MouseEvent event) throws SQLException {
         Debit.isSelected();
         handlePaymentMethodToggle(event, "Debit");
     }
 
-    private void handlePaymentMethodToggle(MouseEvent event, String paymentMethod){
+    private void handlePaymentMethodToggle(MouseEvent event, String paymentMethod) {
         ToggleButton toggleButton = (ToggleButton) event.getSource();
         if (toggleButton.isSelected()) {
             expenditureSummary.setVisible(false);
             showDetails.setVisible(true);
-            try{
+            try {
                 List<Transaction> filteredTransactions = filterTransactionsByPaymentMethod(userId, paymentMethod);
                 displayTransactions(filteredTransactions);
             } catch (SQLException e) {
@@ -322,7 +310,15 @@ public class DivinationController extends HomeController implements Initializabl
         }
     }
 
-    public void refreshDetails(MouseEvent event){
+    public void refreshDetails(MouseEvent event) {
         handlePieChart();
+    }
+
+    public void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

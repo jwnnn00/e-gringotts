@@ -1,0 +1,11 @@
+.table-view {
+    -fx-font-family: "Optima";
+}
+
+.table-view .column-header .label {
+    -fx-alignment: center;
+}
+
+.table-view .cell{
+  -fx-alignment: center;
+}

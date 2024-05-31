@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,7 +21,6 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -70,7 +68,6 @@ public class SignUpController implements Initializable {
     public Account<?> userAccount;
 
 
-
     @FXML
     void register(javafx.event.ActionEvent event) throws IOException {
         String username = tf_username.getText();
@@ -99,6 +96,11 @@ public class SignUpController implements Initializable {
             return;
         }
 
+        if (!isPhoneNumber(phoneNumber)) {
+            showAlert("Invalid Phone Number", "Please enter a valid phone number.");
+            return;
+        }
+
         if (!password.equals(confirmPassword)) {
             showAlert("Password Mismatch", "Passwords do not match. Please try again.");
             return;
@@ -116,10 +118,19 @@ public class SignUpController implements Initializable {
 
         java.sql.Date dateOfBirth = java.sql.Date.valueOf(dobValue); // Convert LocalDate to java.sql.Date
 
-
-
         String otp = EmailSender.generateOTP();
-        EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
+        String subject = "OTP Verification Code for Registration";
+        String body = "Hello! \n\n"
+                + "To complete your registration, we've sent you a one-time password (OTP).\n\n"
+                + "Your OTP is: " + otp + "\n\n"
+                + "Please enter this code within the next 10 minutes to complete your registration process.\n\n"
+                + "If you did not request this OTP, please ignore this message..\n\n"
+                + "Thank you for your cooperation.\n\n"
+                + "Best regards,\n"
+                + "Gringotts Bank Support Team\n";
+
+
+        EmailSender.sendEmail(email, subject, body);
 
         // Prompt the user to enter the OTP
         TextInputDialog dialog = new TextInputDialog();
@@ -128,29 +139,30 @@ public class SignUpController implements Initializable {
         dialog.setContentText("OTP:");
 
 
-            Optional<String> otpResult = dialog.showAndWait();
+        Optional<String> otpResult = dialog.showAndWait();
 
-            if (otpResult.isPresent()) {
-                String enteredOTP = otpResult.get();
-                if (otp.equals(enteredOTP)) {
-                    // Prompt for PIN
-                    String pin = promptForPin();
-                    if (pin == null) {
-                        return; // Stop registration if PIN setup was cancelled or invalid
-                    }
-
-                    // Proceed with account creation
-                    DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency, pin);
-                    setUserAccount(Database.getUserByUsername(username));
-                    loadCardDetails();
-                } else {
-                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+        if (otpResult.isPresent()) {
+            String enteredOTP = otpResult.get();
+            if (otp.equals(enteredOTP)) {
+                // Prompt for PIN
+                String pin = promptForPin();
+                if (pin == null) {
+                    return; // Stop registration if PIN setup was cancelled or invalid
                 }
+
+                // Proceed with account creation
+                DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency, pin);
+                setUserAccount(Database.getUserByUsername(username));
+                loadCardDetails();
             } else {
-                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+                DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
             }
+        } else {
+            DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+        }
 
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Set<String> currencyOptions = fetchUniqueCurrencyValues();
@@ -184,6 +196,10 @@ public class SignUpController implements Initializable {
                 password.matches(".*[!@#$%^&*()-_=+].*");
     }
 
+    private boolean isPhoneNumber(String phoneNum) {
+        return phoneNum.matches("^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$");
+    }
+
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -191,9 +207,10 @@ public class SignUpController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     @FXML
-    void login (javafx.event.ActionEvent event){
-        DBUtils.changeScene(event,"/pages/login.fxml",null,null);
+    void login(javafx.event.ActionEvent event) {
+        DBUtils.changeScene(event, "/pages/login.fxml", null, null);
     }
 
     @FXML
@@ -208,6 +225,7 @@ public class SignUpController implements Initializable {
         if (selectedFile != null) {
             // Assuming imagePath is a TextField to display the selected file path
             imagePath = selectedFile.getAbsolutePath();
+            button_uploadPic.setText(imagePath);
         }
     }
 
@@ -242,31 +260,31 @@ public class SignUpController implements Initializable {
             String cardImagePath;
             switch (userAccount.getUserType()) {
                 case Silver_Snitch:
-                    cardImagePath = "//silver_card.png";
+                    cardImagePath = "/img/silver_card.png";
                     break;
                 case Golden_Galleon:
-                    cardImagePath = "//golden_card.png";
+                    cardImagePath = "/img/gold_card.png";
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "//platinum_card.png";
-                    cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
+                    cardImagePath = "/img/platinumm_card.png";
+                    cardController.initialize(cardImagePath, "$" + String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString() + " Card", Color.WHITE);
                     break;
                 default:
-                    cardImagePath = "/path/to/silver_card.png";
+                    cardImagePath = "/img/silver_card.png";
                     break;
             }
-            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
+            //ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
 
 
-            cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
-            String otp = EmailSender.generateOTP();
-
-            // Send OTP via email
-            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
-            String subject = "Verification Code for e-Gringotts Registration";
-            String body = "Your OTP code is: " + otp;
-
-            EmailSender.sendEmail(recipientEmail, subject, body);
+            cardController.initialize(cardImagePath, "$" + String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString() + " Card", Color.BLACK);
+//            String otp = EmailSender.generateOTP();
+//
+//            // Send OTP via email
+//            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
+//            String subject = "Verification Code for e-Gringotts Registration";
+//            String body = "Your OTP code is: " + otp;
+//
+//            EmailSender.sendEmail(recipientEmail, subject, body);
 
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
