@@ -242,31 +242,31 @@ public class SignUpController implements Initializable {
             String cardImagePath;
             switch (userAccount.getUserType()) {
                 case Silver_Snitch:
-                    cardImagePath = "//silver_card.png";
+                    cardImagePath = "/img/silver_card.png";
                     break;
                 case Golden_Galleon:
-                    cardImagePath = "//golden_card.png";
+                    cardImagePath = "/img/gold_card.png";
                     break;
                 case Platinum_Patronus:
-                    cardImagePath = "//platinum_card.png";
+                    cardImagePath = "/img/platinumm_card.png";
                     cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
                     break;
                 default:
-                    cardImagePath = "/path/to/silver_card.png";
+                    cardImagePath = "/img/silver_card.png";
                     break;
             }
-            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
+//            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
 
 
             cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
-            String otp = EmailSender.generateOTP();
-
-            // Send OTP via email
-            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
-            String subject = "Verification Code for e-Gringotts Registration";
-            String body = "Your OTP code is: " + otp;
-
-            EmailSender.sendEmail(recipientEmail, subject, body);
+//            String otp = EmailSender.generateOTP();
+//
+//            // Send OTP via email
+//            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
+//            String subject = "Verification Code for e-Gringotts Registration";
+//            String body = "Your OTP code is: " + otp;
+//
+//            EmailSender.sendEmail(recipientEmail, subject, body);
 
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
