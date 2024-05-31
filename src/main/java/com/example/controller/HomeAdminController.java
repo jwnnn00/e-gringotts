@@ -29,72 +29,47 @@ public class HomeAdminController implements Initializable {
 
     @FXML
     private Button MarauderMapButton;
-
     @FXML
     private Button button_balance;
-
     @FXML
     private Button button_balanceT;
-
     @FXML
     private Button button_changeCurrency;
-
     @FXML
     private Button button_history;
-
     @FXML
     private Button button_historyT;
-
     @FXML
     private Button button_home;
-
     @FXML
     private MenuItem button_logout;
-
     @FXML
     private Button button_numOfTransaction;
-
     @FXML
     private Button button_numOfUser;
-
     @FXML
     private MenuItem button_openUserProfile;
-
     @FXML
     private Button button_summary;
-
     @FXML
     private Button button_transfer;
-
     @FXML
     private MenuButton button_userProfile;
-
     @FXML
     private Button button_userType;
-
     @FXML
     private Label label_slogan;
-
     @FXML
     private Label label_slogan1;
-
     @FXML
     private ImageView user_avatar;
-
     public Account<?> userAccount;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
-
-//        t_totalNumOfUser = new Text();
-//        CategoryAxis y_typeOfUser = new CategoryAxis();
-//        NumberAxis x_numberOfUser = new NumberAxis();
-//        userChart = new BarChart<>(x_numberOfUser, y_typeOfUser);
-
     }
 
     public void initializeLoggedInPage(Account<?> userAccount) {
@@ -147,7 +122,6 @@ public class HomeAdminController implements Initializable {
         popupStage.setTitle("User Details");
         popupStage.setScene(new Scene(root));
         popupStage.showAndWait();
-
     }
 
     @FXML

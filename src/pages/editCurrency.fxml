@@ -90,12 +90,12 @@
                         <Image url="@../img/currency_signboard.png" />
                      </image>
                   </ImageView>
-                  <TableView fx:id="tableView" onMouseClicked="#rowClicked" prefHeight="219.0" prefWidth="434.0">
+                  <TableView fx:id="tableView" onMouseClicked="#rowClicked" prefHeight="219.0" prefWidth="434.0" stylesheets="@currencyTable.css">
                      <columns>
-                        <TableColumn fx:id="currencyColumn" prefWidth="112.800048828125" text="Currency" />
-                        <TableColumn fx:id="toCurrencyColumn" minWidth="9.599945068359375" prefWidth="92.800048828125" text="To Currency" />
-                        <TableColumn fx:id="exchangeRateColumn" prefWidth="112.79998779296875" text="Exchange Rate" />
-                        <TableColumn fx:id="processingFeeColumn" prefWidth="113.5999755859375" text="Processing Fee" />
+                        <TableColumn fx:id="currencyColumn" editable="false" prefWidth="138.0" sortable="false" text="Currency" />
+                        <TableColumn fx:id="toCurrencyColumn" editable="false" minWidth="9.599945068359375" prefWidth="150.0" sortable="false" text="To Currency" />
+                        <TableColumn fx:id="exchangeRateColumn" editable="false" prefWidth="149.0" sortable="false" text="Exchange Rate" />
+                        <TableColumn fx:id="processingFeeColumn" editable="false" prefWidth="145.0" sortable="false" text="Processing Fee" />
                      </columns>
                   </TableView>
                   <AnchorPane prefHeight="64.0" prefWidth="583.0">
@@ -146,7 +146,7 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <Button fx:id="button_saveChange" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="174.0" style="-fx-background-color: BLACK; -fx-border-color: GOLD; -fx-background-radius: 1; -fx-border-radius: 1;" text="SAVE CHANGE" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="button_saveChange" mnemonicParsing="false" onAction="#submit" prefHeight="39.0" prefWidth="174.0" stylesheets="@saveChangeButton.css" text="SAVE CHANGE" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>

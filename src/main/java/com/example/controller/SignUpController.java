@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,7 +21,6 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -70,7 +68,6 @@ public class SignUpController implements Initializable {
     public Account<?> userAccount;
 
 
-
     @FXML
     void register(javafx.event.ActionEvent event) throws IOException {
         String username = tf_username.getText();
@@ -86,9 +83,7 @@ public class SignUpController implements Initializable {
         String currency = cb_currency.getValue();
 
         // Check if any of the fields is empty
-        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty() ||
-                confirmPassword.isEmpty() || dobValue == null || address.isEmpty() ||
-                phoneNumber.isEmpty() || currency == null) {
+        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || dobValue == null || address.isEmpty() || phoneNumber.isEmpty() || currency == null) {
             showAlert("Incomplete Fields", "Please fill in all the required fields.");
             return;
         }
@@ -96,6 +91,11 @@ public class SignUpController implements Initializable {
 
         if (!isValidEmail(email)) {
             showAlert("Invalid Email", "Please enter a valid email address.");
+            return;
+        }
+
+        if (!isPhoneNumber(phoneNumber)) {
+            showAlert("Invalid Phone Number", "Please enter a valid phone number.");
             return;
         }
 
@@ -116,10 +116,12 @@ public class SignUpController implements Initializable {
 
         java.sql.Date dateOfBirth = java.sql.Date.valueOf(dobValue); // Convert LocalDate to java.sql.Date
 
-
-
         String otp = EmailSender.generateOTP();
-        EmailSender.sendEmail(email, "OTP Verification", "Your OTP is: " + otp);
+        String subject = "OTP Verification Code for Registration";
+        String body = "Hello! \n\n" + "To complete your registration, we've sent you a one-time password (OTP).\n\n" + "Your OTP is: " + otp + "\n\n" + "Please enter this code within the next 10 minutes to complete your registration process.\n\n" + "If you did not request this OTP, please ignore this message..\n\n" + "Thank you for your cooperation.\n\n" + "Best regards,\n" + "Gringotts Bank Support Team\n";
+
+
+        EmailSender.sendEmail(email, subject, body);
 
         // Prompt the user to enter the OTP
         TextInputDialog dialog = new TextInputDialog();
@@ -128,29 +130,28 @@ public class SignUpController implements Initializable {
         dialog.setContentText("OTP:");
 
 
-            Optional<String> otpResult = dialog.showAndWait();
+        Optional<String> otpResult = dialog.showAndWait();
 
-            if (otpResult.isPresent()) {
-                String enteredOTP = otpResult.get();
-                if (otp.equals(enteredOTP)) {
-                    // Prompt for PIN
-                    String pin = promptForPin();
-                    if (pin == null) {
-                        return; // Stop registration if PIN setup was cancelled or invalid
-                    }
-
-                    // Proceed with account creation
-                    DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency, pin);
-                    setUserAccount(Database.getUserByUsername(username));
-                    loadCardDetails();
-                } else {
-                    DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
+        if (otpResult.isPresent()) {
+            String enteredOTP = otpResult.get();
+            if (otp.equals(enteredOTP)) {
+                // Prompt for PIN
+                String pin = promptForPin();
+                if (pin == null) {
+                    return; // Stop registration if PIN setup was cancelled or invalid
                 }
+                // Proceed with account creation
+                DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency, pin);
+                setUserAccount(Database.getUserByUsername(username));
+                loadCardDetails();
             } else {
-                DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+                DBUtils.showAlert("Invalid OTP", "The entered OTP is incorrect. Please try again.");
             }
-
+        } else {
+            DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
+        }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Set<String> currencyOptions = fetchUniqueCurrencyValues();
@@ -177,11 +178,11 @@ public class SignUpController implements Initializable {
     }
 
     private boolean isStrongPassword(String password) {
-        return password.length() >= 8 &&
-                password.matches(".*[A-Z].*") &&
-                password.matches(".*[a-z].*") &&
-                password.matches(".*\\d.*") &&
-                password.matches(".*[!@#$%^&*()-_=+].*");
+        return password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") && password.matches(".*\\d.*") && password.matches(".*[!@#$%^&*()-_=+].*");
+    }
+
+    private boolean isPhoneNumber(String phoneNum) {
+        return phoneNum.matches("^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]*$");
     }
 
     private void showAlert(String title, String content) {
@@ -191,9 +192,10 @@ public class SignUpController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     @FXML
-    void login (javafx.event.ActionEvent event){
-        DBUtils.changeScene(event,"/pages/login.fxml",null,null);
+    void login(javafx.event.ActionEvent event) {
+        DBUtils.changeScene(event, "/pages/login.fxml", null, null);
     }
 
     @FXML
@@ -208,6 +210,7 @@ public class SignUpController implements Initializable {
         if (selectedFile != null) {
             // Assuming imagePath is a TextField to display the selected file path
             imagePath = selectedFile.getAbsolutePath();
+            button_uploadPic.setText(imagePath);
         }
     }
 
@@ -249,12 +252,15 @@ public class SignUpController implements Initializable {
                     break;
                 case Platinum_Patronus:
                     cardImagePath = "/img/platinumm_card.png";
+
                     cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
+
                     break;
                 default:
                     cardImagePath = "/img/silver_card.png";
                     break;
             }
+
 //            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
 
 
@@ -268,6 +274,7 @@ public class SignUpController implements Initializable {
 //
 //            EmailSender.sendEmail(recipientEmail, subject, body);
 
+
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setTitle("User Details");
@@ -276,7 +283,6 @@ public class SignUpController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private String promptForPin() {

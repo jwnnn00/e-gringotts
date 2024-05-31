@@ -4,25 +4,21 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
+
 public class CardController {
 
     @FXML
     private ImageView i_cardType;
-
     @FXML
     private Text t_balance;
-
     @FXML
     private Text t_cardNum;
-
     @FXML
     private Text t_exp;
-
     @FXML
     private Text t_cvv;
     @FXML
     private Text t_cardType;
-
 
 
     public void initialize(String cardImagePath, String balance, String cardNum, String exp, String cvv, String cardType, Color textColor) {

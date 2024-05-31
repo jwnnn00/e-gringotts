@@ -17,7 +17,7 @@ public class ForgotPasswordController {
     @FXML
     private Button login_button;
     @FXML
-    private Button button_register;
+    private Button button_reset;
     @FXML
     private TextField emailTextField;
     @FXML
@@ -32,22 +32,22 @@ public class ForgotPasswordController {
 
     @FXML
     public void onLoginClicked(ActionEvent actionEvent) throws IOException {
-        DBUtils.changeScene(actionEvent,"/pages/login.fxml",null,null);
+        DBUtils.changeScene(actionEvent, "/pages/login.fxml", null, null);
     }
 
     public void resetPasswordOnAction(ActionEvent actionEvent) throws SQLException {
         if (emailTextField.getText().isEmpty() || setPasswordField.getText().isEmpty() || confirmPasswordField.getText().isEmpty()) {
             showAlert("Incomplete Fields", "Please fill in all the required fields.");
             return;
-        } else if (!setPasswordField.getText().equals(confirmPasswordField.getText())){
+        } else if (!setPasswordField.getText().equals(confirmPasswordField.getText())) {
             showAlert("Password Mismatch", "Passwords do not match. Please try again.");
             return;
-        }else if (!isStrongPassword(setPasswordField.getText())){
+        } else if (!isStrongPassword(setPasswordField.getText())) {
             // Check if password meets criteria
             showAlert("Weak Password", "Password must be at least 8 characters long and contain uppercase, lowercase, digit, and special character.");
             return;
-        }else{
-            System.out.println("Fields are valid. Continue to register");
+        } else {
+            System.out.println("Fields are valid. Continue to change password");
             email = emailTextField.getText();
             password = setPasswordField.getText();
             resetPassword(actionEvent);
@@ -112,7 +112,7 @@ public class ForgotPasswordController {
 
     // Method to redirect to the login page
     private void redirectToLoginPage(ActionEvent actionEvent) {
-        DBUtils.changeScene(actionEvent,"/pages/login.fxml",null,null);
+        DBUtils.changeScene(actionEvent, "/pages/login.fxml", null, null);
     }
 
     public void showAlert(String title, String message) {

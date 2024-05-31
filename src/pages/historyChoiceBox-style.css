@@ -1,0 +1,42 @@
+/* Choice Box Style */
+.choice-box {
+    -fx-font-family: "Optima";
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-opacity: 0.8;
+    -fx-background-color: black;
+    -fx-border-color: #fce188;
+    -fx-border-width: 0.5;
+}
+.choice-box .context-menu {
+    -fx-background-color: black;
+    -fx-mark-color: orange; /* arrow color */
+    -fx-opacity: 0.9;
+    -fx-border-radius: 10;
+    -fx-font-family: "Optima";
+}
+
+/* Set the preferred width of menu items */
+.choice-box .menu-item > .label {
+    -fx-pref-width: 495; /* Adjust this width as needed */
+}
+
+/* Focused item background color in the list */
+.choice-box .menu-item:focused {
+    -fx-background-color: orange;
+}
+
+/* Text color of non-focused items in the list */
+.choice-box .menu-item > .label {
+    -fx-text-fill: white;
+}
+
+/* Text color of focused item in the list */
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: black;
+}
+
+/* Selected item text color on the control itself */
+.choice-box > .label {
+    -fx-text-fill: white;
+}

@@ -38,9 +38,11 @@ public class UpdateUserTypeController extends HomeController implements Initiali
     private TableColumn<Account, String> userTypeColumn;
 
 
-
     @FXML
     private Text selectedUserText;
+
+    @FXML
+    private Label usernameLabel;
 
     @FXML
     private ChoiceBox<String> userTypeChoiceBox;
@@ -50,7 +52,6 @@ public class UpdateUserTypeController extends HomeController implements Initiali
 
     private ObservableList<Account<?>> users;
     private Account selectedUser;
-
 
 
     private void fetchUserData() {
@@ -71,7 +72,7 @@ public class UpdateUserTypeController extends HomeController implements Initiali
                 int transactionCount = rs.getInt("transactionCount");
                 String userType = rs.getString("userType");
 
-                Account <?>account = new Account(userID, username, fullName, transactionCount, userType);
+                Account<?> account = new Account(userID, username, fullName, transactionCount, userType);
                 users.add(account);
             }
         } catch (SQLException e) {
@@ -84,9 +85,9 @@ public class UpdateUserTypeController extends HomeController implements Initiali
         if (event.getClickCount() == 2) {
             selectedUser = userTable.getSelectionModel().getSelectedItem();
             if (selectedUser != null) {
-                System.out.println(selectedUser.getUserId());
+                //System.out.println(selectedUser.getUserId());
                 userTypeChoiceBox.setValue(selectedUser.getUserType().toString());
-
+                usernameLabel.setText(selectedUser.getUsername());
             }
         }
     }
@@ -116,7 +117,6 @@ public class UpdateUserTypeController extends HomeController implements Initiali
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         fullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));

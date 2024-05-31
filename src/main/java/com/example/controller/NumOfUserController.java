@@ -17,13 +17,10 @@ public class NumOfUserController implements Initializable {
 
     @FXML
     private Text t_totalNumOfUser;
-
     @FXML
     private BarChart<String, Number> userChart;
-
     @FXML
     private CategoryAxis x_numberOfUser;
-
     @FXML
     private NumberAxis y_typeOfUser;
 
@@ -42,13 +39,25 @@ public class NumOfUserController implements Initializable {
         // Create data series for the BarChart
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>("Goblins", goblins));
-        series.getData().add(new XYChart.Data<>("Sliver Snitches", sliverSnitches));
+        series.getData().add(new XYChart.Data<>("Silver Snitches", sliverSnitches));
         series.getData().add(new XYChart.Data<>("Golden Galleons", goldenGalleons));
         series.getData().add(new XYChart.Data<>("Platinum Patronuses", platinumPatronuses));
 
+        // Configure y-axis to display integers only
+        y_typeOfUser.setTickUnit(1);
+        y_typeOfUser.setMinorTickCount(0);
+        y_typeOfUser.setTickLabelFormatter(new NumberAxis.DefaultFormatter(y_typeOfUser) {
+            @Override
+            public String toString(Number object) {
+                if (object.intValue() == object.doubleValue()) {
+                    return String.format("%d", object.intValue());
+                } else {
+                    return "";
+                }
+            }
+        });
+
         // Clear existing data and add the new series to the BarChart
-
-
         userChart.getData().clear();
         userChart.getData().add(series);
     }

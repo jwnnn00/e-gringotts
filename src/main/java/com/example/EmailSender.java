@@ -45,7 +45,7 @@ public class EmailSender {
         }
     }
 
-    public static void sendEmailWithAttachments(String recipientEmail, String subject, String body, String attachmentImagePath){
+    public static void sendEmailWithAttachments(String recipientEmail, String subject, String body, String attachmentImagePath) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

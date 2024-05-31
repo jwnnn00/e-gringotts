@@ -10,7 +10,6 @@
     -fx-font-family: "Optima";
 }
 
-/* Since we can't use :before, let's use an effect or a different approach for hover */
 .button:hover {
     -fx-background-color: #7F0909;
     -fx-text-fill:white;

@@ -18,7 +18,6 @@ public class Transaction {
     private BigDecimal balance;
     private LocalDateTime transactionDate;
     private Category category;
-//    private PaymentMethod paymentMethod;
 
     public enum TransactionType {
         Debit, Credit
@@ -27,25 +26,7 @@ public class Transaction {
     public enum Category {
         Food, Grocery, Shopping, Transportation, Entertainment, Utilities, Other
     }
-
-//    public enum PaymentMethod {
-//        CreditCard, DebitCard, Cash;
-//
-//        public static PaymentMethod mapPaymentMethod(String value) {
-//            if ("Credit Card".equalsIgnoreCase(value) || "CreditCard".equalsIgnoreCase(value)) {
-//                return CreditCard;
-//            } else if ("Debit Card".equalsIgnoreCase(value) || "DebitCard".equalsIgnoreCase(value)) {
-//                return DebitCard;
-//            } else if ("Cash".equalsIgnoreCase(value)) {
-//                return Cash;
-//            } else {
-//                throw new IllegalArgumentException("Unknown payment method: " + value);
-//            }
-//        }
-//    }
-
     public Transaction(){
-
     }
 
     public Transaction(int transactionId, BigDecimal amount, LocalDateTime transactionDate) {
@@ -117,12 +98,4 @@ public class Transaction {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-//    public PaymentMethod getPaymentMethod() {
-//        return paymentMethod;
-//    }
-//
-//    public void setPaymentMethod(String paymentMethod) {
-//        this.paymentMethod = PaymentMethod.mapPaymentMethod(paymentMethod);
-//    }
 }

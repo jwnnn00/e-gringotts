@@ -28,10 +28,8 @@ public class EditCurrencyController extends HomeController implements Initializa
 
     @FXML
     private TableView<CurrencyRate> tableView;
-
     @FXML
     private TableColumn<CurrencyRate, String> currencyColumn;
-
     @FXML
     private TableColumn<CurrencyRate, String> toCurrencyColumn;
     @FXML
@@ -46,11 +44,8 @@ public class EditCurrencyController extends HomeController implements Initializa
     private TextField tf_exchangeRate;
     @FXML
     private TextField tf_processingFee;
-
-
     @FXML
     private Button button_saveChange;
-
     private ObservableList<CurrencyRate> currencyRates;
 
     @Override
@@ -97,6 +92,7 @@ public class EditCurrencyController extends HomeController implements Initializa
             return row;
         });
     }
+
     private void fillTextFields(CurrencyRate rate) {
         tf_currency.setText(rate.getCurrency());
         tf_toCurrency.setText(rate.getToCurrency());

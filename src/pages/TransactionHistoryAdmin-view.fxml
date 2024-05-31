@@ -185,7 +185,7 @@
                               </Text>
                               <HBox alignment="CENTER_LEFT" spacing="50.0">
                                  <children>
-                                    <ChoiceBox fx:id="category" prefHeight="34.0" prefWidth="526.0" style="-fx-background-color: black; -fx-opacity: 0.8; -fx-background-radius: 10; -fx-border-color: #fce188; -fx-border-radius: 10; -fx-border-width: 0.5; -fx-font-family: Optima;" stylesheets="@text-styles.css" />
+                                    <ChoiceBox fx:id="category" prefHeight="34.0" prefWidth="526.0" stylesheets="@historyChoiceBox-style.css" />
                                     <Button fx:id="browse_category" mnemonicParsing="false" onAction="#handleBrowseCategory" prefHeight="34.0" prefWidth="150.0" stylesheets="@button-styles.css" text="Browse     &gt;">
                                        <font>
                                           <Font name="System Bold" size="13.0" />

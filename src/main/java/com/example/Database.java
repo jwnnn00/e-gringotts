@@ -6,15 +6,18 @@ import java.util.*;
 
 import com.example.model.*;
 import org.mindrot.jbcrypt.BCrypt;
-
+import static com.example.controller.DBUtils.showAlert;
 public class Database {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency ,balance,pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?,?)";
+
+    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency ,balance, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?)";
+
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
+
 
     public static int getNumberOfUsersByType(UserType userType) {
         int count = 0;
@@ -394,8 +397,10 @@ public class Database {
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Conversion rates updated successfully!");
+                showAlert("Conversion Rate Updated", "Conversion rates updated successfully!");
             } else {
                 System.out.println("Failed to update conversion rates.");
+                showAlert("Update Conversion Rate Failed", "Failed to update conversion rates.");
             }
         } catch (SQLException e) {
             System.err.println("Error updating conversion rates: " + e.getMessage());

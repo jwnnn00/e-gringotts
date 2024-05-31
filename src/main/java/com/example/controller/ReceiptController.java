@@ -19,7 +19,6 @@ public class ReceiptController {
     private Text transactionID_text;
     @FXML
     private Text date_text;
-
     @FXML
     private Text fromFullName_text;
     @FXML
@@ -28,7 +27,6 @@ public class ReceiptController {
     private Text amount_text;
     // Define date and time format
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss");
-
     private final TransactionDAO transactionDAO = new TransactionDAO();
 
     public void setTransactionDetails(Transaction transaction) {

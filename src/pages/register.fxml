@@ -134,7 +134,7 @@
                               </Text>
                               <PasswordField fx:id="pf_confirmPassword" prefHeight="35.0" prefWidth="225.0" style="-fx-background-color: #292929; -fx-background-radius: 20; -fx-border-color: #fff; -fx-border-radius: 20; -fx-text-fill: white;">
                                  <cursor>
-                                    <Cursor fx:constant="HAND" />
+                                    <Cursor fx:constant="TEXT" />
                                  </cursor></PasswordField>
                            </children>
                         </VBox>
@@ -189,7 +189,10 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="button_uploadPic" mnemonicParsing="false" onAction="#uploadPicture" prefHeight="35.0" prefWidth="302.0" style="-fx-background-color: #292929; -fx-border-color: #fff; -fx-background-radius: 20; -fx-border-radius: 30;" text="Upload" textFill="WHITE" />
+                              <Button fx:id="button_uploadPic" mnemonicParsing="false" onAction="#uploadPicture" prefHeight="35.0" prefWidth="302.0" style="-fx-background-color: #292929; -fx-border-color: #fff; -fx-background-radius: 20; -fx-border-radius: 30;" text="Upload" textFill="WHITE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                            </children>
                         </VBox>
                         <VBox spacing="5.0">
@@ -199,7 +202,10 @@
                                     <Font name="Optima Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <ChoiceBox fx:id="cb_currency" prefHeight="35.0" prefWidth="302.0" style="-fx-background-color: #292929; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #fff; -fx-text-fill: white;" />
+                              <ChoiceBox fx:id="cb_currency" prefHeight="35.0" prefWidth="302.0" style="-fx-background-color: #292929; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #fff; -fx-text-fill: white;" stylesheets="@registerChoiceBox-style.css">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></ChoiceBox>
                            </children>
                         </VBox>
                      </children>

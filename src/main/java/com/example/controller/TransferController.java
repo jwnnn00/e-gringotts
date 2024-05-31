@@ -13,16 +13,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
 import javafx.scene.image.WritableImage;
 import javafx.scene.text.Text;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
@@ -57,39 +54,32 @@ public class TransferController extends HomeController implements Initializable 
     private String category;
     private Random random = new Random();
     private int transactionIdCounter;
-
     @FXML
     private ChoiceBox<String> Category;
-
     @FXML
     private ChoiceBox<String> FromCurrency;
-
     @FXML
     private ChoiceBox<String> ToCurrency;
-
     @FXML
     private TextField askAmount;
-
     @FXML
     private Text getTotal;
-
+    @FXML
+    private Label fromUser_label;
+    @FXML
+    private Label toUser_label;
     @FXML
     private ImageView imageView;
-
     @FXML
     private ImageView imageView2;
-
     @FXML
     private ImageView imageView3;
     private double exchangeAmount;
     private Account<?> loggedInAccount;
 
-
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,205 +87,205 @@ public class TransferController extends HomeController implements Initializable 
         loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
 
-        loggedInUsername=loggedInAccount.getUsername();
+        loggedInUsername = loggedInAccount.getUsername();
+        fromUser_label.setText(loggedInUsername);
+        toUser_label.setText(MarauderMapController.getFriendName());  // Ensuring the toUserLabel is initialized
 
+        String userQuery = "SELECT currency, balance FROM user WHERE username = ?";
 
-            String q = "SELECT currency, balance FROM user WHERE username = ?";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(userQuery)) {
 
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(q)) {
+            statement.setString(1, loggedInUsername);
 
-                statement.setString(1, loggedInUsername);
-
-                try (ResultSet result = statement.executeQuery()) {
-                    if (result.next()) {
-                        currencyy1 = result.getString("currency");
-                        balance1 = result.getDouble("balance");
-
-                    } else {
-                        System.out.println("User not found.");
-                    }
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    currencyy1 = result.getString("currency");
+                    balance1 = result.getDouble("balance");
+                } else {
+                    System.out.println("User not found.");
                 }
-
-            } catch (SQLException e) {
-                System.err.println("Error fetching user data: " + e.getMessage());
             }
 
+        } catch (SQLException e) {
+            System.err.println("Error fetching user data: " + e.getMessage());
+        }
 
-            friendName = MarauderMapController.getFriendName();
-            String q2 = "SELECT currency, balance FROM user WHERE username = ?";
+        friendName = MarauderMapController.getFriendName();
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(userQuery)) {
 
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(q2)) {
+            statement.setString(1, friendName);
 
-                statement.setString(1, friendName);
-
-                try (ResultSet result2 = statement.executeQuery()) {
-                    if (result2.next()) {
-                        currencyy2 = result2.getString("currency");
-                        balance2 = result2.getDouble("balance");
-
-                    } else {
-                        System.out.println("User not found.");
-                    }
+            try (ResultSet result2 = statement.executeQuery()) {
+                if (result2.next()) {
+                    currencyy2 = result2.getString("currency");
+                    balance2 = result2.getDouble("balance");
+                } else {
+                    System.out.println("User not found.");
                 }
-
-            } catch (SQLException e) {
-                System.err.println("Error fetching user data: " + e.getMessage());
             }
 
+        } catch (SQLException e) {
+            System.err.println("Error fetching friend data: " + e.getMessage());
+        }
 
-
-        String[] currency123 = new String[20];
-        fetchCurrencyRatesFromDatabase();
+        fetchCurrencyRatesFromDatabase();  // Assuming this method populates the 'currencies' list
 
         // Initialize the CurrencyConverter with the currencies list
         converter = new CurrencyConverter(currencies);
 
-        String query = "SELECT currency, toCurrency FROM conversion";
+        String conversionQuery = "SELECT currency, toCurrency FROM conversion";
+        List<String> currencyList = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-             PreparedStatement statement = connection.prepareStatement(query);
+             PreparedStatement statement = connection.prepareStatement(conversionQuery);
              ResultSet resultSet = statement.executeQuery()) {
 
-            int i = 0;
             while (resultSet.next()) {
-                currency123[i] = resultSet.getString("currency");
-                currency123[i+1] = resultSet.getString("toCurrency");
-                i+=2;
+                currencyList.add(resultSet.getString("currency"));
+                currencyList.add(resultSet.getString("toCurrency"));
             }
 
         } catch (SQLException e) {
             System.err.println("Error fetching currency data: " + e.getMessage());
         }
 
-        List<String> currencyList = new ArrayList<>();
-        for (String currency : currency123) {
-            if (currency != null) {
-                currencyList.add(currency);
-            }
-        }
-
         // Remove duplicates using a Set
         Set<String> currencySet = new HashSet<>(currencyList);
-
-        // Convert the Set back to a List (if necessary)
         List<String> uniqueCurrencyList = new ArrayList<>(currencySet);
-
-        // If you need to convert back to an array
         String[] uniqueCurrencyArray = uniqueCurrencyList.toArray(new String[0]);
 
         FromCurrency.getItems().addAll(uniqueCurrencyArray);
         ToCurrency.getItems().addAll(uniqueCurrencyArray);
 
-            Category.getItems().addAll("Food", "Transportation", "Entertainment", "Utilities", "Others");
+        Category.getItems().addAll("Food", "Transportation", "Entertainment", "Utilities", "Others");
+    }
 
-        }
 
+    private void fetchCurrencyRatesFromDatabase() {
+        String query = "SELECT currency, toCurrency, exchangeRate, processingFee FROM conversion";
 
-        private void fetchCurrencyRatesFromDatabase() {
-            String query = "SELECT currency, toCurrency, exchangeRate, processingFee FROM conversion";
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
 
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(query);
-                 ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                String currency = resultSet.getString("currency");
+                String to_currency = resultSet.getString("toCurrency");
+                double exchange_rate = resultSet.getDouble("exchangeRate");
+                double fee = resultSet.getDouble("processingFee");
 
-                while (resultSet.next()) {
-                    String currency = resultSet.getString("currency");
-                    String to_currency = resultSet.getString("toCurrency");
-                    double exchange_rate = resultSet.getDouble("exchangeRate");
-                    double fee = resultSet.getDouble("processingFee");
+                currencies.add(new String[]{currency, to_currency, String.valueOf(exchange_rate), String.valueOf(fee)});
 
-                    currencies.add(new String[]{currency, to_currency, String.valueOf(exchange_rate), String.valueOf(fee)});
-
-                }
-            } catch (SQLException e) {
-                System.err.println("Error fetching currency rates from database: " + e.getMessage());
             }
+        } catch (SQLException e) {
+            System.err.println("Error fetching currency rates from database: " + e.getMessage());
         }
+    }
 
 
-        @FXML
-        void getTotalAmount(ActionEvent event) {
-            try {
-                String fromCurrency = FromCurrency.getSelectionModel().getSelectedItem();
-                String toCurrency = ToCurrency.getSelectionModel().getSelectedItem();
-                category = Category.getSelectionModel().getSelectedItem();
-                double amount = Double.parseDouble(askAmount.getText());
+    @FXML
+    boolean getTotalAmount(ActionEvent event) {
+        try {
+            String fromCurrency = FromCurrency.getSelectionModel().getSelectedItem();
+            String toCurrency = ToCurrency.getSelectionModel().getSelectedItem();
+            category = Category.getSelectionModel().getSelectedItem();
+            String amountStr = askAmount.getText();
 
-                if (fromCurrency == null || !fromCurrency.equals(currencyy1)  || toCurrency == null || !toCurrency.equals(currencyy2)  || category == null || amount <= 0) {
-                    getTotal.setText("Please select right currency, category\nand enter valid amount");
-                    return;
-                }
-
-                double[] result = converter.exchangeCurrency(fromCurrency, toCurrency, amount);
-                exchangeAmount = result[0];
-                double processingFee = result[1];
-                totalAmount = amount + processingFee;
-
-                getTotal.setText(String.format("Exchange Amount: %.2f %s\nProcessing Fee: %.2f %s\nTotal: %.2f %s",
-                        exchangeAmount, toCurrency, processingFee, fromCurrency, totalAmount, fromCurrency));
-            } catch (Exception e) {
-                getTotal.setText("Please select right currency, category\nand enter valid amount");
+            if (fromCurrency == null || toCurrency == null || category == null || amountStr.isEmpty()) {
+                showAlert("Incomplete Fields", "Please fill in all the required fields.");
+                return false;
             }
-        }
 
-
-
-        @FXML
-        void proceedToPayment(ActionEvent event) {
-            boolean pinVerified = promptForPin();
-
-            if(pinVerified) {
-
-                if (balance1 >= totalAmount) {
-                    balance1 -= totalAmount;
-                    balance2 += exchangeAmount;
-                    updateBalanceInDatabase(balance1, loggedInUsername);
-                    updateBalanceInDatabase(balance2, friendName);
-                    transactionHistory1(loggedInUsername, friendName);
-                    transactionHistory2(friendName, loggedInUsername);
-
-                    sendTransferNotification(loggedInAccount.getEmail());
-
-//                Transaction transaction = createTransactionObject(); // You need to implement this method
-//                displayReceipt(transaction);
-//                displayReceiptAndSendEmail(createTransactionObject(), loggedInAccount.getEmail());
-
-
-                } else {
-                    // Show insufficient balance message
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Insufficient Balance");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Insufficient balance. Please add funds to your account.");
-                    alert.showAndWait();
-                }
-            }else{
-                System.out.println("PIN verification failed. Payment aborted.");
+            if (!isValidAmount(amountStr)) {
+                showAlert("Invalid Amount Format", "Please enter the correct format for amount.");
+                return false;
             }
+
+            double amount = Double.parseDouble(askAmount.getText());
+
+            if (!fromCurrency.equals(currencyy1) || !toCurrency.equals(currencyy2)) {
+                showAlert("Invalid Currency", "Please choose the correct currency for the account.");
+                return false;
+            }
+
+            if (amount <= 0) {
+                showAlert("Invalid Amount", "Amount must be more than 0");
+                return false;
+            }
+
+            double[] result = converter.exchangeCurrency(fromCurrency, toCurrency, amount);
+            exchangeAmount = result[0];
+            double processingFee = result[1];
+            totalAmount = amount + processingFee;
+
+            getTotal.setText(String.format("Exchange Amount: %.2f %s\nProcessing Fee: %.2f %s\nTotal: %.2f %s",
+                    exchangeAmount, toCurrency, processingFee, fromCurrency, totalAmount, fromCurrency));
+            return true;
+        } catch (Exception e) {
+            getTotal.setText("Please select right currency, category\nand enter valid amount");
+            return false;
+        }
+    }
+
+    //Check whether amount is in number format
+    private boolean isValidAmount(String amountString) {
+        return amountString.matches("[0-9,.]+"); // Matches only numbers, periods, or commas
+    }
+
+
+    @FXML
+    void proceedToPayment(ActionEvent event) {
+        if (!getTotalAmount(event)) {
+            return;
         }
 
-        private void updateBalanceInDatabase(double newBalance, String name) {
-            String updateQuery = "UPDATE user SET balance = ? WHERE username = ?";
+        boolean pinVerified = promptForPin();
+        if (pinVerified) {
+            if (balance1 >= totalAmount) {
+                balance1 -= totalAmount;
+                balance2 += exchangeAmount;
+                updateBalanceInDatabase(balance1, loggedInUsername);
+                updateBalanceInDatabase(balance2, friendName);
+                transactionHistory1(loggedInUsername, friendName);
+                transactionHistory2(friendName, loggedInUsername);
 
-            try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
-                 PreparedStatement statement = connection.prepareStatement(updateQuery)) {
+                sendTransferNotification(loggedInAccount.getEmail());
+                clear();
+            } else {
+                // Show insufficient balance message
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Insufficient Balance");
+                alert.setHeaderText(null);
+                alert.setContentText("Insufficient balance. Please add funds to your account.");
+                alert.showAndWait();
+            }
+        } else {
+            System.out.println("PIN verification failed. Payment aborted.");
+        }
+    }
 
-                statement.setDouble(1, newBalance);
-                statement.setString(2, name);
+    private void updateBalanceInDatabase(double newBalance, String name) {
+        String updateQuery = "UPDATE user SET balance = ? WHERE username = ?";
 
-                int rowsUpdated = statement.executeUpdate();
-                if (rowsUpdated > 0) {
-                    System.out.println("Balance updated successfully.");
-                } else {
-                    System.out.println("Failed to update balance.");
-                }
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(updateQuery)) {
 
-            } catch (SQLException e) {
-                System.err.println("Error updating balance: " + e.getMessage());
-}
-}
+            statement.setDouble(1, newBalance);
+            statement.setString(2, name);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Balance updated successfully.");
+            } else {
+                System.out.println("Failed to update balance.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error updating balance: " + e.getMessage());
+        }
+    }
 
     private void sendTransferNotification(String recipientEmail) {
         String subject = "Transfer Successful";
@@ -322,68 +312,6 @@ public class TransferController extends HomeController implements Initializable 
             stage.setScene(new Scene(root));
             stage.setTitle("Transaction Receipt");
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void displayReceiptAndSendEmail(Transaction transaction, String recipientEmail) {
-        try {
-            // Load the Receipt.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
-            Parent root = loader.load();
-
-            // Get the controller
-            ReceiptController receiptController = loader.getController();
-
-            // Set the transaction details
-            receiptController.setTransactionDetails(transaction);
-
-            // Create a new stage for the receipt
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Transaction Receipt");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Generate image receipt (optional)
-        generateImageReceipt(transaction);
-
-        // Send email with attachments
-        String subject = "Transaction Receipt";
-        String body = "Dear user,\n\nPlease find your transaction receipt attached.\n\nThank you for using Gringotts Bank.";
-        String attachmentImagePath = "receipts/" + transaction.getTransactionId() + ".png";
-        System.out.println(attachmentImagePath);
-        EmailSender.sendEmailWithAttachments(recipientEmail, subject, body, attachmentImagePath);
-    }
-
-
-    public void generateImageReceipt(Transaction transaction) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Take snapshot of the scene
-            WritableImage writableImage = scene.snapshot(null);
-
-            // Convert to BufferedImage
-            int width = (int) writableImage.getWidth();
-            int height = (int) writableImage.getHeight();
-            javafx.scene.image.PixelReader pixelReader = writableImage.getPixelReader();
-            java.awt.image.BufferedImage bufferedImage = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
-
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    int argb = pixelReader.getArgb(x, y);
-                    bufferedImage.setRGB(x, y, argb);
-                }
-            }
-
-            // Write BufferedImage to file
-            ImageIO.write(bufferedImage, "png", new File("receipts/" + transaction.getTransactionId() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -478,8 +406,8 @@ public class TransferController extends HomeController implements Initializable 
                 transaction.setCategory(Transaction.Category.valueOf(category));
 
                 // Display the receipt
-                //displayReceipt(transaction);
-                displayReceiptAndSendEmail(transaction, loggedInAccount.getEmail());
+                displayReceipt(transaction);
+                //displayReceiptAndSendEmail(transaction, loggedInAccount.getEmail());
             } else {
                 System.out.println("Failed to record transaction.");
             }
@@ -495,7 +423,6 @@ public class TransferController extends HomeController implements Initializable 
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
-
             int count;
             do {
                 // Generate a new transactionId
@@ -509,40 +436,56 @@ public class TransferController extends HomeController implements Initializable 
 
                 // If the transactionId already exists, generate a new one
             } while (count > 0);
-
         } catch (SQLException e) {
             System.err.println("Error generating unique transactionId: " + e.getMessage());
             // Return a default value if an error occurs
             transactionId = -1;
         }
-
         return transactionId;
-    
-}
+    }
 
 
     private boolean promptForPin() {
-        TextInputDialog pinDialog = new TextInputDialog();
-        pinDialog.setTitle("PIN Verification");
-        pinDialog.setHeaderText("Enter your 6-digit PIN");
-        pinDialog.setContentText("PIN:");
+        int maxAttempts = 3;
+        int attemptCount = 0;
 
-        Optional<String> pinResult = pinDialog.showAndWait();
-        if (pinResult.isPresent()) {
-            String enteredPin = pinResult.get();
-            String storedPin = Database.getUserPin(loggedInUsername); // Assuming you have a method to get the stored PIN from the database
+        while (attemptCount < maxAttempts) {
+            TextInputDialog pinDialog = new TextInputDialog();
+            pinDialog.setTitle("PIN Verification");
+            pinDialog.setHeaderText("Enter your 6-digit PIN");
+            pinDialog.setContentText("PIN:");
 
-            if (enteredPin.equals(storedPin)) {
-                return true; // PIN is correct
+            Optional<String> pinResult = pinDialog.showAndWait();
+            if (pinResult.isPresent()) {
+                String enteredPin = pinResult.get();
+                String storedPin = Database.getUserPin(loggedInUsername); // Assuming you have a method to get the stored PIN from the database
+
+                if (enteredPin.equals(storedPin)) {
+                    return true; // PIN is correct
+                } else {
+                    attemptCount++;
+                    int attemptsLeft = maxAttempts - attemptCount;
+                    if (attemptsLeft > 0) {
+                        showAlert("Invalid PIN", "The entered PIN is incorrect. You have " + attemptsLeft + " attempts left.");
+                    } else {
+                        showAlert("Maximum Attempts Reached", "You have exceeded the maximum number of PIN attempts.");
+                        return false; // Maximum attempts reached
+                    }
+                }
             } else {
-                showAlert("Invalid PIN", "The entered PIN is incorrect. Please try again.");
-                return false; // PIN is incorrect
+                showAlert("PIN Required", "Please enter your PIN.");
+                return false; // PIN is not entered
             }
-        } else {
-            showAlert("PIN Required", "Please enter your PIN.");
-            return false; // PIN is not entered
         }
+        return false; // Maximum attempts reached
     }
 
+    private void clear() {
+        askAmount.setText("");
+        Category.getItems().clear();
+        FromCurrency.getItems().clear();
+        ToCurrency.getItems().clear();
+        getTotal.setText("");
     }
+}
 
