@@ -252,14 +252,28 @@ public class SignUpController implements Initializable {
                     break;
                 case Platinum_Patronus:
                     cardImagePath = "/img/platinumm_card.png";
-                    cardController.initialize(cardImagePath, "$" + String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString() + " Card", Color.WHITE);
+
+                    cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString()+" Card", Color.WHITE);
+
                     break;
                 default:
                     cardImagePath = "/img/silver_card.png";
                     break;
             }
 
-            cardController.initialize(cardImagePath, "$" + String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString() + " Card", Color.BLACK);
+//            ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
+
+
+            cardController.initialize(cardImagePath, "$"+String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()),card.getCardType().toString()+" Card", Color.BLACK);
+//            String otp = EmailSender.generateOTP();
+//
+//            // Send OTP via email
+//            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
+//            String subject = "Verification Code for e-Gringotts Registration";
+//            String body = "Your OTP code is: " + otp;
+//
+//            EmailSender.sendEmail(recipientEmail, subject, body);
+
 
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);

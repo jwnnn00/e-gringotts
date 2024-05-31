@@ -22,7 +22,9 @@ public class DBUtils {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
+
     private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency, pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
 
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
