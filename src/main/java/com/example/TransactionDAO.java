@@ -41,7 +41,6 @@ public class TransactionDAO {
     }
     public ObservableList<Transaction> getTransactionsByUsername(String username) {
         int userID = Math.toIntExact(Database.getUserByUsername(username).getUserId());
-        //System.out.println(userID);
         ObservableList<Transaction> list = FXCollections.observableArrayList();
 
         try (Connection connection = Database.getConnection();
@@ -93,7 +92,6 @@ public class TransactionDAO {
                     transaction.setBalance(resultSet.getBigDecimal("balance"));
                     transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                     transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                    // transaction.setPaymentMethod(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod")));
 
                     list.add(transaction);
                 }
@@ -126,7 +124,6 @@ public class TransactionDAO {
                     transaction.setBalance(resultSet.getBigDecimal("balance"));
                     transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                     transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                    //transaction.setPaymentMethod(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod")).toString());
 
                     list.add(transaction);
                 }
@@ -159,7 +156,6 @@ public class TransactionDAO {
                     transaction.setBalance(resultSet.getBigDecimal("balance"));
                     transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                     transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                    //transaction.setPaymentMethod(String.valueOf(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod"))));
 
                     list.add(transaction);
                 }

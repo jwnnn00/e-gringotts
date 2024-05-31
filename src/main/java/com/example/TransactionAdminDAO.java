@@ -28,7 +28,6 @@ public class TransactionAdminDAO {
                 transaction.setBalance(resultSet.getBigDecimal("balance"));
                 transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                 transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                //transaction.setPaymentMethod(String.valueOf(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod"))));
 
                 list.add(transaction);
             }
@@ -59,7 +58,6 @@ public class TransactionAdminDAO {
                 transaction.setBalance(resultSet.getBigDecimal("balance"));
                 transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                 transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                //transaction.setPaymentMethod(String.valueOf(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod"))));
 
                 list.add(transaction);
             }
@@ -89,7 +87,6 @@ public class TransactionAdminDAO {
                     transaction.setBalance(resultSet.getBigDecimal("balance"));
                     transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                     transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                    // transaction.setPaymentMethod(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod")));
 
                     list.add(transaction);
                 }
@@ -121,7 +118,6 @@ public class TransactionAdminDAO {
                     transaction.setBalance(resultSet.getBigDecimal("balance"));
                     transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                     transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                    //transaction.setPaymentMethod(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod")).toString());
 
                     list.add(transaction);
                 }
@@ -153,7 +149,6 @@ public class TransactionAdminDAO {
                     transaction.setBalance(resultSet.getBigDecimal("balance"));
                     transaction.setTransactionDate(resultSet.getTimestamp("transactionDate").toLocalDateTime());
                     transaction.setCategory(Transaction.Category.valueOf(resultSet.getString("category")));
-                    //transaction.setPaymentMethod(String.valueOf(Transaction.PaymentMethod.mapPaymentMethod(resultSet.getString("paymentMethod"))));
 
                     list.add(transaction);
                 }

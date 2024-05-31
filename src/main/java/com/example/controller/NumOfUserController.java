@@ -17,13 +17,10 @@ public class NumOfUserController implements Initializable {
 
     @FXML
     private Text t_totalNumOfUser;
-
     @FXML
     private BarChart<String, Number> userChart;
-
     @FXML
     private CategoryAxis x_numberOfUser;
-
     @FXML
     private NumberAxis y_typeOfUser;
 

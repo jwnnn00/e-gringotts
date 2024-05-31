@@ -22,25 +22,18 @@ public class HeaderController implements Initializable {
 
     @FXML
     private Button button_home;
-
     @FXML
     private Button button_balanceT;
-
     @FXML
     private Button MarauderMapButton;
-
     @FXML
     private MenuButton button_userProfile;
-
     @FXML
     private MenuItem button_openUserProfile;
-
     @FXML
     private MenuItem button_logout;
-
     @FXML
     private ImageView user_avatar;
-
     private Account<?> userAccount;
 
     @Override

@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MarauderMapController  extends HomeController implements Initializable {
+public class MarauderMapController extends HomeController implements Initializable {
     private static String friendName;
 
     @FXML
@@ -76,10 +76,8 @@ public class MarauderMapController  extends HomeController implements Initializa
                     {
                         transfer_button.setOnAction(event -> {
                             Account<?> data = getTableView().getItems().get(getIndex());
-                            friendName=data.getUsername();
-                            // Implement transfer logic here
-                            DBUtils.changeSceneWithData(event,"/pages/transfer.fxml","Transfer",account);
-                            /** RMB CHANGE*/
+                            friendName = data.getUsername();
+                            DBUtils.changeSceneWithData(event, "/pages/transfer.fxml", "Transfer", account);
                             System.out.println("Transfer to: " + data.toString());
                         });
                     }
@@ -104,16 +102,16 @@ public class MarauderMapController  extends HomeController implements Initializa
         if (searchValue.isEmpty()) {
             showAlert("Null Search Value", "Please enter a name or phone number.");
             return;
-        }else{
+        } else {
             friendsList.clear();
             List<Account<?>> user = userDAO.getUserList(searchValue, account.getUserId());
-                if (user.isEmpty()) {
-                    showAlert("No user found", "No user was found for the value entered.");
-                    search.clear();
-                    return;
-                }
-                friendsList.addAll(user);
-                friendsTable.setItems(friendsList);
+            if (user.isEmpty()) {
+                showAlert("No user found", "No user was found for the value entered.");
+                search.clear();
+                return;
+            }
+            friendsList.addAll(user);
+            friendsTable.setItems(friendsList);
         }
         search.clear();
     }
@@ -129,5 +127,4 @@ public class MarauderMapController  extends HomeController implements Initializa
     public static String getFriendName() {
         return friendName;
     }
-
 }

@@ -78,6 +78,4 @@ public class NeedHelpController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }

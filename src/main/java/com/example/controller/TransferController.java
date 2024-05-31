@@ -54,43 +54,32 @@ public class TransferController extends HomeController implements Initializable 
     private String category;
     private Random random = new Random();
     private int transactionIdCounter;
-
     @FXML
     private ChoiceBox<String> Category;
-
     @FXML
     private ChoiceBox<String> FromCurrency;
-
     @FXML
     private ChoiceBox<String> ToCurrency;
-
     @FXML
     private TextField askAmount;
-
     @FXML
     private Text getTotal;
     @FXML
     private Label fromUser_label;
-
     @FXML
     private Label toUser_label;
-
     @FXML
     private ImageView imageView;
-
     @FXML
     private ImageView imageView2;
-
     @FXML
     private ImageView imageView3;
     private double exchangeAmount;
     private Account<?> loggedInAccount;
 
-
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/gringottsbank";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -174,7 +163,6 @@ public class TransferController extends HomeController implements Initializable 
     }
 
 
-
     private void fetchCurrencyRatesFromDatabase() {
         String query = "SELECT currency, toCurrency, exchangeRate, processingFee FROM conversion";
 
@@ -249,7 +237,7 @@ public class TransferController extends HomeController implements Initializable 
 
     @FXML
     void proceedToPayment(ActionEvent event) {
-        if(!getTotalAmount(event)){
+        if (!getTotalAmount(event)) {
             return;
         }
 
@@ -265,11 +253,6 @@ public class TransferController extends HomeController implements Initializable 
 
                 sendTransferNotification(loggedInAccount.getEmail());
                 clear();
-
-//                Transaction transaction = createTransactionObject(); // You need to implement this method
-//                displayReceipt(transaction);
-//                displayReceiptAndSendEmail(createTransactionObject(), loggedInAccount.getEmail());
-
             } else {
                 // Show insufficient balance message
                 Alert alert = new Alert(AlertType.ERROR);
@@ -329,68 +312,6 @@ public class TransferController extends HomeController implements Initializable 
             stage.setScene(new Scene(root));
             stage.setTitle("Transaction Receipt");
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void displayReceiptAndSendEmail(Transaction transaction, String recipientEmail) {
-        try {
-            // Load the Receipt.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
-            Parent root = loader.load();
-
-            // Get the controller
-            ReceiptController receiptController = loader.getController();
-
-            // Set the transaction details
-            receiptController.setTransactionDetails(transaction);
-
-            // Create a new stage for the receipt
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Transaction Receipt");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Generate image receipt (optional)
-        generateImageReceipt(transaction);
-
-        // Send email with attachments
-        String subject = "Transaction Receipt";
-        String body = "Dear user,\n\nPlease find your transaction receipt attached.\n\nThank you for using Gringotts Bank.";
-        String attachmentImagePath = "receipts/" + transaction.getTransactionId() + ".png";
-        System.out.println(attachmentImagePath);
-        EmailSender.sendEmailWithAttachments(recipientEmail, subject, body, attachmentImagePath);
-    }
-
-
-    public void generateImageReceipt(Transaction transaction) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pages/Receipt-view.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            // Take snapshot of the scene
-            WritableImage writableImage = scene.snapshot(null);
-
-            // Convert to BufferedImage
-            int width = (int) writableImage.getWidth();
-            int height = (int) writableImage.getHeight();
-            javafx.scene.image.PixelReader pixelReader = writableImage.getPixelReader();
-            java.awt.image.BufferedImage bufferedImage = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
-
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    int argb = pixelReader.getArgb(x, y);
-                    bufferedImage.setRGB(x, y, argb);
-                }
-            }
-
-            // Write BufferedImage to file
-            ImageIO.write(bufferedImage, "png", new File("/img/receipts/" + transaction.getTransactionId() + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -502,7 +423,6 @@ public class TransferController extends HomeController implements Initializable 
 
         try (Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(query)) {
-
             int count;
             do {
                 // Generate a new transactionId
@@ -516,15 +436,12 @@ public class TransferController extends HomeController implements Initializable 
 
                 // If the transactionId already exists, generate a new one
             } while (count > 0);
-
         } catch (SQLException e) {
             System.err.println("Error generating unique transactionId: " + e.getMessage());
             // Return a default value if an error occurs
             transactionId = -1;
         }
-
         return transactionId;
-
     }
 
 

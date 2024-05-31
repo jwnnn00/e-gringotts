@@ -83,9 +83,7 @@ public class SignUpController implements Initializable {
         String currency = cb_currency.getValue();
 
         // Check if any of the fields is empty
-        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty() ||
-                confirmPassword.isEmpty() || dobValue == null || address.isEmpty() ||
-                phoneNumber.isEmpty() || currency == null) {
+        if (username.isEmpty() || fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || dobValue == null || address.isEmpty() || phoneNumber.isEmpty() || currency == null) {
             showAlert("Incomplete Fields", "Please fill in all the required fields.");
             return;
         }
@@ -120,14 +118,7 @@ public class SignUpController implements Initializable {
 
         String otp = EmailSender.generateOTP();
         String subject = "OTP Verification Code for Registration";
-        String body = "Hello! \n\n"
-                + "To complete your registration, we've sent you a one-time password (OTP).\n\n"
-                + "Your OTP is: " + otp + "\n\n"
-                + "Please enter this code within the next 10 minutes to complete your registration process.\n\n"
-                + "If you did not request this OTP, please ignore this message..\n\n"
-                + "Thank you for your cooperation.\n\n"
-                + "Best regards,\n"
-                + "Gringotts Bank Support Team\n";
+        String body = "Hello! \n\n" + "To complete your registration, we've sent you a one-time password (OTP).\n\n" + "Your OTP is: " + otp + "\n\n" + "Please enter this code within the next 10 minutes to complete your registration process.\n\n" + "If you did not request this OTP, please ignore this message..\n\n" + "Thank you for your cooperation.\n\n" + "Best regards,\n" + "Gringotts Bank Support Team\n";
 
 
         EmailSender.sendEmail(email, subject, body);
@@ -149,7 +140,6 @@ public class SignUpController implements Initializable {
                 if (pin == null) {
                     return; // Stop registration if PIN setup was cancelled or invalid
                 }
-
                 // Proceed with account creation
                 DBUtils.createAccount(event, username, fullName, email, password, dateOfBirth, address, phoneNumber, userType, userAvatar, currency, pin);
                 setUserAccount(Database.getUserByUsername(username));
@@ -160,7 +150,6 @@ public class SignUpController implements Initializable {
         } else {
             DBUtils.showAlert("OTP Required", "Please enter the OTP sent to your email.");
         }
-
     }
 
     @Override
@@ -189,11 +178,7 @@ public class SignUpController implements Initializable {
     }
 
     private boolean isStrongPassword(String password) {
-        return password.length() >= 8 &&
-                password.matches(".*[A-Z].*") &&
-                password.matches(".*[a-z].*") &&
-                password.matches(".*\\d.*") &&
-                password.matches(".*[!@#$%^&*()-_=+].*");
+        return password.length() >= 8 && password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") && password.matches(".*\\d.*") && password.matches(".*[!@#$%^&*()-_=+].*");
     }
 
     private boolean isPhoneNumber(String phoneNum) {
@@ -273,18 +258,8 @@ public class SignUpController implements Initializable {
                     cardImagePath = "/img/silver_card.png";
                     break;
             }
-            //ImageView cardImage = new ImageView(getClass().getResource(cardImagePath).toExternalForm());
-
 
             cardController.initialize(cardImagePath, "$" + String.valueOf(userAccount.getBalance()), formattedCardNum.toString(), formattedExpiryDate, Integer.toString(card.getCVV()), card.getCardType().toString() + " Card", Color.BLACK);
-//            String otp = EmailSender.generateOTP();
-//
-//            // Send OTP via email
-//            String recipientEmail = tf_email.getText(); // Assuming you have a text field for email
-//            String subject = "Verification Code for e-Gringotts Registration";
-//            String body = "Your OTP code is: " + otp;
-//
-//            EmailSender.sendEmail(recipientEmail, subject, body);
 
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL);
@@ -294,7 +269,6 @@ public class SignUpController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private String promptForPin() {

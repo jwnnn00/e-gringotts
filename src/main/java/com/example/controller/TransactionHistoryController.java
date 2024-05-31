@@ -34,26 +34,22 @@ import java.util.ResourceBundle;
 public class TransactionHistoryController extends HomeController implements Initializable {
     @FXML
     private Button MarauderMapButton;
-
     @FXML
     private DatePicker start_date;
     @FXML
     private DatePicker end_date;
     @FXML
     private Button browse_date;
-
     @FXML
     private TextField max_amount;
     @FXML
     private TextField min_amount;
     @FXML
     private Button browse_amount;
-
     @FXML
     private Button browse_category;
     @FXML
     private ChoiceBox<String> category;
-
     @FXML
     private TableView<Transaction> transactionTable;
     @FXML
@@ -70,13 +66,11 @@ public class TransactionHistoryController extends HomeController implements Init
     private TableColumn<Transaction, BigDecimal> amount_col;
     @FXML
     private TableColumn<Transaction, Transaction.Category> category_col;
-    private String [] categoryList = {"Food", "Grocery", "Shopping", "Transportation", "Entertainment", "Utilities", "Other"};
+    private String[] categoryList = {"Food", "Grocery", "Shopping", "Transportation", "Entertainment", "Utilities", "Other"};
     @FXML
     private TableColumn<Transaction, Void> print_col;
     private ObservableList<Transaction> transactionList = FXCollections.observableArrayList();
     private TransactionDAO TransactionDAO = new TransactionDAO();
-
-    /** rmb change */
     private String username = "";
 
     // Define date and time format
@@ -88,7 +82,7 @@ public class TransactionHistoryController extends HomeController implements Init
         AccountHolder holder = AccountHolder.getInstance();
         Account<?> loggedInAccount = holder.getUser();
         initializeLoggedInPage(loggedInAccount);
-        username=loggedInAccount.getUsername();
+        username = loggedInAccount.getUsername();
         // Set category choice box list
         category.getItems().addAll(categoryList);
 
@@ -195,7 +189,6 @@ public class TransactionHistoryController extends HomeController implements Init
         });
 
         /** By default will print all transaction made by the user */
-        // RMB ADD get User ID or username
         loadTransactionsForUsername(username);
     }
 
@@ -254,18 +247,18 @@ public class TransactionHistoryController extends HomeController implements Init
         String maxAmountStr = max_amount.getText();
 
 
-        if(minAmountStr.isEmpty() && maxAmountStr.isEmpty()){
+        if (minAmountStr.isEmpty() && maxAmountStr.isEmpty()) {
             showAlert("Missing Amounts", "Please enter both minimum and maximum amount.");
             return;
         } else if (minAmountStr.isEmpty()) {
             showAlert("Missing Minimum Amounts", "Please enter minimum amount.");
             return;
-        }else if(maxAmountStr.isEmpty()) {
+        } else if (maxAmountStr.isEmpty()) {
             showAlert("Missing Maximum Amounts", "Please enter maximum amount.");
             return;
         }
 
-        if(!isNumeric(minAmountStr) || !isNumeric(maxAmountStr)){
+        if (!isNumeric(minAmountStr) || !isNumeric(maxAmountStr)) {
             showAlert("Invalid Amounts", "Please enter a numeric value.");
             min_amount.clear();
             max_amount.clear();
@@ -334,6 +327,4 @@ public class TransactionHistoryController extends HomeController implements Init
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }
