@@ -13,7 +13,7 @@ public class Database {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency ,balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)";
+    private static final String INSERT_USER_QUERY = "INSERT INTO user (username, fullName, email, password, DOB, address, phoneNumber, userType, avatarImagePath, currency ,balance,pin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?,?)";
     private static final String INSERT_CARD_QUERY = "INSERT INTO card (userId, cardNum, cvv, expiryDate, cardType) VALUES (?, ?, ?, ?, ?)";
 
     public static int getNumberOfUsersByType(UserType userType) {
